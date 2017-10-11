@@ -1,0 +1,480 @@
+<html><body><p>I’m teaching Thermal Physics this term, so obviously I rearranged the syllabus so that we could all run Monte Carlo simulations for March Madness!</p>
+<p><strong>Quick summary for the class is at the end</strong></p>
+<h1>The basics</h1>
+<p>We started off writing an energy function and figuring out how to play a simple 8-team bracket (side-note: IPython notebooks were great for this purpose! We were able to record our class sessions and post them online, along with a “Scientific Cookbook”). This version of Thermal Physics doesn’t have a programming prerequisite, so the coding parts of the assignments stopped with running and analyzing 8-team brackets.</p>
+<p>We then spent a chunk of class time comparing our simulations with the 2-state paramagnets we’d seen in Schroeder’s text (we covered section 8.2 a bit out of sequence). In that context, it was clear what a Monte Carlo move was. We convinced ourselves that we could do something similar in <strong>bracket space</strong>, but that we couldn’t just flip a single game (we also had to consider flipping the games that <em>depended</em> on that game). The coding for that part was definitely beyond the scope of this class, but I hacked up an ugly version for us to use.</p>
+<p>Warnings to the programmers in audience: this code is very much not pretty and very much not optimized. In particular, the Bracket code is really slow, to the point where it takes a noticeable amount of time to run 10000 brackets. The main goals were (1) get something written (2) make it easy for the students to modify the parts they need to modify. Please feel free to send comments! If I get more than 1, I’ll consider stuffing things on github, etc.</p>
+<p>So, to run things, download all of the Python files Brackets.py JeffSagarin.py KenPomeroy.py MonteCarloBrackets.py RankingsAndStrength.py Stats.py Visualization.py decorators.py from <a title="This directory on my website" href="http://mglerner.com/MarchMadness/">This directory on my website</a>.</p>
+<p><strong>EDIT: See the comments. Daniel Smith has made some improvements and started a github repo, which I’ve forked.</strong></p>
+<pre>
+wget http://mglerner.com/MarchMadness/Brackets.py
+wget http://mglerner.com/MarchMadness/JeffSagarin.py
+wget http://mglerner.com/MarchMadness/KenPomeroy.py
+wget http://mglerner.com/MarchMadness/MonteCarloBrackets.py
+wget http://mglerner.com/MarchMadness/RankingsAndStrength.py
+wget http://mglerner.com/MarchMadness/Stats.py
+wget http://mglerner.com/MarchMadness/Visualization.py
+wget http://mglerner.com/MarchMadness/decorators.py
+</pre>
+<p>You then need to have matplotlib installed. I highly recommend the <a href="enthought.com">Enthought Python Distribution</a>.</p>
+<p>From the IPython prompt (making sure you’re in the directory that has all of the downloaded files), you can look at a single bracket like this:</p>
+<pre class="brush:py">run MonteCarloBrackets.py
+teams = RAS.teams['south']
+b = Bracket(teams=teams,T=0.5)
+print b</pre>
+<p>which will print out something like</p>
+<pre>Kansas (1)                                                   
+Western Kentucky (16)     Kan (1)                            
+North Carolina (8)                                           
+Villanova (9)             Vil (9)  Vil (9)                   
+Virginia Commonwealth (5)                                    
+Akron (12)                Vir (5)                            
+Michigan (4)                                                 
+South Dakota St. (13)     Mic (4)  Vir (5)  Vil (9)          
+UCLA (6)                  UCL (6)  Flo (3)  Geo (2)  Geo (2) 
+Minnesota (11)                                               
+Florida (3)               Flo (3)                            
+Northwestern St. (14)                                        
+San Diego St. (7)         Okl (10) Geo (2)                   
+Oklahoma (10)                                                
+Georgetown (2)            Geo (2)                            
+Florida Gulf Coast (15)                                      
+Total bracket energy: -17.7885496023</pre>
+<p>By default, the energy is calculated by the function</p>
+<pre class="brush:py">import RankingsAndStrength as RAS
+strength = RAS.kenpom['Pyth'] # Use Ken Pomeroy’s “Pyth”
+def energy_game(winner,loser):
+    result = -(strength[winner]/strength[loser])
+    return result</pre>
+<p>and you can define your own energy function fairly easily, including the coin-flipping favorite</p>
+<pre class="brush:py">def energy_game(winner,loser):
+    result = random()
+    return result</pre>
+<p>While we’re talking about rankings, one quick note: one of the class-favorite energy functions was based on the team rankings. The official tournament rankings are only defined in groups of 16 (i.e the South, the East, the Midwest and the West). So, in order to compare them across regions, I add a bit of randomness in the middle of RankingsAndStrength.py:</p>
+<pre class="brush:py">for region in teams:
+    for (team,rank) in zip(teams[region],_rankings):
+        regional_rankings[team] = rank + random()/10</pre>
+<p>So, if you just want one bracket based on your energy function, you can run the above code, but with <code>teams=”all”</code>. You are now equipped to beat all of your friends in your bracket pool!</p>
+<h1><strong>But wait! There’s more!</strong></h1>
+<p>We went to the trouble of figuring out how to make moves in bracket space. So, we have a <code>simulate(ntrials,region,T)</code> function that starts at a random (but valid) point in bracket space and makes <code>ntrials</code> moves, using the Metropolis algorithm with your energy function and temperature <code>T</code> to accept or reject moves properly. There are a few more details including plotting the results, but here’s the important part of <code>simulate</code>:</p>
+<pre class="brush:py">def simulate(ntrials,region,T):
+    teams = RAS.teams[region]
+    b = Bracket(teams,T)
+    ng = sum(b.games_in_rounds) # total number of games
+    # Let’s collect some statistics
+    brackets = []
+    for trial in xrange(ntrials):
+        g = choice(range(ng)) # choose a random game to swap
+        #print “attempted swap for game”,g#,”in round”,round[g]
+        newbracket = deepcopy(b)
+        newbracket.swap(g)
+        ediff = newbracket.energy() – b.energy()
+        if ediff &lt;= 0:
+            b = newbracket
+        else:
+            if random() &lt; exp(-ediff/T):
+                b = newbracket
+        brackets.append(b)</pre>
+<p>We keep track of all of the each bracket in the <code>brackets</code> list, and then use it to print out some statistics. So, what does that look like?</p>
+<pre class="brush:py">simulate(100,’south’,0.5)</pre>
+<p>which plots the following image<br>
+<img alt="Teams from the South, 10 runs" src="http://mglerner.com/MarchMadness/South10.png" width="800"></p>
+<p>Here, I’ve plotted at least a few useful things. Looking on the left side you can verify whether or not we’re seeing a Boltzmann distribution. You know that bracket space is really big (quiz: how big?). So, one way to assess our sampling is to keep track of the number of unique brackets we’ve seen. That’s on the top right. If we’ve <em>fully</em> sampled bracket space, you’d expect that to approach a horizontal asymptote. You can actually see that behavior if you run a small bracket with lots of trials (pro tip: one of the things I haven’t mentioned yet is that you can specify a list of teams like <code>["Kansas","Kentucky","Indiana","Duke"]</code> as the second argument to <code>simulate</code>, instead of a region).</p>
+<p><code>simulate</code> also prints out both the lowest energy bracket possible with your energy function and the most probable bracket according to your Monte Carlo sampling (the one below showed up 6 times)</p>
+<pre>Most common bracket (6)
+Kansas (1)                                                   
+Western Kentucky (16)     Kan (1)                            
+North Carolina (8)                                           
+Villanova (9)             Vil (9)  Vil (9)                   
+Virginia Commonwealth (5)                                    
+Akron (12)                Vir (5)                            
+Michigan (4)                                                 
+South Dakota St. (13)     Mic (4)  Mic (4)  Vil (9)          
+UCLA (6)                  UCL (6)  Flo (3)  Flo (3)  Flo (3) 
+Minnesota (11)                                               
+Florida (3)               Flo (3)                            
+Northwestern St. (14)                                        
+San Diego St. (7)         Okl (10) Flo (15)                  
+Oklahoma (10)                                                
+Georgetown (2)            Flo (15)                           
+Florida Gulf Coast (15)                                      
+Total bracket energy: -17.2487840302
+
+Lowest energy bracket
+Kansas (1)                                                   
+Western Kentucky (16)     Kan (1)                            
+North Carolina (8)                                           
+Villanova (9)             Nor (8)  Kan (1)                   
+Virginia Commonwealth (5)                                    
+Akron (12)                Vir (5)                            
+Michigan (4)                                                 
+South Dakota St. (13)     Mic (4)  Mic (4)  Kan (1)          
+UCLA (6)                  Min (11) Flo (3)  Flo (3)  Flo (3) 
+Minnesota (11)                                               
+Florida (3)               Flo (3)                            
+Northwestern St. (14)                                        
+San Diego St. (7)         San (7)  Geo (2)                   
+Oklahoma (10)                                                
+Georgetown (2)            Geo (2)                            
+Florida Gulf Coast (15)                                      
+Total bracket energy: -18.3666003991</pre>
+<p>You can, of course, run more simulations</p>
+<pre class="brush:py">simulate(10000,’south’,0.5)</pre>
+<p><img alt="Teams from the South, 10000 runs" src="http://mglerner.com/MarchMadness/South10000.png" width="800"></p>
+<pre>Most common bracket (16)
+Kansas (1)                                                   
+Western Kentucky (16)     Kan (1)                            
+North Carolina (8)                                           
+Villanova (9)             Nor (8)  Nor (8)                   
+Virginia Commonwealth (5)                                    
+Akron (12)                Vir (5)                            
+Michigan (4)                                                 
+South Dakota St. (13)     Sou (13) Vir (5)  Nor (8)          
+UCLA (6)                  Min (11) Flo (3)  Flo (3)  Flo (3) 
+Minnesota (11)                                               
+Florida (3)               Flo (3)                            
+Northwestern St. (14)                                        
+San Diego St. (7)         Okl (10) Okl (10)                  
+Oklahoma (10)                                                
+Georgetown (2)            Geo (2)                            
+Florida Gulf Coast (15)                                      
+Total bracket energy: -17.716285007
+
+Lowest energy bracket
+Kansas (1)                                                   
+Western Kentucky (16)     Kan (1)                            
+North Carolina (8)                                           
+Villanova (9)             Nor (8)  Kan (1)                   
+Virginia Commonwealth (5)                                    
+Akron (12)                Vir (5)                            
+Michigan (4)                                                 
+South Dakota St. (13)     Mic (4)  Mic (4)  Kan (1)          
+UCLA (6)                  Min (11) Flo (3)  Flo (3)  Flo (3) 
+Minnesota (11)                                               
+Florida (3)               Flo (3)                            
+Northwestern St. (14)                                        
+San Diego St. (7)         San (7)  Geo (2)                   
+Oklahoma (10)                                                
+Georgetown (2)            Geo (2)                            
+Florida Gulf Coast (15)                                      
+Total bracket energy: -18.3666003991</pre>
+<p>So, now maybe we’re ready to run a full bracket. I can think of at least two reasonable ways to do that. The first is just to run it:</p>
+<pre class="brush:py">simulate(10000,’all’,0.5)</pre>
+<p><img alt="All teams, 10000 runs" src="http://mglerner.com/MarchMadness/All10000.png" width="800"></p>
+<p>On the other hand, as you can see, that’s only sampling a tiny bit of bracket space. When I run it, the most common bracket is only seen 8 times out of the 10000, for instance.</p>
+<p>Another strategy would be to simulate each of the regions a bunch of time (you can sit around and wait for 100,000 times on your own machine, etc.). Then you can run your own Final Four using a secret feature: you can specify a list of teams instead of a region:</p>
+<pre class="brush:py">simulate(1000,['Louisville','Gonzaga','Kansas','Indiana'],0.5)</pre>
+<p><img alt="Final 4, 1000 runs" src="http://mglerner.com/MarchMadness/Final4_1000.png" width="800"></p>
+<pre>Most common bracket (148)
+Louisville (1)                             
+Gonzaga (1)               Lou (1)          
+Kansas (1)                Kan (1)  Lou (1) 
+Indiana (1)                                
+Total bracket energy: -3.02255561688
+
+Lowest energy bracket
+Louisville (1)                             
+Gonzaga (1)               Lou (1)          
+Kansas (1)                Ind (1)  Lou (1) 
+Indiana (1)                                
+Total bracket energy: -3.04693046285</pre>
+<p>You’d then piece together a complete bracket from your results (don’t forget to keep track of the regional brackets!).</p>
+<p>These are, conveniently, already coded up for you via</p>
+<pre class="code:py">
+runbracket1(ntrials=10000,T=1.0)
+</pre>
+<p>and</p>
+<pre class="code:py">
+runbracket2(ntrials1=10000,ntrials2=1000,T=1.0)
+</pre>
+<h1>What if you just want to place bets?</h1>
+<p>We learned something from Nate Silver’s political simulations. Most bets involve things like the probability that team X makes the final four. If you want to do that, you could do the same thing Silver does: run a ton of independent simulations, keep the results in a list, and then calculate statistics over that list. You can feel free to do so for a significant chunk of extra credit.</p>
+<h1>QUICK SUMMARY FOR THE CLASS:</h1>
+<p>- Download all of the python files from <a href="mglerner.com/MarchMadness">the website</a></p>
+<p>- Change the energy function in <code>MonteCarloBrackets.py</code> to do what you want. For instance, you can use any combination of the strengths from Ken Pomeroy by using <code>RAS.kenpom['Pyth']</code>, etc. I’ve also added Jeff Sagarin’s ratings (<code>RAS.sagarin['Rating']</code>). Remember that you should all have a “silly” function (e.g. one of you has a dictionary that keeps track of how awesome a team’s mascott is). You can combine silly with non-silly as well. You get up to 10 brackets total.</p>
+<p>- Generate brackets with either of the methods mentioned above (running with ‘all’ or running the regions individually and then running your own final 4). It’s up to you whether you use the lowest-energy bracket or the most common bracket, but you should justify your result.</p>
+<p>- Send me the results! You can then go ahead and enter up to 10 brackets in our bracket pool. If you need to, you can have me enter them for you (this is most likely to happen if you don’t finish this until near the end of/after spring break). The winner will get something great (likely a home-baked treat!).</p>
+<h2>Comments from previous post</h2>
+			<div id="comments">
+
+
+			<h3 id="comments-title">14 Responses to <em>March Madness, Monte Carlo Style!</em></h3>
+
+
+			<ol class="commentlist">
+					<li class="comment even thread-even depth-1" id="li-comment-268">
+		<div id="comment-268">
+			<div class="comment-author vcard">
+				<img alt='' src='http://0.gravatar.com/avatar/6549e6244c48ed880a23dcfdc3a65be1?s=40&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/6549e6244c48ed880a23dcfdc3a65be1?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn"><a href='http://partiallattice.wordpress.com' rel='external nofollow' class='url'>Daniel</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-268">
+				March 20, 2013 at 2:27 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=268">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>Here is the code in module form on GitHub:</p>
+<p><a href="https://github.com/Daniel-B-Smith/MarchMadnessMonteCarlo" rel="nofollow">https://github.com/Daniel-B-Smith/MarchMadnessMonteCarlo</a></p>
+<p>I did a few mini-optimizations, but the thing that is killing you in simulate() is using deepcopy() on your bracket object at every step. Refactoring so that you can call a shallow copy should speed things up considerably.</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=268#respond' onclick='return addComment.moveForm( "comment-268", "268", "respond", "16" )' aria-label='Reply to Daniel'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	</li><!-- #comment-## -->
+	<li class="comment byuser comment-author-mglerner bypostauthor odd alt thread-odd thread-alt depth-1" id="li-comment-269">
+		<div id="comment-269">
+			<div class="comment-author vcard">
+				<img alt='' src='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">mglerner</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-269">
+				March 20, 2013 at 11:31 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=269">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>Thanks, Daniel! I've forked this as <a href="https://github.com/mglerner/MarchMadnessMonteCarlo" rel="nofollow">https://github.com/mglerner/MarchMadnessMonteCarlo</a> ... which is fairly fun, since I haven't used github before.</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=269#respond' onclick='return addComment.moveForm( "comment-269", "269", "respond", "16" )' aria-label='Reply to mglerner'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1" id="li-comment-23929">
+		<div id="comment-23929">
+			<div class="comment-author vcard">
+				<img alt='' src='http://1.gravatar.com/avatar/798dcbaee1ba2df492410d761941c87b?s=40&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/798dcbaee1ba2df492410d761941c87b?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">Wayne</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-23929">
+				March 17, 2015 at 3:56 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=23929">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>Seems the last line for instructions on how to execute <code>runbracket2</code> should read<br />
+<code>runbracket2(ntrials1=10000,ntrials2=1000,T=1.0)</code>?</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=23929#respond' onclick='return addComment.moveForm( "comment-23929", "23929", "respond", "16" )' aria-label='Reply to Wayne'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-mglerner bypostauthor odd alt depth-2" id="li-comment-23940">
+		<div id="comment-23940">
+			<div class="comment-author vcard">
+				<img alt='' src='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">mglerner</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-23940">
+				March 17, 2015 at 9:07 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=23940">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>Yes, it should! Fixed above.</p>
+<p>I'm in the middle of refactoring things to make it a bit nicer to use. I'll post an update and link it when I'm done. Please pass on any suggestions!</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=23940#respond' onclick='return addComment.moveForm( "comment-23940", "23940", "respond", "16" )' aria-label='Reply to mglerner'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	</li><!-- #comment-## -->
+	<li class="comment byuser comment-author-mglerner bypostauthor even depth-2" id="li-comment-23947">
+		<div id="comment-23947">
+			<div class="comment-author vcard">
+				<img alt='' src='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">mglerner</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-23947">
+				March 17, 2015 at 10:37 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=23947">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>You can see some current code at the below link. I'm likely to post a bigger update tomorrow, but no guarantees.</p>
+<p><a href="http://nbviewer.ipython.org/github/mglerner/MarchMadnessMonteCarlo/blob/master/MMMC2015.ipynb" rel="nofollow">http://nbviewer.ipython.org/github/mglerner/MarchMadnessMonteCarlo/blob/master/MMMC2015.ipynb</a></p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=23947#respond' onclick='return addComment.moveForm( "comment-23947", "23947", "respond", "16" )' aria-label='Reply to mglerner'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	<ul class="children">
+	<li class="comment odd alt depth-3" id="li-comment-23973">
+		<div id="comment-23973">
+			<div class="comment-author vcard">
+				<img alt='' src='http://1.gravatar.com/avatar/798dcbaee1ba2df492410d761941c87b?s=40&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/798dcbaee1ba2df492410d761941c87b?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">Wayne</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-23973">
+				March 18, 2015 at 12:08 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=23973">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>I like the examples added as an IPython notebook.</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=23973#respond' onclick='return addComment.moveForm( "comment-23973", "23973", "respond", "16" )' aria-label='Reply to Wayne'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-mglerner bypostauthor even depth-4" id="li-comment-24039">
+		<div id="comment-24039">
+			<div class="comment-author vcard">
+				<img alt='' src='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">mglerner</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-24039">
+				March 19, 2015 at 3:50 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=24039">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>Thanks. The notebook has been updated, and is the content of my just-updated blog. Summary tables! Example energy functions! Make sure Kansas wins! Whee!</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=24039#respond' onclick='return addComment.moveForm( "comment-24039", "24039", "respond", "16" )' aria-label='Reply to mglerner'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-24043">
+		<div id="comment-24043">
+			<div class="comment-author vcard">
+				<img alt='' src='http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=40&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">Jessen</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-24043">
+				March 19, 2015 at 5:22 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=24043">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>Choosing the most common bracket optimizes your probability of picking a perfect bracket (which Warren Buffet would have given you $1B for last year - so that ain't nothing), but it doesn't necessarily optimize the chance of winning your office/class pool. </p>
+<p>One strategy is to find the bracket that has the highest expected score (many pools give more points for correctly predicting later rounds, as well as spoiler points for picking upsets) over the ensemble of brackets you've generated. Luckily, since the probability of making it to any round is conditionally independent of the opponent that you face there, it's sufficient to summarize the probability of making it to any round (which is exactly the table that fivethirtyeight.com publishes) to calculate an expected score. All that remains is to pick a bracket to optimize your expected score. Since you've already got some MC code written, you're most of the way to writing a simulated annealing optimizer for your pick!</p>
+<p>(Spoilers: I already did this... I'll tell you how terrible it is later.)</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=24043#respond' onclick='return addComment.moveForm( "comment-24043", "24043", "respond", "16" )' aria-label='Reply to Jessen'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-mglerner bypostauthor even depth-2" id="li-comment-24077">
+		<div id="comment-24077">
+			<div class="comment-author vcard">
+				<img alt='' src='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">mglerner</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-24077">
+				March 20, 2015 at 10:19 am</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=24077">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>Jessen, that's awesome. My update for this year (<a href="http://nbviewer.ipython.org/github/mglerner/MarchMadnessMonteCarlo/blob/master/MMMC2015.ipynb" rel="nofollow">http://nbviewer.ipython.org/github/mglerner/MarchMadnessMonteCarlo/blob/master/MMMC2015.ipynb</a> is the same as <a href="http://www.mglerner.com/blog/?p=49" rel="nofollow">http://www.mglerner.com/blog/?p=49</a>) does make the same table as fivethirtheight.com.</p>
+<p>Good call about expected score. </p>
+<p>Also good call about simulated annealing. Have you done any looking into what bracket space actually looks like geometrically?</p>
+<p>Do let me know how your bracket turns out!</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=24077#respond' onclick='return addComment.moveForm( "comment-24077", "24077", "respond", "16" )' aria-label='Reply to mglerner'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	</li><!-- #comment-## -->
+	<li class="comment odd alt depth-2" id="li-comment-24110">
+		<div id="comment-24110">
+			<div class="comment-author vcard">
+				<img alt='' src='http://2.gravatar.com/avatar/21fc3c6fc9ff02ffe6d8dfd12f72f74c?s=40&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/21fc3c6fc9ff02ffe6d8dfd12f72f74c?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn"><a href='http://partiallattice.wordpress.com' rel='external nofollow' class='url'>Daniel</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-24110">
+				March 20, 2015 at 9:41 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=24110">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>Optimizing for expected score is a strategy that will give you the highest score on average, but it won't give you the best odds of winning your pool. To win your pool, you need to play your opponents not the bracket. In a non-tiny pool, you basically have to pick the national champion correctly to win the pool. If you make the most popular pick, your odds of winning are still fairly low since a bunch of other people made the same pick. When picking your champion, you need to consider both the probability that that team wins the championship and the expected number of people in your pool picking that team.</p>
+<p>Slate publishes a story about this every year:</p>
+<p><a href="http://www.slate.com/articles/sports/sports_nut/2015/03/ncaa_bracket_picks_2015_why_you_should_bet_against_kentucky_and_pick_arizona.html" rel="nofollow">http://www.slate.com/articles/sports/sports_nut/2015/03/ncaa_bracket_picks_2015_why_you_should_bet_against_kentucky_and_pick_arizona.html</a></p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=24110#respond' onclick='return addComment.moveForm( "comment-24110", "24110", "respond", "16" )' aria-label='Reply to Daniel'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	<ul class="children">
+	<li class="comment even depth-3" id="li-comment-24224">
+		<div id="comment-24224">
+			<div class="comment-author vcard">
+				<img alt='' src='http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=40&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">Jessen</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-24224">
+				March 23, 2015 at 3:56 am</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=24224">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>Yup, you're right that optimizing expected score is not the optimal strategy, but I'd guess that for your typical office pool, it is a probably approximately correct (a real term, though I'm abusing it here) strategy. The strategies that the Slate article goes into don't start applying until the pool gets large enough (roughly when the probability that one of the other N-1 entrants picks a "lucky" mainstream bracket grows larger than the probability that a black swan bracket wins).</p>
+<p>Out of expediency I went with expected score calculations, but here's a potentially better strategy:<br />
+1) Generate an ensemble of potential outcomes<br />
+2) Generate an ensemble of potential competitive brackets (good source data here: <a href="https://tournament.fantasysports.yahoo.com/t1/pickdistribution" rel="nofollow">https://tournament.fantasysports.yahoo.com/t1/pickdistribution</a>)<br />
+3) Estimate your bracket's probability of winning using those two ensembles (this will depend on the size of the pool)<br />
+4) Optimize!</p>
+<p>For small N, I think this looks more like score maximization. For large N, I believe this is approximately equivalent to the "hedge fund" strategy of picking the black swans. I don't know at what N the crossover happens, but I'd guess it's closer to 100 than to 20. One other thought: I think you can get an additional edge from the observation that people's picks from round to round are not independent (witness mglerner's unhealthy obsession with Kansas 🙂 ). Not sure how to model that, but I'd guess I'm getting into third- or fourth- order effects at this point.</p>
+<p>Now, to empirical results:<br />
+I've entered my expected-points-maximizing bracket into two pools with different scoring schemes (one a standard scoring scheme with upset points, and the other is too convoluted and byzantine to explain here). Kentucky was picked to win in 5 out of 14 and 7 out of 18 of the brackets, respectively (including both of my brackets), so I feel like I'm still in the realm where maximizing points matters more than worrying about monkeys at typewriters. I'm sitting at 3rd place in both pools, though within spitting distance of 1st in both. Unfortunately, my two brackets have Villanova and Virginia in the finals, so things are not looking so bright.</p>
+<p>However, I'm still doing better than last year, where my strategy was more akin to "do I know someone who went there?"</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=24224#respond' onclick='return addComment.moveForm( "comment-24224", "24224", "respond", "16" )' aria-label='Reply to Jessen'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	<ul class="children">
+	<li class="comment odd alt depth-4" id="li-comment-24248">
+		<div id="comment-24248">
+			<div class="comment-author vcard">
+				<img alt='' src='http://2.gravatar.com/avatar/21fc3c6fc9ff02ffe6d8dfd12f72f74c?s=40&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/21fc3c6fc9ff02ffe6d8dfd12f72f74c?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn"><a href='http://partiallattice.wordpress.com' rel='external nofollow' class='url'>Daniel</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-24248">
+				March 23, 2015 at 2:57 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=24248">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>I think Kentucky this year is a great example of where the points maximizing strategy breaks down even for small pools. From the small pools I've seen, &gt;50% of brackets pick Kentucky to win in spite of them having an estimated ~35% chance of winning. Even in a small pool, you are much more likely to win having picked a team like Arizona because your odds of winning picking Kentucky  even conditional on Kentucky winning are pretty low.</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=24248#respond' onclick='return addComment.moveForm( "comment-24248", "24248", "respond", "16" )' aria-label='Reply to Daniel'>Reply</a>			</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-mglerner bypostauthor even depth-5" id="li-comment-24252">
+		<div id="comment-24252">
+			<div class="comment-author vcard">
+				<img alt='' src='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">mglerner</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-24252">
+				March 23, 2015 at 3:34 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=24252">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>It's funny that this is a bit different from poker, where many people vastly overestimate the need for exploitative play.</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	</li><!-- #comment-## -->
+	<li class="comment odd alt depth-5" id="li-comment-24253">
+		<div id="comment-24253">
+			<div class="comment-author vcard">
+				<img alt='' src='http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=40&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">Jessen</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+			
+			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-24253">
+				March 23, 2015 at 4:26 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=24253">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+
+			<div class="comment-body"><p>Yeah, I think you're right. Basically, I'm counting on the triage opportunities in the earlier rounds to push my brackets over the top of the others. If there isn't enough inefficiency in other people's picks, it's better to bet on the undervalued champion. Wish I had time to do a more thorough analysis.</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</div><!-- #comment-##  -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+			</ol>
+
+
+	
+
+	<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/blog/?p=16#respond" style="display:none;">Cancel reply</a></small></h3>			<form action="http://www.mglerner.com/blog/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+				<p class="logged-in-as"><a href="http://www.mglerner.com/blog/wp-admin/profile.php" aria-label="Logged in as mglerner. Edit your profile.">Logged in as mglerner</a>. <a href="http://www.mglerner.com/blog/wp-login.php?action=logout&amp;redirect_to=http%3A%2F%2Fwww.mglerner.com%2Fblog%2F%3Fp%3D16&amp;_wpnonce=bac3a2426e">Log out?</a></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea></p><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='16' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="1896126e24" /></p><input type="hidden" id="_wp_unfiltered_html_comment_disabled" name="_wp_unfiltered_html_comment_disabled" value="875b61d266" /><script>(function(){if(window===window.parent){document.getElementById('_wp_unfiltered_html_comment_disabled').name='_wp_unfiltered_html_comment';}})();</script>
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="53"/></p>			</form>
+			</div><!-- #respond -->
+	
+</div><!-- #comments -->
+
+
+</body></html>
