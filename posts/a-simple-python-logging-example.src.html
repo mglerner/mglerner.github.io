@@ -1,0 +1,48 @@
+<html><body><p>I’m slowly converting most of my lab to Python. One of the great things is how fantastic the documentation for things like <a title="matplotlib" href="http://matplotlib.sourceforge.net">matplotlib</a> is. On the other hand, some of the Python documentation itself is ridiculous.</p>
+<p>Somebody wanted to set up some simple logging. He wanted to have a couple of different logging levels, he wanted to be able to switch between them from the command line, and he wanted to be able to spit messages to stdout as well. The <a title="Logging module documentation" href="http://docs.python.org/library/logging.html">official docs</a> have a trivial example that’s very nice, but a bit too trivial and then several examples that were way too much for someone who’s in his first week of Python. He also really wanted to be able to specify numbers on the command line, and didn’t want to remember what the logging module’s internal constants (e.g. logging.CRITICAL == 50) are. Instead, he wanted to be able to give words or small, easy to remember numbers. Here’s the simple example we came up with:</p>
+<pre class="brush:py">
+#!/usr/bin/env python
+
+import sys
+import logging
+
+def setuplogging(loglevel,printtostdout):
+    #print “starting up with loglevel”,loglevel,logging.getLevelName(loglevel)
+    logging.basicConfig(filename=’peng.log’,level=loglevel)
+    if printtostdout:
+        soh = logging.StreamHandler(sys.stdout)
+        soh.setLevel(loglevel)
+        logger = logging.getLogger()
+        logger.addHandler(soh)
+
+def dosomething():
+    logging.critical(‘this is critical’)
+    logging.error(‘this is an error message’)
+    logging.warning(‘this is a warning’)
+    logging.info(‘here is some info for you’)
+    logging.debug(‘this is just a debug’)
+
+if __name__ == ‘__main__’:
+    from optparse import OptionParser
+    parser = OptionParser(‘Test logging’)
+    parser.add_option(‘-d’,'–debug’,type=’string’,help=’Available levels are CRITICAL (3), ERROR (2), WARNING (1), INFO (0), DEBUG (-1)’,default=’CRITICAL’)
+    parser.add_option(‘-p’,'–printtostdout’,action=’store_true’,default=False,help=’Print all log messages to stdout’)
+    options,args = parser.parse_args()
+
+    try:
+        loglevel = getattr(logging,options.debug)
+    except AttributeError:
+        loglevel = {3:logging.CRITICAL,
+                    2:logging.ERROR,
+                    1:logging.WARNING,
+                    0:logging.INFO,
+                    -1:logging.DEBUG,
+                    }[int(options.debug)]
+
+    setuplogging(loglevel,options.printtostdout)
+    dosomething()
+
+
+</pre>
+<p>As a side note, I was surprised at how natural the use of dictionaries and getattr seemed to him. I expected that to cause a bit more trouble than it did.</p>
+</body></html>

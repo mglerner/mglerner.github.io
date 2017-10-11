@@ -1,4 +1,96 @@
-<html><body><p>I just got back from the Lilly <a href="http://celt.miamioh.edu/lillycon/schedule.php?date=2014-11-20&amp;year=2014" title="Lilly International Conference on College Teaching">Conference</a> on College Teaching. The first workshop I went to was on course design. One chunk of this was on learning goals. This came in the second half of the workshop, after we’d talked quite a bit about learning factors, etc. I chose to work on my 200-level <a href="https://github.com/mglerner/IntroToBiophysics" title="Introduction to Biophysics">Biophysics</a> class, where I thought I had decent goals already. One of the ones I particularly liked was</p>
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evolution of a Learning Goal | Biophysics and Beer</title>
+<link href="../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
+<link rel="canonical" href="http://www.mglerner.com/blog/posts/evolution-of-a-learning-goal.html">
+<!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><meta name="author" content="mglerner">
+<link rel="prev" href="speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html" title="Speeding up calculations with Lookup Tables and Lagrangian Interpolation" type="text/html">
+<link rel="next" href="more-march-madness-monte-carlo-style.html" title="More March Madness Monte Carlo Style!" type="text/html">
+<meta property="og:site_name" content="Biophysics and Beer">
+<meta property="og:title" content="Evolution of a Learning Goal">
+<meta property="og:url" content="http://www.mglerner.com/blog/posts/evolution-of-a-learning-goal.html">
+<meta property="og:description" content="I just got back from the Lilly Conference on College Teaching. The first workshop I went to was on course design. One chunk of this was on learning goals. This came in the second half of the workshop,">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2014-11-24T10:07:32Z">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-inverse navbar-static-top"><div class="container">
+<!-- This keeps the margins nice -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://www.mglerner.com/blog/">
+
+                <span id="blog-title">Biophysics and Beer</span>
+            </a>
+        </div>
+<!-- /.navbar-header -->
+        <div class="collapse navbar-collapse" id="bs-navbar" aria-expanded="false">
+            <ul class="nav navbar-nav">
+<li>
+<a href="../archive.html">Archives</a>
+                </li>
+<li>
+<a href="../categories/index.html">Tags</a>
+                </li>
+<li>
+<a href="../rss.xml">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+    <a href="evolution-of-a-learning-goal.src.html" id="sourcelink">Source</a>
+    </li>
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        <div class="row">
+            
+            
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="#" class="u-url">Evolution of a Learning Goal</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    mglerner
+            </span></p>
+            <p class="dateline"><a href="#" rel="bookmark"><time class="published dt-published" datetime="2014-11-24T10:07:32Z" itemprop="datePublished" title="2014-11-24 10:07">2014-11-24 10:07</time></a></p>
+                <p class="commentline">
+        
+    <a href="evolution-of-a-learning-goal.html#disqus_thread" data-disqus-identifier="cache/posts/evolution-of-a-learning-goal.html">Comments</a>
+
+
+            
+        </p>
+<p class="sourceline"><a href="evolution-of-a-learning-goal.src.html" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <p>I just got back from the Lilly <a href="http://celt.miamioh.edu/lillycon/schedule.php?date=2014-11-20&amp;year=2014" title="Lilly International Conference on College Teaching">Conference</a> on College Teaching. The first workshop I went to was on course design. One chunk of this was on learning goals. This came in the second half of the workshop, after we’d talked quite a bit about learning factors, etc. I chose to work on my 200-level <a href="https://github.com/mglerner/IntroToBiophysics" title="Introduction to Biophysics">Biophysics</a> class, where I thought I had decent goals already. One of the ones I particularly liked was</p>
 <blockquote><p>Use simple physical models to provide quantitative insight into biological systems.</p></blockquote>
 <p>The <a href="https://sty.presswarehouse.com/Books/BookDetail.aspx?productID=323200">people running the workshop</a> have some good reasons for insisting on particular phrasing, and they recommend either “students will be able to [verb] [object]” or “given [thing] students will be able to [other thing].” Fair enough, if I lighten up a bit on the need for an action verb, I get</p>
 <blockquote><p>Students will be able to use simple physical models to provide quantitative insight into biological systems.</p></blockquote>
@@ -48,7 +140,56 @@
 <li>Given a biological system and a physical model, students will be able to adapt the model to the system through quantitative analysis.</li>
 <li>Given a biological system, students will be able to predict relevant physical models.</li>
 <li>Students will gain exposure to important questions in the modern field of molecular biophysics, and evaluate current research on a system of their choice.
-</li></ul>
+</li>
+</ul>
 </blockquote>
 <p>That’s <em>much</em> better, both for me and the students! And that’s despite the fact that my original goal (“use simple physical models to provide quantitative insight into biological systems”) still sounds decent. I wonder if I should use that phrasing, and perhaps something about “play with a model” in the course description rather than the goals.</p>
-</body></html>
+
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html" rel="prev" title="Speeding up calculations with Lookup Tables and Lagrangian Interpolation">Previous post</a>
+            </li>
+            <li class="next">
+                <a href="more-march-madness-monte-carlo-style.html" rel="next" title="More March Madness Monte Carlo Style!">Next post</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+        
+        
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="biophysics-and-beer",
+            disqus_url="http://www.mglerner.com/blog/posts/evolution-of-a-learning-goal.html",
+        disqus_title="Evolution of a Learning Goal",
+        disqus_identifier="cache/posts/evolution-of-a-learning-goal.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="biophysics-and-beer";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+</div>
+        <!--End of body content-->
+
+        <footer id="footer">
+            Contents © 2017         <a href="mailto:mglerner@gmail.com">mglerner</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+            <script src="../assets/js/all-nocdn.js"></script><script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates -->
+</body>
+</html>

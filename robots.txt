@@ -1,0 +1,4 @@
+Sitemap: http://www.mglerner.com/blog/sitemapindex.xml
+
+User-Agent: *
+Host: www.mglerner.com

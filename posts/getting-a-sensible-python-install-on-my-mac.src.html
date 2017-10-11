@@ -1,0 +1,147 @@
+<html><body><p>I recently had to get Python + things I like up and running on my Mac from scratch. That’s a significantly harder task than you might guess, so one of the main reasons I’m posting this is for my own benefit (I’ll have to do this all again in February when I give my current laptop back to NIH and buy one of my own). There’s a decent chance this will be useful for others, though. A significant amount of experience and gnashing of teeth has told me</p>
+<p>1) ActiveState is awesome, but not everything works perfectly with it.<br>
+2) Ditto for Python 2.7.<br>
+3) Never mix macports and fink.</p>
+<p>So, here’s my setup for a working python2.6 system that happens to meet my current needs:</p>
+<p>0) Fully uninstall macports (http://guide.macports.org/#installing.macports.uninstalling). Follow the full set of directions.</p>
+<p>1) Install the latest and greatest macports, using the package install and the easy options (http://guide.macports.org/#installing.macports).</p>
+<p>2) Make variants.conf reject all python2.7-related things<br>
+<code>[lernerm@LCBB-ML01777274 ~]$ cat /opt/local/etc/macports/variants.conf<br>
+# To specify global variants to use for all port builds,<br>
+# customize this file to list variant settings you want.<br>
+#<br>
+# Any variants specified here that are not supported by<br>
+# a port will just be ignored. Multiple variants can be<br>
+# specified per line, or one per line is also allowed.<br>
+#<br>
+# Example:<br>
+# +ipv6 +no_x11<br>
++py26 +python26 -py27 -python27 +bash_completion<br>
+</code></p>
+<p>3) Make sure you can install some basic things. I start with bash completion (https://trac.macports.org/wiki/howto/bash-completion) and coreutils.</p>
+<p><code><br>
+sudo port install bash-completion<br>
+sudo port install coreutils +with_default_names<br>
+</code></p>
+<p>Note that you’ll have to edit your .bash_profile to make bash-completion work. It’s documented in the link above. You may also have to add /opt/local/libexec/gnubin to your path to get coreutils to work.</p>
+<p>4) Install the Python environment I want, including<br>
+- python 2.6<br>
+- matplotlib<br>
+- numpy<br>
+- scipy<br>
+- ipython<br>
+- boost<br>
+- cgal<br>
+- cmake<br>
+- openbabel</p>
+<p><code><br>
+sudo port install python26<br>
+sudo port select –set python python26<br>
+sudo port install py26-numpy  py26-scipy py26-matplotlib py26-ipython py26-openbabel cmake boost cgal py26-wxpython py26-cython<br>
+sudo port select –set ipython ipython26<br>
+</code></p>
+<p>Change the noninteractive matplotlib default backend:</p>
+<p><code><br>
+[lernerm@LCBB-ML01777274 ~]$ cat ~/.matplotlib/matplotlibrc<br>
+backend      : WXAgg<br>
+</code></p>
+<p>5) Mercurial. I can’t use the macports package, because it forces a python2.7 install! The download from http://mercurial.selenic.com/downloads/ is fine, but I’d really rather have it as a port for consistency/upgrade reasons.</p>
+<p>6) Then install additional packages I want</p>
+<p>6a) numpy sharedmem (https://bitbucket.org/cleemesser/numpy-sharedmem/overview)</p>
+<p><code><br>
+hg clone https://bitbucket.org/cleemesser/numpy-sharedmem<br>
+cd numpy-sharedmem<br>
+python setup.py build<br>
+python setup.py install –prefix=~/software # Note: that’s in my path already<br>
+</code></p>
+<p>6b) dionysus (http://www.mrzv.org/software/dionysus/get-build-install.html)</p>
+<p><code><br>
+hg clone http://hg.mrzv.org/Dionysus/<br>
+cd Dionysus<br>
+hg up tip</code></p>
+<p>mkdir build<br>
+cd build<br>
+cmake ..<br>
+</p>
+<p>add the following to CMakeLists.txt:</p>
+<p><code><br>
+set(CMAKE_LIBRARY_PATH /opt/local/lib ${CMAKE_LIBRARY_PATH} )<br>
+set(CGAL_DIR /opt/local/lib/cmake)<br>
+</code></p>
+<p>That’s not enough. Edit CMakeCache.txt by hand to point at the right Python by searching for /System/Library/Frameworks/Python.framework and replacing it with /opt/local/Library/Frameworks/Python.framework and then, finally, </p>
+<p><code><br>
+make<br>
+</code></p>
+<p>And then make sure that $HOME/src/Dionysus/build/bindings/python is in your PYTHONPATH.</p>
+<p>6c) orange (from source http://orange.biolab.si/nightly_builds.html)</p>
+<p><code><br>
+python setup.py build<br>
+python setup.py install –user<br>
+</code></p>
+<p>Note that the last bit requires you to have this in your .bashrc or .bash_profile (or both, or maybe they’re the same file because you’ve symlinked them!):</p>
+<p><code><br>
+export PYTHONPATH=$HOME/.local/lib/python2.6/site-packages:$PYTHONPATH<br>
+</code></p>
+<p>Whew!</p>
+<h2>Comments from previous blog</h2>
+<ul>
+  <li>From mglerner: I suppose numpy sharedmem could be done with python setup.py install --user. I tend to like --prefix=~/software, but that mysteriously didn't work for orange, so I'll probably switch everything over to --user for consistency.
+  </li>
+  <li>From Anthony: But does Dionysus work? Finally?
+  </li>
+  <li>From mglerner: Yes! Finally! I had this post 3/4 written for quite a while before I filled in the missing dionysus pieces.
+  </li>
+  <li>From Anthony: So now that you're moving to python 2.7 you should update this. Do you have everything working yet?
+  </li>
+  <li>From <a href="http://ernestyalumni.tumblr.com">Ernest Yeung</a>:
+  <pre>
+  Prof. Lerner, I was trying to get Dionysus to work, using Mercurial which went without a hitch, to work on my MacBook Air 13in, 2011, Mac OS X 10.8. Cmake and Boost were installed as required by mrzv.org (the author of Dionysus).
+
+I'm having problems at the build stage. By the way, what good directories should I put all this stuff in and should I be in administrator or a regular account to do all this?
+cd build % Yep, in Dionysus dir
+cmake ..
+
+That's when I get problems:
+CMake Error at /Applications/CMake 2.8-11.app/Contents/share/cmake-2.8/Modules/FindBoost.cmake:1106 (message):
+Unable to find the requested Boost libraries.
+
+Unable to find the Boost header files. Please set BOOST_ROOT to the root
+directory containing Boost or BOOST_INCLUDEDIR to the directory containing
+Boost's headers.
+Call Stack (most recent call first):
+CMakeLists.txt:13 (find_package)
+
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE)
+-- CGAL not found, therefore alphashapes will not be built.
+CMake Warning (dev) at examples/homology-zigzags/CMakeLists.txt:9 (add_executable):
+Policy CMP0002 is not set: Logical target names must be globally unique.
+Run "cmake --help-policy CMP0002" for policy details. Use the cmake_policy
+command to set the policy and suppress this warning.
+This warning is for project developers. Use -Wno-dev to suppress it.
+
+-- CGAL not found, alphashape bindings will not be built
+CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
+
+I installed boost onto the previous directory from my Dionysus. I installed it opening up the .tar.bz2 downloaded from the boost website. In your experience, does this work well?
+
+I'm not familiar the problems with CGAL. Do you have any knowledge?
+
+Maybe another way I should ask about all this is, if I only wanted a very minimal installation, all I want is Dionysus, with Mercurial, and of course what the author required CMake, Boost, how should I go about doing so?
+
+Many thanks, I'll write up what I learned on my blog and it may help others as well on a Mac.
+
+I share your passion for python.
+
+Facebook : ernestyalumni
+gmail : ernestyalumni
+linkedin : ernestyalumni
+tumblr : ernestyalumni
+twitter : ernestyalumni
+weibo 微博 : ernestyalumni
+youku : ernestyalumni
+youtube : ernestyalumni
+indiegogo : ernestyalumni
+</pre>
+  </li>
+</ul>
+</body></html>

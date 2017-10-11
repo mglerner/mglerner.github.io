@@ -1,4 +1,99 @@
-<html><body><p>I’m teaching Thermal Physics this term, so obviously I rearranged the syllabus so that we could all run Monte Carlo simulations for March Madness!</p>
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>March Madness, Monte Carlo Style! | Biophysics and Beer</title>
+<link href="../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
+<link rel="canonical" href="http://www.mglerner.com/blog/posts/march-madness-monte-carlo-style.html">
+<!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><meta name="author" content="mglerner">
+<link rel="prev" href="getting-a-sensible-python-install-on-my-mac.html" title="Getting a sensible Python install on my Mac" type="text/html">
+<link rel="next" href="drum-head-normal-modes-with-movies.html" title="Drum head normal modes, with movies" type="text/html">
+<meta property="og:site_name" content="Biophysics and Beer">
+<meta property="og:title" content="March Madness, Monte Carlo Style!">
+<meta property="og:url" content="http://www.mglerner.com/blog/posts/march-madness-monte-carlo-style.html">
+<meta property="og:description" content="I’m teaching Thermal Physics this term, so obviously I rearranged the syllabus so that we could all run Monte Carlo simulations for March Madness!
+Quick summary for the class is at the end
+The basics
+">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2013-03-19T18:30:22Z">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-inverse navbar-static-top"><div class="container">
+<!-- This keeps the margins nice -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://www.mglerner.com/blog/">
+
+                <span id="blog-title">Biophysics and Beer</span>
+            </a>
+        </div>
+<!-- /.navbar-header -->
+        <div class="collapse navbar-collapse" id="bs-navbar" aria-expanded="false">
+            <ul class="nav navbar-nav">
+<li>
+<a href="../archive.html">Archives</a>
+                </li>
+<li>
+<a href="../categories/index.html">Tags</a>
+                </li>
+<li>
+<a href="../rss.xml">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+    <a href="march-madness-monte-carlo-style.src.html" id="sourcelink">Source</a>
+    </li>
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        <div class="row">
+            
+            
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="#" class="u-url">March Madness, Monte Carlo Style!</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    mglerner
+            </span></p>
+            <p class="dateline"><a href="#" rel="bookmark"><time class="published dt-published" datetime="2013-03-19T18:30:22Z" itemprop="datePublished" title="2013-03-19 18:30">2013-03-19 18:30</time></a></p>
+                <p class="commentline">
+        
+    <a href="march-madness-monte-carlo-style.html#disqus_thread" data-disqus-identifier="cache/posts/march-madness-monte-carlo-style.html">Comments</a>
+
+
+            
+        </p>
+<p class="sourceline"><a href="march-madness-monte-carlo-style.src.html" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <p>I’m teaching Thermal Physics this term, so obviously I rearranged the syllabus so that we could all run Monte Carlo simulations for March Madness!</p>
 <p><strong>Quick summary for the class is at the end</strong></p>
 <h1>The basics</h1>
 <p>We started off writing an energy function and figuring out how to play a simple 8-team bracket (side-note: IPython notebooks were great for this purpose! We were able to record our class sessions and post them online, along with a “Scientific Cookbook”). This version of Thermal Physics doesn’t have a programming prerequisite, so the coding parts of the assignments stopped with running and analyzing 8-team brackets.</p>
@@ -77,8 +172,7 @@ def energy_game(winner,loser):
         brackets.append(b)</pre>
 <p>We keep track of all of the each bracket in the <code>brackets</code> list, and then use it to print out some statistics. So, what does that look like?</p>
 <pre class="brush:py">simulate(100,’south’,0.5)</pre>
-<p>which plots the following image<br>
-<img alt="Teams from the South, 10 runs" src="http://mglerner.com/MarchMadness/South10.png" width="800"></p>
+<p>which plots the following image<br><img alt="Teams from the South, 10 runs" src="http://mglerner.com/MarchMadness/South10.png" width="800"></p>
 <p>Here, I’ve plotted at least a few useful things. Looking on the left side you can verify whether or not we’re seeing a Boltzmann distribution. You know that bracket space is really big (quiz: how big?). So, one way to assess our sampling is to keep track of the number of unique brackets we’ve seen. That’s on the top right. If we’ve <em>fully</em> sampled bracket space, you’d expect that to approach a horizontal asymptote. You can actually see that behavior if you run a small bracket with lots of trials (pro tip: one of the things I haven’t mentioned yet is that you can specify a list of teams like <code>["Kansas","Kentucky","Indiana","Duke"]</code> as the second argument to <code>simulate</code>, instead of a region).</p>
 <p><code>simulate</code> also prints out both the lowest energy bracket possible with your energy function and the most probable bracket according to your Monte Carlo sampling (the one below showed up 6 times)</p>
 <pre>Most common bracket (6)
@@ -198,283 +292,436 @@ runbracket2(ntrials1=10000,ntrials2=1000,T=1.0)
 			<div id="comments">
 
 
-			<h3 id="comments-title">14 Responses to <em>March Madness, Monte Carlo Style!</em></h3>
+			<h3 id="comments-title">14 Responses to <em>March Madness, Monte Carlo Style!</em>
+</h3>
 
 
 			<ol class="commentlist">
-					<li class="comment even thread-even depth-1" id="li-comment-268">
+<li class="comment even thread-even depth-1" id="li-comment-268">
 		<div id="comment-268">
 			<div class="comment-author vcard">
-				<img alt='' src='http://0.gravatar.com/avatar/6549e6244c48ed880a23dcfdc3a65be1?s=40&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/6549e6244c48ed880a23dcfdc3a65be1?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn"><a href='http://partiallattice.wordpress.com' rel='external nofollow' class='url'>Daniel</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				<img alt="" src="http://0.gravatar.com/avatar/6549e6244c48ed880a23dcfdc3a65be1?s=40&amp;d=mm&amp;r=g" srcset="http://0.gravatar.com/avatar/6549e6244c48ed880a23dcfdc3a65be1?s=80&amp;d=mm&amp;r=g 2x" class="avatar avatar-40 photo" height="40" width="40"><cite class="fn"><a href="http://partiallattice.wordpress.com" rel="external nofollow" class="url">Daniel</a></cite> <span class="says">says:</span>			</div>
+<!-- .comment-author .vcard -->
 			
-			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-268">
-				March 20, 2013 at 2:27 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=268">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+			<div class="comment-meta commentmetadata">
+<a href="http://www.mglerner.com/blog/?p=16#comment-268">
+				March 20, 2013 at 2:27 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&amp;c=268">(Edit)</a>			</div>
+<!-- .comment-meta .commentmetadata -->
 
-			<div class="comment-body"><p>Here is the code in module form on GitHub:</p>
+			<div class="comment-body">
+<p>Here is the code in module form on GitHub:</p>
 <p><a href="https://github.com/Daniel-B-Smith/MarchMadnessMonteCarlo" rel="nofollow">https://github.com/Daniel-B-Smith/MarchMadnessMonteCarlo</a></p>
 <p>I did a few mini-optimizations, but the thing that is killing you in simulate() is using deepcopy() on your bracket object at every step. Refactoring so that you can call a shallow copy should speed things up considerably.</p>
 </div>
 
 			<div class="reply">
-				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=268#respond' onclick='return addComment.moveForm( "comment-268", "268", "respond", "16" )' aria-label='Reply to Daniel'>Reply</a>			</div><!-- .reply -->
-		</div><!-- #comment-##  -->
+				<a rel="nofollow" class="comment-reply-link" href="http://www.mglerner.com/blog/?p=16&amp;replytocom=268#respond" onclick='return addComment.moveForm( "comment-268", "268", "respond", "16" )' aria-label="Reply to Daniel">Reply</a>			</div>
+<!-- .reply -->
+		</div>
+<!-- #comment-##  -->
 
-	</li><!-- #comment-## -->
+	</li>
+<!-- #comment-## -->
 	<li class="comment byuser comment-author-mglerner bypostauthor odd alt thread-odd thread-alt depth-1" id="li-comment-269">
 		<div id="comment-269">
 			<div class="comment-author vcard">
-				<img alt='' src='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">mglerner</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				<img alt="" src="http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&amp;d=mm&amp;r=g" srcset="http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x" class="avatar avatar-40 photo" height="40" width="40"><cite class="fn">mglerner</cite> <span class="says">says:</span>			</div>
+<!-- .comment-author .vcard -->
 			
-			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-269">
-				March 20, 2013 at 11:31 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=269">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+			<div class="comment-meta commentmetadata">
+<a href="http://www.mglerner.com/blog/?p=16#comment-269">
+				March 20, 2013 at 11:31 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&amp;c=269">(Edit)</a>			</div>
+<!-- .comment-meta .commentmetadata -->
 
-			<div class="comment-body"><p>Thanks, Daniel! I've forked this as <a href="https://github.com/mglerner/MarchMadnessMonteCarlo" rel="nofollow">https://github.com/mglerner/MarchMadnessMonteCarlo</a> ... which is fairly fun, since I haven't used github before.</p>
+			<div class="comment-body">
+<p>Thanks, Daniel! I've forked this as <a href="https://github.com/mglerner/MarchMadnessMonteCarlo" rel="nofollow">https://github.com/mglerner/MarchMadnessMonteCarlo</a> ... which is fairly fun, since I haven't used github before.</p>
 </div>
 
 			<div class="reply">
-				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=269#respond' onclick='return addComment.moveForm( "comment-269", "269", "respond", "16" )' aria-label='Reply to mglerner'>Reply</a>			</div><!-- .reply -->
-		</div><!-- #comment-##  -->
+				<a rel="nofollow" class="comment-reply-link" href="http://www.mglerner.com/blog/?p=16&amp;replytocom=269#respond" onclick='return addComment.moveForm( "comment-269", "269", "respond", "16" )' aria-label="Reply to mglerner">Reply</a>			</div>
+<!-- .reply -->
+		</div>
+<!-- #comment-##  -->
 
-	</li><!-- #comment-## -->
+	</li>
+<!-- #comment-## -->
 	<li class="comment even thread-even depth-1" id="li-comment-23929">
 		<div id="comment-23929">
 			<div class="comment-author vcard">
-				<img alt='' src='http://1.gravatar.com/avatar/798dcbaee1ba2df492410d761941c87b?s=40&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/798dcbaee1ba2df492410d761941c87b?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">Wayne</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				<img alt="" src="http://1.gravatar.com/avatar/798dcbaee1ba2df492410d761941c87b?s=40&amp;d=mm&amp;r=g" srcset="http://1.gravatar.com/avatar/798dcbaee1ba2df492410d761941c87b?s=80&amp;d=mm&amp;r=g 2x" class="avatar avatar-40 photo" height="40" width="40"><cite class="fn">Wayne</cite> <span class="says">says:</span>			</div>
+<!-- .comment-author .vcard -->
 			
-			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-23929">
-				March 17, 2015 at 3:56 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=23929">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+			<div class="comment-meta commentmetadata">
+<a href="http://www.mglerner.com/blog/?p=16#comment-23929">
+				March 17, 2015 at 3:56 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&amp;c=23929">(Edit)</a>			</div>
+<!-- .comment-meta .commentmetadata -->
 
-			<div class="comment-body"><p>Seems the last line for instructions on how to execute <code>runbracket2</code> should read<br />
-<code>runbracket2(ntrials1=10000,ntrials2=1000,T=1.0)</code>?</p>
+			<div class="comment-body">
+<p>Seems the last line for instructions on how to execute <code>runbracket2</code> should read<br><code>runbracket2(ntrials1=10000,ntrials2=1000,T=1.0)</code>?</p>
 </div>
 
 			<div class="reply">
-				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=23929#respond' onclick='return addComment.moveForm( "comment-23929", "23929", "respond", "16" )' aria-label='Reply to Wayne'>Reply</a>			</div><!-- .reply -->
-		</div><!-- #comment-##  -->
+				<a rel="nofollow" class="comment-reply-link" href="http://www.mglerner.com/blog/?p=16&amp;replytocom=23929#respond" onclick='return addComment.moveForm( "comment-23929", "23929", "respond", "16" )' aria-label="Reply to Wayne">Reply</a>			</div>
+<!-- .reply -->
+		</div>
+<!-- #comment-##  -->
 
 	<ul class="children">
-	<li class="comment byuser comment-author-mglerner bypostauthor odd alt depth-2" id="li-comment-23940">
+<li class="comment byuser comment-author-mglerner bypostauthor odd alt depth-2" id="li-comment-23940">
 		<div id="comment-23940">
 			<div class="comment-author vcard">
-				<img alt='' src='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">mglerner</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				<img alt="" src="http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&amp;d=mm&amp;r=g" srcset="http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x" class="avatar avatar-40 photo" height="40" width="40"><cite class="fn">mglerner</cite> <span class="says">says:</span>			</div>
+<!-- .comment-author .vcard -->
 			
-			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-23940">
-				March 17, 2015 at 9:07 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=23940">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+			<div class="comment-meta commentmetadata">
+<a href="http://www.mglerner.com/blog/?p=16#comment-23940">
+				March 17, 2015 at 9:07 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&amp;c=23940">(Edit)</a>			</div>
+<!-- .comment-meta .commentmetadata -->
 
-			<div class="comment-body"><p>Yes, it should! Fixed above.</p>
+			<div class="comment-body">
+<p>Yes, it should! Fixed above.</p>
 <p>I'm in the middle of refactoring things to make it a bit nicer to use. I'll post an update and link it when I'm done. Please pass on any suggestions!</p>
 </div>
 
 			<div class="reply">
-				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=23940#respond' onclick='return addComment.moveForm( "comment-23940", "23940", "respond", "16" )' aria-label='Reply to mglerner'>Reply</a>			</div><!-- .reply -->
-		</div><!-- #comment-##  -->
+				<a rel="nofollow" class="comment-reply-link" href="http://www.mglerner.com/blog/?p=16&amp;replytocom=23940#respond" onclick='return addComment.moveForm( "comment-23940", "23940", "respond", "16" )' aria-label="Reply to mglerner">Reply</a>			</div>
+<!-- .reply -->
+		</div>
+<!-- #comment-##  -->
 
-	</li><!-- #comment-## -->
+	</li>
+<!-- #comment-## -->
 	<li class="comment byuser comment-author-mglerner bypostauthor even depth-2" id="li-comment-23947">
 		<div id="comment-23947">
 			<div class="comment-author vcard">
-				<img alt='' src='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">mglerner</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				<img alt="" src="http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&amp;d=mm&amp;r=g" srcset="http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x" class="avatar avatar-40 photo" height="40" width="40"><cite class="fn">mglerner</cite> <span class="says">says:</span>			</div>
+<!-- .comment-author .vcard -->
 			
-			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-23947">
-				March 17, 2015 at 10:37 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=23947">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+			<div class="comment-meta commentmetadata">
+<a href="http://www.mglerner.com/blog/?p=16#comment-23947">
+				March 17, 2015 at 10:37 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&amp;c=23947">(Edit)</a>			</div>
+<!-- .comment-meta .commentmetadata -->
 
-			<div class="comment-body"><p>You can see some current code at the below link. I'm likely to post a bigger update tomorrow, but no guarantees.</p>
+			<div class="comment-body">
+<p>You can see some current code at the below link. I'm likely to post a bigger update tomorrow, but no guarantees.</p>
 <p><a href="http://nbviewer.ipython.org/github/mglerner/MarchMadnessMonteCarlo/blob/master/MMMC2015.ipynb" rel="nofollow">http://nbviewer.ipython.org/github/mglerner/MarchMadnessMonteCarlo/blob/master/MMMC2015.ipynb</a></p>
 </div>
 
 			<div class="reply">
-				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=23947#respond' onclick='return addComment.moveForm( "comment-23947", "23947", "respond", "16" )' aria-label='Reply to mglerner'>Reply</a>			</div><!-- .reply -->
-		</div><!-- #comment-##  -->
+				<a rel="nofollow" class="comment-reply-link" href="http://www.mglerner.com/blog/?p=16&amp;replytocom=23947#respond" onclick='return addComment.moveForm( "comment-23947", "23947", "respond", "16" )' aria-label="Reply to mglerner">Reply</a>			</div>
+<!-- .reply -->
+		</div>
+<!-- #comment-##  -->
 
 	<ul class="children">
-	<li class="comment odd alt depth-3" id="li-comment-23973">
+<li class="comment odd alt depth-3" id="li-comment-23973">
 		<div id="comment-23973">
 			<div class="comment-author vcard">
-				<img alt='' src='http://1.gravatar.com/avatar/798dcbaee1ba2df492410d761941c87b?s=40&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/798dcbaee1ba2df492410d761941c87b?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">Wayne</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				<img alt="" src="http://1.gravatar.com/avatar/798dcbaee1ba2df492410d761941c87b?s=40&amp;d=mm&amp;r=g" srcset="http://1.gravatar.com/avatar/798dcbaee1ba2df492410d761941c87b?s=80&amp;d=mm&amp;r=g 2x" class="avatar avatar-40 photo" height="40" width="40"><cite class="fn">Wayne</cite> <span class="says">says:</span>			</div>
+<!-- .comment-author .vcard -->
 			
-			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-23973">
-				March 18, 2015 at 12:08 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=23973">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+			<div class="comment-meta commentmetadata">
+<a href="http://www.mglerner.com/blog/?p=16#comment-23973">
+				March 18, 2015 at 12:08 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&amp;c=23973">(Edit)</a>			</div>
+<!-- .comment-meta .commentmetadata -->
 
-			<div class="comment-body"><p>I like the examples added as an IPython notebook.</p>
+			<div class="comment-body">
+<p>I like the examples added as an IPython notebook.</p>
 </div>
 
 			<div class="reply">
-				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=23973#respond' onclick='return addComment.moveForm( "comment-23973", "23973", "respond", "16" )' aria-label='Reply to Wayne'>Reply</a>			</div><!-- .reply -->
-		</div><!-- #comment-##  -->
+				<a rel="nofollow" class="comment-reply-link" href="http://www.mglerner.com/blog/?p=16&amp;replytocom=23973#respond" onclick='return addComment.moveForm( "comment-23973", "23973", "respond", "16" )' aria-label="Reply to Wayne">Reply</a>			</div>
+<!-- .reply -->
+		</div>
+<!-- #comment-##  -->
 
 	<ul class="children">
-	<li class="comment byuser comment-author-mglerner bypostauthor even depth-4" id="li-comment-24039">
+<li class="comment byuser comment-author-mglerner bypostauthor even depth-4" id="li-comment-24039">
 		<div id="comment-24039">
 			<div class="comment-author vcard">
-				<img alt='' src='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">mglerner</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				<img alt="" src="http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&amp;d=mm&amp;r=g" srcset="http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x" class="avatar avatar-40 photo" height="40" width="40"><cite class="fn">mglerner</cite> <span class="says">says:</span>			</div>
+<!-- .comment-author .vcard -->
 			
-			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-24039">
-				March 19, 2015 at 3:50 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=24039">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+			<div class="comment-meta commentmetadata">
+<a href="http://www.mglerner.com/blog/?p=16#comment-24039">
+				March 19, 2015 at 3:50 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&amp;c=24039">(Edit)</a>			</div>
+<!-- .comment-meta .commentmetadata -->
 
-			<div class="comment-body"><p>Thanks. The notebook has been updated, and is the content of my just-updated blog. Summary tables! Example energy functions! Make sure Kansas wins! Whee!</p>
+			<div class="comment-body">
+<p>Thanks. The notebook has been updated, and is the content of my just-updated blog. Summary tables! Example energy functions! Make sure Kansas wins! Whee!</p>
 </div>
 
 			<div class="reply">
-				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=24039#respond' onclick='return addComment.moveForm( "comment-24039", "24039", "respond", "16" )' aria-label='Reply to mglerner'>Reply</a>			</div><!-- .reply -->
-		</div><!-- #comment-##  -->
+				<a rel="nofollow" class="comment-reply-link" href="http://www.mglerner.com/blog/?p=16&amp;replytocom=24039#respond" onclick='return addComment.moveForm( "comment-24039", "24039", "respond", "16" )' aria-label="Reply to mglerner">Reply</a>			</div>
+<!-- .reply -->
+		</div>
+<!-- #comment-##  -->
 
-	</li><!-- #comment-## -->
-</ul><!-- .children -->
-</li><!-- #comment-## -->
-</ul><!-- .children -->
-</li><!-- #comment-## -->
-</ul><!-- .children -->
-</li><!-- #comment-## -->
+	</li>
+<!-- #comment-## -->
+</ul>
+<!-- .children -->
+</li>
+<!-- #comment-## -->
+</ul>
+<!-- .children -->
+</li>
+<!-- #comment-## -->
+</ul>
+<!-- .children -->
+</li>
+<!-- #comment-## -->
 	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-24043">
 		<div id="comment-24043">
 			<div class="comment-author vcard">
-				<img alt='' src='http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=40&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">Jessen</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				<img alt="" src="http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=40&amp;d=mm&amp;r=g" srcset="http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=80&amp;d=mm&amp;r=g 2x" class="avatar avatar-40 photo" height="40" width="40"><cite class="fn">Jessen</cite> <span class="says">says:</span>			</div>
+<!-- .comment-author .vcard -->
 			
-			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-24043">
-				March 19, 2015 at 5:22 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=24043">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+			<div class="comment-meta commentmetadata">
+<a href="http://www.mglerner.com/blog/?p=16#comment-24043">
+				March 19, 2015 at 5:22 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&amp;c=24043">(Edit)</a>			</div>
+<!-- .comment-meta .commentmetadata -->
 
-			<div class="comment-body"><p>Choosing the most common bracket optimizes your probability of picking a perfect bracket (which Warren Buffet would have given you $1B for last year - so that ain't nothing), but it doesn't necessarily optimize the chance of winning your office/class pool. </p>
+			<div class="comment-body">
+<p>Choosing the most common bracket optimizes your probability of picking a perfect bracket (which Warren Buffet would have given you $1B for last year - so that ain't nothing), but it doesn't necessarily optimize the chance of winning your office/class pool. </p>
 <p>One strategy is to find the bracket that has the highest expected score (many pools give more points for correctly predicting later rounds, as well as spoiler points for picking upsets) over the ensemble of brackets you've generated. Luckily, since the probability of making it to any round is conditionally independent of the opponent that you face there, it's sufficient to summarize the probability of making it to any round (which is exactly the table that fivethirtyeight.com publishes) to calculate an expected score. All that remains is to pick a bracket to optimize your expected score. Since you've already got some MC code written, you're most of the way to writing a simulated annealing optimizer for your pick!</p>
 <p>(Spoilers: I already did this... I'll tell you how terrible it is later.)</p>
 </div>
 
 			<div class="reply">
-				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=24043#respond' onclick='return addComment.moveForm( "comment-24043", "24043", "respond", "16" )' aria-label='Reply to Jessen'>Reply</a>			</div><!-- .reply -->
-		</div><!-- #comment-##  -->
+				<a rel="nofollow" class="comment-reply-link" href="http://www.mglerner.com/blog/?p=16&amp;replytocom=24043#respond" onclick='return addComment.moveForm( "comment-24043", "24043", "respond", "16" )' aria-label="Reply to Jessen">Reply</a>			</div>
+<!-- .reply -->
+		</div>
+<!-- #comment-##  -->
 
 	<ul class="children">
-	<li class="comment byuser comment-author-mglerner bypostauthor even depth-2" id="li-comment-24077">
+<li class="comment byuser comment-author-mglerner bypostauthor even depth-2" id="li-comment-24077">
 		<div id="comment-24077">
 			<div class="comment-author vcard">
-				<img alt='' src='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">mglerner</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				<img alt="" src="http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&amp;d=mm&amp;r=g" srcset="http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x" class="avatar avatar-40 photo" height="40" width="40"><cite class="fn">mglerner</cite> <span class="says">says:</span>			</div>
+<!-- .comment-author .vcard -->
 			
-			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-24077">
-				March 20, 2015 at 10:19 am</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=24077">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+			<div class="comment-meta commentmetadata">
+<a href="http://www.mglerner.com/blog/?p=16#comment-24077">
+				March 20, 2015 at 10:19 am</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&amp;c=24077">(Edit)</a>			</div>
+<!-- .comment-meta .commentmetadata -->
 
-			<div class="comment-body"><p>Jessen, that's awesome. My update for this year (<a href="http://nbviewer.ipython.org/github/mglerner/MarchMadnessMonteCarlo/blob/master/MMMC2015.ipynb" rel="nofollow">http://nbviewer.ipython.org/github/mglerner/MarchMadnessMonteCarlo/blob/master/MMMC2015.ipynb</a> is the same as <a href="http://www.mglerner.com/blog/?p=49" rel="nofollow">http://www.mglerner.com/blog/?p=49</a>) does make the same table as fivethirtheight.com.</p>
+			<div class="comment-body">
+<p>Jessen, that's awesome. My update for this year (<a href="http://nbviewer.ipython.org/github/mglerner/MarchMadnessMonteCarlo/blob/master/MMMC2015.ipynb" rel="nofollow">http://nbviewer.ipython.org/github/mglerner/MarchMadnessMonteCarlo/blob/master/MMMC2015.ipynb</a> is the same as <a href="http://www.mglerner.com/blog/?p=49" rel="nofollow">http://www.mglerner.com/blog/?p=49</a>) does make the same table as fivethirtheight.com.</p>
 <p>Good call about expected score. </p>
 <p>Also good call about simulated annealing. Have you done any looking into what bracket space actually looks like geometrically?</p>
 <p>Do let me know how your bracket turns out!</p>
 </div>
 
 			<div class="reply">
-				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=24077#respond' onclick='return addComment.moveForm( "comment-24077", "24077", "respond", "16" )' aria-label='Reply to mglerner'>Reply</a>			</div><!-- .reply -->
-		</div><!-- #comment-##  -->
+				<a rel="nofollow" class="comment-reply-link" href="http://www.mglerner.com/blog/?p=16&amp;replytocom=24077#respond" onclick='return addComment.moveForm( "comment-24077", "24077", "respond", "16" )' aria-label="Reply to mglerner">Reply</a>			</div>
+<!-- .reply -->
+		</div>
+<!-- #comment-##  -->
 
-	</li><!-- #comment-## -->
+	</li>
+<!-- #comment-## -->
 	<li class="comment odd alt depth-2" id="li-comment-24110">
 		<div id="comment-24110">
 			<div class="comment-author vcard">
-				<img alt='' src='http://2.gravatar.com/avatar/21fc3c6fc9ff02ffe6d8dfd12f72f74c?s=40&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/21fc3c6fc9ff02ffe6d8dfd12f72f74c?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn"><a href='http://partiallattice.wordpress.com' rel='external nofollow' class='url'>Daniel</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				<img alt="" src="http://2.gravatar.com/avatar/21fc3c6fc9ff02ffe6d8dfd12f72f74c?s=40&amp;d=mm&amp;r=g" srcset="http://2.gravatar.com/avatar/21fc3c6fc9ff02ffe6d8dfd12f72f74c?s=80&amp;d=mm&amp;r=g 2x" class="avatar avatar-40 photo" height="40" width="40"><cite class="fn"><a href="http://partiallattice.wordpress.com" rel="external nofollow" class="url">Daniel</a></cite> <span class="says">says:</span>			</div>
+<!-- .comment-author .vcard -->
 			
-			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-24110">
-				March 20, 2015 at 9:41 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=24110">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+			<div class="comment-meta commentmetadata">
+<a href="http://www.mglerner.com/blog/?p=16#comment-24110">
+				March 20, 2015 at 9:41 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&amp;c=24110">(Edit)</a>			</div>
+<!-- .comment-meta .commentmetadata -->
 
-			<div class="comment-body"><p>Optimizing for expected score is a strategy that will give you the highest score on average, but it won't give you the best odds of winning your pool. To win your pool, you need to play your opponents not the bracket. In a non-tiny pool, you basically have to pick the national champion correctly to win the pool. If you make the most popular pick, your odds of winning are still fairly low since a bunch of other people made the same pick. When picking your champion, you need to consider both the probability that that team wins the championship and the expected number of people in your pool picking that team.</p>
+			<div class="comment-body">
+<p>Optimizing for expected score is a strategy that will give you the highest score on average, but it won't give you the best odds of winning your pool. To win your pool, you need to play your opponents not the bracket. In a non-tiny pool, you basically have to pick the national champion correctly to win the pool. If you make the most popular pick, your odds of winning are still fairly low since a bunch of other people made the same pick. When picking your champion, you need to consider both the probability that that team wins the championship and the expected number of people in your pool picking that team.</p>
 <p>Slate publishes a story about this every year:</p>
 <p><a href="http://www.slate.com/articles/sports/sports_nut/2015/03/ncaa_bracket_picks_2015_why_you_should_bet_against_kentucky_and_pick_arizona.html" rel="nofollow">http://www.slate.com/articles/sports/sports_nut/2015/03/ncaa_bracket_picks_2015_why_you_should_bet_against_kentucky_and_pick_arizona.html</a></p>
 </div>
 
 			<div class="reply">
-				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=24110#respond' onclick='return addComment.moveForm( "comment-24110", "24110", "respond", "16" )' aria-label='Reply to Daniel'>Reply</a>			</div><!-- .reply -->
-		</div><!-- #comment-##  -->
+				<a rel="nofollow" class="comment-reply-link" href="http://www.mglerner.com/blog/?p=16&amp;replytocom=24110#respond" onclick='return addComment.moveForm( "comment-24110", "24110", "respond", "16" )' aria-label="Reply to Daniel">Reply</a>			</div>
+<!-- .reply -->
+		</div>
+<!-- #comment-##  -->
 
 	<ul class="children">
-	<li class="comment even depth-3" id="li-comment-24224">
+<li class="comment even depth-3" id="li-comment-24224">
 		<div id="comment-24224">
 			<div class="comment-author vcard">
-				<img alt='' src='http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=40&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">Jessen</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				<img alt="" src="http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=40&amp;d=mm&amp;r=g" srcset="http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=80&amp;d=mm&amp;r=g 2x" class="avatar avatar-40 photo" height="40" width="40"><cite class="fn">Jessen</cite> <span class="says">says:</span>			</div>
+<!-- .comment-author .vcard -->
 			
-			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-24224">
-				March 23, 2015 at 3:56 am</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=24224">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+			<div class="comment-meta commentmetadata">
+<a href="http://www.mglerner.com/blog/?p=16#comment-24224">
+				March 23, 2015 at 3:56 am</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&amp;c=24224">(Edit)</a>			</div>
+<!-- .comment-meta .commentmetadata -->
 
-			<div class="comment-body"><p>Yup, you're right that optimizing expected score is not the optimal strategy, but I'd guess that for your typical office pool, it is a probably approximately correct (a real term, though I'm abusing it here) strategy. The strategies that the Slate article goes into don't start applying until the pool gets large enough (roughly when the probability that one of the other N-1 entrants picks a "lucky" mainstream bracket grows larger than the probability that a black swan bracket wins).</p>
-<p>Out of expediency I went with expected score calculations, but here's a potentially better strategy:<br />
-1) Generate an ensemble of potential outcomes<br />
-2) Generate an ensemble of potential competitive brackets (good source data here: <a href="https://tournament.fantasysports.yahoo.com/t1/pickdistribution" rel="nofollow">https://tournament.fantasysports.yahoo.com/t1/pickdistribution</a>)<br />
-3) Estimate your bracket's probability of winning using those two ensembles (this will depend on the size of the pool)<br />
+			<div class="comment-body">
+<p>Yup, you're right that optimizing expected score is not the optimal strategy, but I'd guess that for your typical office pool, it is a probably approximately correct (a real term, though I'm abusing it here) strategy. The strategies that the Slate article goes into don't start applying until the pool gets large enough (roughly when the probability that one of the other N-1 entrants picks a "lucky" mainstream bracket grows larger than the probability that a black swan bracket wins).</p>
+<p>Out of expediency I went with expected score calculations, but here's a potentially better strategy:<br>
+1) Generate an ensemble of potential outcomes<br>
+2) Generate an ensemble of potential competitive brackets (good source data here: <a href="https://tournament.fantasysports.yahoo.com/t1/pickdistribution" rel="nofollow">https://tournament.fantasysports.yahoo.com/t1/pickdistribution</a>)<br>
+3) Estimate your bracket's probability of winning using those two ensembles (this will depend on the size of the pool)<br>
 4) Optimize!</p>
 <p>For small N, I think this looks more like score maximization. For large N, I believe this is approximately equivalent to the "hedge fund" strategy of picking the black swans. I don't know at what N the crossover happens, but I'd guess it's closer to 100 than to 20. One other thought: I think you can get an additional edge from the observation that people's picks from round to round are not independent (witness mglerner's unhealthy obsession with Kansas 🙂 ). Not sure how to model that, but I'd guess I'm getting into third- or fourth- order effects at this point.</p>
-<p>Now, to empirical results:<br />
+<p>Now, to empirical results:<br>
 I've entered my expected-points-maximizing bracket into two pools with different scoring schemes (one a standard scoring scheme with upset points, and the other is too convoluted and byzantine to explain here). Kentucky was picked to win in 5 out of 14 and 7 out of 18 of the brackets, respectively (including both of my brackets), so I feel like I'm still in the realm where maximizing points matters more than worrying about monkeys at typewriters. I'm sitting at 3rd place in both pools, though within spitting distance of 1st in both. Unfortunately, my two brackets have Villanova and Virginia in the finals, so things are not looking so bright.</p>
 <p>However, I'm still doing better than last year, where my strategy was more akin to "do I know someone who went there?"</p>
 </div>
 
 			<div class="reply">
-				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=24224#respond' onclick='return addComment.moveForm( "comment-24224", "24224", "respond", "16" )' aria-label='Reply to Jessen'>Reply</a>			</div><!-- .reply -->
-		</div><!-- #comment-##  -->
+				<a rel="nofollow" class="comment-reply-link" href="http://www.mglerner.com/blog/?p=16&amp;replytocom=24224#respond" onclick='return addComment.moveForm( "comment-24224", "24224", "respond", "16" )' aria-label="Reply to Jessen">Reply</a>			</div>
+<!-- .reply -->
+		</div>
+<!-- #comment-##  -->
 
 	<ul class="children">
-	<li class="comment odd alt depth-4" id="li-comment-24248">
+<li class="comment odd alt depth-4" id="li-comment-24248">
 		<div id="comment-24248">
 			<div class="comment-author vcard">
-				<img alt='' src='http://2.gravatar.com/avatar/21fc3c6fc9ff02ffe6d8dfd12f72f74c?s=40&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/21fc3c6fc9ff02ffe6d8dfd12f72f74c?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn"><a href='http://partiallattice.wordpress.com' rel='external nofollow' class='url'>Daniel</a></cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				<img alt="" src="http://2.gravatar.com/avatar/21fc3c6fc9ff02ffe6d8dfd12f72f74c?s=40&amp;d=mm&amp;r=g" srcset="http://2.gravatar.com/avatar/21fc3c6fc9ff02ffe6d8dfd12f72f74c?s=80&amp;d=mm&amp;r=g 2x" class="avatar avatar-40 photo" height="40" width="40"><cite class="fn"><a href="http://partiallattice.wordpress.com" rel="external nofollow" class="url">Daniel</a></cite> <span class="says">says:</span>			</div>
+<!-- .comment-author .vcard -->
 			
-			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-24248">
-				March 23, 2015 at 2:57 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=24248">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+			<div class="comment-meta commentmetadata">
+<a href="http://www.mglerner.com/blog/?p=16#comment-24248">
+				March 23, 2015 at 2:57 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&amp;c=24248">(Edit)</a>			</div>
+<!-- .comment-meta .commentmetadata -->
 
-			<div class="comment-body"><p>I think Kentucky this year is a great example of where the points maximizing strategy breaks down even for small pools. From the small pools I've seen, &gt;50% of brackets pick Kentucky to win in spite of them having an estimated ~35% chance of winning. Even in a small pool, you are much more likely to win having picked a team like Arizona because your odds of winning picking Kentucky  even conditional on Kentucky winning are pretty low.</p>
+			<div class="comment-body">
+<p>I think Kentucky this year is a great example of where the points maximizing strategy breaks down even for small pools. From the small pools I've seen, &gt;50% of brackets pick Kentucky to win in spite of them having an estimated ~35% chance of winning. Even in a small pool, you are much more likely to win having picked a team like Arizona because your odds of winning picking Kentucky  even conditional on Kentucky winning are pretty low.</p>
 </div>
 
 			<div class="reply">
-				<a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=16&#038;replytocom=24248#respond' onclick='return addComment.moveForm( "comment-24248", "24248", "respond", "16" )' aria-label='Reply to Daniel'>Reply</a>			</div><!-- .reply -->
-		</div><!-- #comment-##  -->
+				<a rel="nofollow" class="comment-reply-link" href="http://www.mglerner.com/blog/?p=16&amp;replytocom=24248#respond" onclick='return addComment.moveForm( "comment-24248", "24248", "respond", "16" )' aria-label="Reply to Daniel">Reply</a>			</div>
+<!-- .reply -->
+		</div>
+<!-- #comment-##  -->
 
 	<ul class="children">
-	<li class="comment byuser comment-author-mglerner bypostauthor even depth-5" id="li-comment-24252">
+<li class="comment byuser comment-author-mglerner bypostauthor even depth-5" id="li-comment-24252">
 		<div id="comment-24252">
 			<div class="comment-author vcard">
-				<img alt='' src='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">mglerner</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				<img alt="" src="http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&amp;d=mm&amp;r=g" srcset="http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;d=mm&amp;r=g 2x" class="avatar avatar-40 photo" height="40" width="40"><cite class="fn">mglerner</cite> <span class="says">says:</span>			</div>
+<!-- .comment-author .vcard -->
 			
-			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-24252">
-				March 23, 2015 at 3:34 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=24252">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+			<div class="comment-meta commentmetadata">
+<a href="http://www.mglerner.com/blog/?p=16#comment-24252">
+				March 23, 2015 at 3:34 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&amp;c=24252">(Edit)</a>			</div>
+<!-- .comment-meta .commentmetadata -->
 
-			<div class="comment-body"><p>It's funny that this is a bit different from poker, where many people vastly overestimate the need for exploitative play.</p>
+			<div class="comment-body">
+<p>It's funny that this is a bit different from poker, where many people vastly overestimate the need for exploitative play.</p>
 </div>
 
 			<div class="reply">
-							</div><!-- .reply -->
-		</div><!-- #comment-##  -->
+							</div>
+<!-- .reply -->
+		</div>
+<!-- #comment-##  -->
 
-	</li><!-- #comment-## -->
+	</li>
+<!-- #comment-## -->
 	<li class="comment odd alt depth-5" id="li-comment-24253">
 		<div id="comment-24253">
 			<div class="comment-author vcard">
-				<img alt='' src='http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=40&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=80&amp;d=mm&amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' />				<cite class="fn">Jessen</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+				<img alt="" src="http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=40&amp;d=mm&amp;r=g" srcset="http://2.gravatar.com/avatar/e29493f5563def9d6de0c19afd58d6bc?s=80&amp;d=mm&amp;r=g 2x" class="avatar avatar-40 photo" height="40" width="40"><cite class="fn">Jessen</cite> <span class="says">says:</span>			</div>
+<!-- .comment-author .vcard -->
 			
-			<div class="comment-meta commentmetadata"><a href="http://www.mglerner.com/blog/?p=16#comment-24253">
-				March 23, 2015 at 4:26 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&#038;c=24253">(Edit)</a>			</div><!-- .comment-meta .commentmetadata -->
+			<div class="comment-meta commentmetadata">
+<a href="http://www.mglerner.com/blog/?p=16#comment-24253">
+				March 23, 2015 at 4:26 pm</a> <a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&amp;c=24253">(Edit)</a>			</div>
+<!-- .comment-meta .commentmetadata -->
 
-			<div class="comment-body"><p>Yeah, I think you're right. Basically, I'm counting on the triage opportunities in the earlier rounds to push my brackets over the top of the others. If there isn't enough inefficiency in other people's picks, it's better to bet on the undervalued champion. Wish I had time to do a more thorough analysis.</p>
+			<div class="comment-body">
+<p>Yeah, I think you're right. Basically, I'm counting on the triage opportunities in the earlier rounds to push my brackets over the top of the others. If there isn't enough inefficiency in other people's picks, it's better to bet on the undervalued champion. Wish I had time to do a more thorough analysis.</p>
 </div>
 
 			<div class="reply">
-							</div><!-- .reply -->
-		</div><!-- #comment-##  -->
+							</div>
+<!-- .reply -->
+		</div>
+<!-- #comment-##  -->
 
-	</li><!-- #comment-## -->
-</ul><!-- .children -->
-</li><!-- #comment-## -->
-</ul><!-- .children -->
-</li><!-- #comment-## -->
-</ul><!-- .children -->
-</li><!-- #comment-## -->
-</ul><!-- .children -->
-</li><!-- #comment-## -->
+	</li>
+<!-- #comment-## -->
+</ul>
+<!-- .children -->
+</li>
+<!-- #comment-## -->
+</ul>
+<!-- .children -->
+</li>
+<!-- #comment-## -->
+</ul>
+<!-- .children -->
+</li>
+<!-- #comment-## -->
+</ul>
+<!-- .children -->
+</li>
+<!-- #comment-## -->
 			</ol>
-
-
+<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="../blog/?p=16#respond" style="display:none;">Cancel reply</a></small>
+</h3>			<form action="http://www.mglerner.com/blog/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+				<p class="logged-in-as"><a href="http://www.mglerner.com/blog/wp-admin/profile.php" aria-label="Logged in as mglerner. Edit your profile.">Logged in as mglerner</a>. <a href="http://www.mglerner.com/blog/wp-login.php?action=logout&amp;redirect_to=http%3A%2F%2Fwww.mglerner.com%2Fblog%2F%3Fp%3D16&amp;_wpnonce=bac3a2426e">Log out?</a></p>
+<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"><input type="hidden" name="comment_post_ID" value="16" id="comment_post_ID"><input type="hidden" name="comment_parent" id="comment_parent" value="0"></p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="1896126e24"></p>
+<input type="hidden" id="_wp_unfiltered_html_comment_disabled" name="_wp_unfiltered_html_comment_disabled" value="875b61d266"><script>(function(){if(window===window.parent){document.getElementById('_wp_unfiltered_html_comment_disabled').name='_wp_unfiltered_html_comment';}})();</script><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="53"></p>			</form>
+			</div>
+<!-- #respond -->
 	
-
-	<div id="respond" class="comment-respond">
-		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/blog/?p=16#respond" style="display:none;">Cancel reply</a></small></h3>			<form action="http://www.mglerner.com/blog/wp-comments-post.php" method="post" id="commentform" class="comment-form">
-				<p class="logged-in-as"><a href="http://www.mglerner.com/blog/wp-admin/profile.php" aria-label="Logged in as mglerner. Edit your profile.">Logged in as mglerner</a>. <a href="http://www.mglerner.com/blog/wp-login.php?action=logout&amp;redirect_to=http%3A%2F%2Fwww.mglerner.com%2Fblog%2F%3Fp%3D16&amp;_wpnonce=bac3a2426e">Log out?</a></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea></p><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='16' id='comment_post_ID' />
-<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
-</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="1896126e24" /></p><input type="hidden" id="_wp_unfiltered_html_comment_disabled" name="_wp_unfiltered_html_comment_disabled" value="875b61d266" /><script>(function(){if(window===window.parent){document.getElementById('_wp_unfiltered_html_comment_disabled').name='_wp_unfiltered_html_comment';}})();</script>
-<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="53"/></p>			</form>
-			</div><!-- #respond -->
-	
-</div><!-- #comments -->
+</div>
+<!-- #comments -->
 
 
-</body></html>
+
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="getting-a-sensible-python-install-on-my-mac.html" rel="prev" title="Getting a sensible Python install on my Mac">Previous post</a>
+            </li>
+            <li class="next">
+                <a href="drum-head-normal-modes-with-movies.html" rel="next" title="Drum head normal modes, with movies">Next post</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+        
+        
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="biophysics-and-beer",
+            disqus_url="http://www.mglerner.com/blog/posts/march-madness-monte-carlo-style.html",
+        disqus_title="March Madness, Monte Carlo Style!",
+        disqus_identifier="cache/posts/march-madness-monte-carlo-style.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="biophysics-and-beer";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+</div>
+        <!--End of body content-->
+
+        <footer id="footer">
+            Contents © 2017         <a href="mailto:mglerner@gmail.com">mglerner</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+            <script src="../assets/js/all-nocdn.js"></script><script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates -->
+</body>
+</html>
