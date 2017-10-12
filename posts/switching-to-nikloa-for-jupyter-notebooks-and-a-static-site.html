@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Switching to Nikloa for Jupyter Notebooks and a static site | Biophysics and Beer</title>
+<link href="../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
+<link rel="canonical" href="https://mglerner.github.io/posts/switching-to-nikloa-for-jupyter-notebooks-and-a-static-site.html">
+<!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><meta name="author" content="mglerner">
+<link rel="prev" href="can-i-be-smarter-about-late-policies.html" title="Can I be smarter about late policies?" type="text/html">
+<link rel="next" href="visualizing-differential-geometry-in-jupyter-notebooks.html" title="Visualizing Differential Geometry in Jupyter Notebooks" type="text/html">
+<meta property="og:site_name" content="Biophysics and Beer">
+<meta property="og:title" content="Switching to Nikloa for Jupyter Notebooks and a static site">
+<meta property="og:url" content="https://mglerner.github.io/posts/switching-to-nikloa-for-jupyter-notebooks-and-a-static-site.html">
+<meta property="og:description" content="I've been using WordPress for quite a while, almost entirely because it's an out-of-the-box blog setup that just works. But it kind of sucks for what I mostly want to do, which is stick some code into">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2017-10-12T13:52:49Z">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-inverse navbar-static-top"><div class="container">
+<!-- This keeps the margins nice -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://mglerner.github.io/">
+
+                <span id="blog-title">Biophysics and Beer</span>
+            </a>
+        </div>
+<!-- /.navbar-header -->
+        <div class="collapse navbar-collapse" id="bs-navbar" aria-expanded="false">
+            <ul class="nav navbar-nav">
+<li>
+<a href="../archive.html">Archives</a>
+                </li>
+<li>
+<a href="../categories/index.html">Tags</a>
+                </li>
+<li>
+<a href="../rss.xml">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+    <a href="switching-to-nikloa-for-jupyter-notebooks-and-a-static-site.md" id="sourcelink">Source</a>
+    </li>
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        <div class="row">
+            
+            
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="#" class="u-url">Switching to Nikloa for Jupyter Notebooks and a static site</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    mglerner
+            </span></p>
+            <p class="dateline"><a href="#" rel="bookmark"><time class="published dt-published" datetime="2017-10-12T13:52:49Z" itemprop="datePublished" title="2017-10-12 13:52">2017-10-12 13:52</time></a></p>
+                <p class="commentline">
+        
+    <a href="switching-to-nikloa-for-jupyter-notebooks-and-a-static-site.html#disqus_thread" data-disqus-identifier="cache/posts/switching-to-nikloa-for-jupyter-notebooks-and-a-static-site.html">Comments</a>
+
+
+            
+        </p>
+<p class="sourceline"><a href="switching-to-nikloa-for-jupyter-notebooks-and-a-static-site.md" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>I've been using WordPress for quite a while, almost entirely because it's an out-of-the-box blog setup that just works. But it kind of sucks for what I mostly want to do, which is stick some code into blog posts. In fact, what usually happens is that I do something in a Jupyter notebook, and want to stick it up as a blog post. That's a real pain in WordPress. The best I found was converting the notebooks to html and then including them as a static block, but those invariably are brittle and ugly.</p>
+<p>So, smart people like <a href="#">Fernando Perez</a> and <a href="#">Michelle Gill</a> switched over to something that deals natively with Jupyter notebooks a long time ago (so long ago they were called IPython Notebooks!). I'm a slow pony, but I'm switching to Nikola. It seems to be the easiest one at the moment. It's a static page generator, which is more than fine for my purposes, and it deals natively with Jupyter notebooks. Sweet. I thought it would be useful to document the process for future-me. I leaned heavily on the Nikola site (including the <a href="https://getnikola.com/handbook.html#importing-your-wordpress-site-into-nikola">documentation for import_wordpress</a>). The process wasn't completely trivial, but that's because I did some hacky stuff to get Jupyter Notebooks included in my WordPress posts anyway. This seems like a lot of work for like 13 posts, but nobody ever claimed I was wise.</p>
+<h3>Grabbing the site</h3>
+<p>Log in as an administrator, go to the Tools menu, click on Export, then download an Export File. Nice and easy. Thanks, WordPress!</p>
+<h3>Install Nikola</h3>
+<p><em>Note:</em> <code>pip</code> doesn't actually play nicely with the conda environments. It looks like it installs nikola's stuff on top of everything else (e.g. the Nikola tools are available even when I'm not in the <code>blog</code> environment from below). That's not great. I probably should use a virtualenv, but I don't have time to learn what one of those is today.</p>
+<p>I'm using Anaconda for my Python, and Nikola installs via pip, so I make a new environment just for the blog. Probably good practice anyway. Speaking of which, this is all Python 3. There's some <a href="https://github.com/ContinuumIO/anaconda-issues/issues/542">weird bug</a> involved in having pip upgrade setuptools, </p>
+<pre class="code literal-block"><span></span>conda create --name blog
+<span class="nb">source</span> activate blog
+conda install setuptools
+pip install --upgrade <span class="s2">"Nikola[extras]"</span>
+mkdir blog
+<span class="nb">cd</span> blog
+mkdir posts
+mkdir output
+</pre>
+
+
+<p>Now import the wordpress site. If I just say</p>
+<pre class="code literal-block"><span></span>nikola import_wordpress ~/Downloads/biophysicsandbeer.wordpress.2017-10-10.xml
+</pre>
+
+
+<p>I don't actually get some of my content imported. In particular, the quoted Python code doesn't show up. So,</p>
+<pre class="code literal-block"><span></span>nikola import_wordpress --download-auth<span class="o">=[</span>my secret username<span class="o">]</span>:<span class="s2">"[my secret password]"</span> --install-wordpress-compiler --transform-to-html ~/Downloads/biophysicsandbeer.wordpress.2017-10-10.xml
+</pre>
+
+
+<p>Tells it to be explicit about converting to html and downloading everything it can. It also produces some errors, specifically a bunch of lines like</p>
+<pre class="code literal-block"><span></span>[2017-10-11T19:49:10Z] WARNING: Nikola: Can't do a redirect for: 'http://www.mglerner.com/blog/?p=8/'
+</pre>
+
+
+<p>which are telling us that it can't just spit out a new file in place of the old one because the question marks in the URL mean request data. We'll deal with this in a minute.</p>
+<p>We then fire up the site with</p>
+<pre class="code literal-block"><span></span><span class="nb">cd</span> new_site
+nikola build
+nikola serve --browser
+</pre>
+
+
+<p>And it almost all works. Here are the missing things:</p>
+<h4>My pre-rendered Jupyter notebooks suck.</h4>
+<p>I used the pageview WordPress plugin (short code? I don't know) to include pre-rendered Jupyter notebooks. That just breaks upon import. But the Nikloa posts are just straight HTML. I can just include the stuff directly. That was pretty easy. In my future free time (ha!), I might go back and convert some of them directly to Jupyter notebooks.</p>
+<h4>Comments are all missing.</h4>
+<ol>
+<li>
+<p>For future stuff to work, I'll get a Disqus ID and start using it. (biophysics-and-beer ... check).</p>
+</li>
+<li>
+<p>Add all of the old comments by hand. This isn't taking a huge amount of time, because I don't have a huge amount of comments, and I'm not going crazy with matching formatting. I'm just copying the comments div from the old blog. If you're doing this to your own blog, don't forget to get rid of the "response" part of the comments div. If I had it to do over, I'd write a script that did that for me, or I'd learn how to import comments into Disqus, but it didn't take much time this way. On the plus side, I'm ditching some (not all) spam I had missed.</p>
+</li>
+</ol>
+<h4>TODO</h4>
+<ul>
+<li>The twitter follow plugin doesn't work. I think that should be straightforward, but I'll fix it later.</li>
+<li>Get a graphical header back. I have all of the images downloaded, so I just need to figure out how the css/templates work. Maybe make my own theme. But I tried using one of the built-in Nikola themes (srcco.de) and I ended up running into more trouble than I wanted to deal with. This will take an hour or two later.</li>
+</ul>
+<h3>Back to the redirects</h3>
+<p>Those redirects are kind of a pain. That's Nikola saying it can't just spit out a new file in place of the old file because the question marks mean request data. Thanks, wordpress! I wanted simple stuff like an <code>.htaccess</code> file saying</p>
+<pre class="code literal-block"><span></span>Redirect /blog/page8 /blog/new-and-fancy.html
+</pre>
+
+
+<p>but no ... Now I need to look at a <a href="https://stackoverflow.com/questions/9182585/apache-redirect-permanent-for-url-with-data-in-string-question-mark">StackOverflow answer</a> and remember why I stopped being a web developer years ago. Here's my new <code>.htaccess</code> file</p>
+<pre class="code literal-block"><span></span>RewriteEngine on
+RewriteBase /
+
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /blog/\?p=5/ [NC]
+RewriteRule ^ /blog/posts/the-blogging-begins.html [L,R=301]
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /blog/\?p=5 [NC]
+RewriteRule ^ /blog/posts/the-blogging-begins.html [L,R=301]
+</pre>
+
+
+<p>to handle people accessing each page both with and without a trailing slash. Now, where should I point the redirects?</p>
+<h3>Static site means why host it myself?</h3>
+<p>It made sense to host my own WordPress site. But I'm not sure I need to host my own static site. In fact, life would probably be easier if I just used  github pages. Cool.  Github has <a href="https://pages.github.com">instructions</a> that basically boil down to "set up a repo called mglerner.github.io and do some special things" ... and Nikola means I don't have to actually know what those special things are! After initializing my Nikola blog directory as a github repo and doing</p>
+<pre class="code literal-block"><span></span>git remote add origin git@github.com:mglerner/mglerner.github.io.git
+</pre>
+
+
+<p>I can make Nikola rebuild things like github wants, add, commit and push everything automatically with</p>
+<pre class="code literal-block"><span></span>nikola github_deploy
+</pre>
+
+
+<p>So, after having done that, I just make the <code>.htaccess</code> file listed above point everything from my old site to my fancy new github site.</p>
+<p>... and it's up and running!</p>
+<h3>Making it possible to post with Jupyter notebooks</h3>
+<p>This is documented in a few places, but sometimes things change, so
+you're probably better off just looking at the Nikola site
+directly. At the moment, you need to add the last line here to each of
+<code>POSTS</code> and <code>PAGES</code> in <code>/blog/conf.py</code>, so that Nikola will recognize
+Jupyter notebooks as ... you know ... both posts and pages. You also
+need to add the trailing line in <code>COMPILERS</code>.</p>
+<pre class="code literal-block"><span></span><span class="n">POSTS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s2">"posts/*.rst"</span><span class="p">,</span> <span class="s2">"posts"</span><span class="p">,</span> <span class="s2">"post.tmpl"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"posts/*.txt"</span><span class="p">,</span> <span class="s2">"posts"</span><span class="p">,</span> <span class="s2">"post.tmpl"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"posts/*.md"</span><span class="p">,</span> <span class="s2">"posts"</span><span class="p">,</span> <span class="s2">"post.tmpl"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"posts/*.html"</span><span class="p">,</span> <span class="s2">"posts"</span><span class="p">,</span> <span class="s2">"post.tmpl"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"posts/*.ipynb"</span><span class="p">,</span> <span class="s2">"posts"</span><span class="p">,</span> <span class="s2">"post.tmpl"</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">PAGES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s2">"pages/*.rst"</span><span class="p">,</span> <span class="s2">"pages"</span><span class="p">,</span> <span class="s2">"story.tmpl"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"pages/*.txt"</span><span class="p">,</span> <span class="s2">"pages"</span><span class="p">,</span> <span class="s2">"story.tmpl"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"pages/*.md"</span><span class="p">,</span> <span class="s2">"pages"</span><span class="p">,</span> <span class="s2">"story.tmpl"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"pages/*.html"</span><span class="p">,</span> <span class="s2">"pages"</span><span class="p">,</span> <span class="s2">"story.tmpl"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"pages/*.ipynb"</span><span class="p">,</span> <span class="s2">"pages"</span><span class="p">,</span> <span class="s2">"story.tmpl"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+<span class="n">COMPILERS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"rest"</span><span class="p">:</span> <span class="p">(</span><span class="s1">'.txt'</span><span class="p">,</span> <span class="s1">'.rst'</span><span class="p">),</span>
+    <span class="s2">"markdown"</span><span class="p">:</span> <span class="p">(</span><span class="s1">'.md'</span><span class="p">,</span> <span class="s1">'.mdown'</span><span class="p">,</span> <span class="s1">'.markdown'</span><span class="p">),</span>
+    <span class="s2">"html"</span><span class="p">:</span> <span class="p">(</span><span class="s1">'.html'</span><span class="p">,</span> <span class="s1">'.htm'</span><span class="p">),</span>
+    <span class="s2">"ipynb"</span><span class="p">:</span> <span class="p">(</span><span class="s1">'.ipynb'</span><span class="p">,),</span>
+<span class="p">}</span>
+</pre>
+
+
+<h3>Making posts</h3>
+<p>Now comes the whole point: making new posts. Blog posts come with meta data (when it was created, etc.) that normally gets automatically handled when you create a new post via <code>nikola new_post -e</code>. If you want to start with other formats (e.g. Markdown or Jupyter notebooks), you just stick the relevant file in <code>/posts</code> and import it via <code>nikola new_post -i</code>.</p>
+<p>I took the notes for this migration in Markdown, so I just stick that
+file in <code>/posts/BlogMigration.md</code> run <code>nikola new_post -i
+posts/BlogMigration</code> ...</p>
+<p>Or, at least, that's how it should work. I'm a little disappointed to find that the new post import keeps breaking, saying it can't find metadata like the date. It's an easy workaround for markdown: I just make a new post, then copy over my markdown. Looking at the results, I find that Nikola wants the metadata imbedded in the markdown file. So, I should have started the markdown file with</p>
+<pre class="code literal-block"><span></span>&lt;!--
+.. title: Switching to Nikloa for Jupyter Notebooks and a static site
+.. slug: switching-to-nikloa-for-jupyter-notebooks-and-a-static-site
+.. date: 2017-10-12 13:50:23 UTC
+.. tags: 
+.. category: 
+.. link: 
+.. description: 
+.. type: text
+--&gt;
+</pre>
+
+
+<p>Cool. I tested, and I can indeed just stick that at the top of my
+markdown file (which I'm storing in a folder called <code>drafts</code>) and then
+import. Almost. Of all things, it sticks that metadata in twice. So,
+for now, the clear answer is just to make a blank post and then copy
+in my markdown. Easy enough.</p>
+<p>Meanwhile, importing Jupyter notebooks seems to just work!</p>
+<p>then <code>nikola build</code>, then fire up a test server to check it out with <code>nikola serve --browser</code>, verify that all looks awesome, and push it to the blog with <code>nikola github_deploy</code>! </p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="can-i-be-smarter-about-late-policies.html" rel="prev" title="Can I be smarter about late policies?">Previous post</a>
+            </li>
+            <li class="next">
+                <a href="visualizing-differential-geometry-in-jupyter-notebooks.html" rel="next" title="Visualizing Differential Geometry in Jupyter Notebooks">Next post</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+        
+        
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="biophysics-and-beer",
+            disqus_url="https://mglerner.github.io/posts/switching-to-nikloa-for-jupyter-notebooks-and-a-static-site.html",
+        disqus_title="Switching to Nikloa for Jupyter Notebooks and a static site",
+        disqus_identifier="cache/posts/switching-to-nikloa-for-jupyter-notebooks-and-a-static-site.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="biophysics-and-beer";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+</div>
+        <!--End of body content-->
+
+        <footer id="footer">
+            Contents © 2017         <a href="mailto:mglerner@proton.com">mglerner</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+            <script src="../assets/js/all-nocdn.js"></script><script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates -->
+</body>
+</html>

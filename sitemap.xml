@@ -7,102 +7,118 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://mglerner.github.io/2010/index.html</loc>
-  <lastmod>2017-10-12T01:24:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/2011/index.html</loc>
-  <lastmod>2017-10-12T01:24:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/2013/index.html</loc>
-  <lastmod>2017-10-12T02:11:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/2014/index.html</loc>
-  <lastmod>2017-10-12T01:24:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/2015/index.html</loc>
-  <lastmod>2017-10-12T02:11:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/2016/index.html</loc>
-  <lastmod>2017-10-12T02:11:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://mglerner.github.io/2017/index.html</loc>
+  <lastmod>2017-10-12T17:14:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/archive.html</loc>
-  <lastmod>2017-10-12T01:24:00Z</lastmod>
+  <lastmod>2017-10-12T17:14:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/categories/index.html</loc>
-  <lastmod>2017-10-12T01:24:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/galleries/index.html</loc>
-  <lastmod>2017-10-12T01:24:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/index-1.html</loc>
-  <lastmod>2017-10-12T01:24:00Z</lastmod>
+  <lastmod>2017-10-12T17:14:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/index.html</loc>
-  <lastmod>2017-10-12T02:11:00Z</lastmod>
+  <lastmod>2017-10-12T17:14:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/listings/index.html</loc>
-  <lastmod>2017-10-12T01:24:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/pages/about.html</loc>
-  <lastmod>2017-10-12T01:24:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/posts/a-simple-python-logging-example.html</loc>
-  <lastmod>2017-10-12T01:24:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/posts/can-i-be-smarter-about-late-policies.html</loc>
-  <lastmod>2017-10-12T02:12:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/posts/drum-head-normal-modes-with-movies.html</loc>
-  <lastmod>2017-10-12T01:24:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/posts/evolution-of-a-learning-goal.html</loc>
-  <lastmod>2017-10-12T01:24:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://mglerner.github.io/posts/flornk.html</loc>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/posts/getting-a-sensible-python-install-on-my-mac.html</loc>
-  <lastmod>2017-10-12T01:24:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/posts/histograms-and-kernel-density-estimation-kde-2.html</loc>
-  <lastmod>2017-10-12T02:12:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/posts/making-ipython-notebooks-for-the-matplotlib-examples.html</loc>
-  <lastmod>2017-10-12T02:11:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/posts/march-madness-monte-carlo-style.html</loc>
-  <lastmod>2017-10-12T02:11:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/posts/more-march-madness-monte-carlo-style.html</loc>
-  <lastmod>2017-10-12T01:24:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html</loc>
-  <lastmod>2017-10-12T01:24:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://mglerner.github.io/posts/switching-to-nikloa-for-jupyter-notebooks-and-a-static-site.html</loc>
+  <lastmod>2017-10-12T17:14:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/posts/the-blogging-begins.html</loc>
-  <lastmod>2017-10-12T01:24:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/posts/using-numba-to-speed-up-mean-squared-displacement-calculations.html</loc>
-  <lastmod>2017-10-12T02:11:00Z</lastmod>
+  <lastmod>2017-10-12T13:59:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://mglerner.github.io/posts/visualizing-differential-geometry-in-jupyter-notebooks.html</loc>
+  <lastmod>2017-10-12T17:14:00Z</lastmod>
  </url>
 </urlset>
