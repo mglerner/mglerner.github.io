@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>https://mglerner.github.io/galleries/rss.xml</loc>
-  <lastmod>2017-10-12T00:58:00Z</lastmod>
+  <lastmod>2017-10-12T01:18:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://mglerner.github.io/rss.xml</loc>
@@ -15,6 +15,6 @@
  </sitemap>
  <sitemap>
   <loc>https://mglerner.github.io/sitemap.xml</loc>
-  <lastmod>2017-10-12T01:04:00Z</lastmod>
+  <lastmod>2017-10-12T01:18:00Z</lastmod>
  </sitemap>
 </sitemapindex>
