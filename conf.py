@@ -25,7 +25,7 @@ SITE_URL = "https://mglerner.github.io/"
 # This is the URL where Nikola's output will be deployed.
 # If not set, defaults to SITE_URL
 # BASE_URL = "http://www.mglerner.com/blog/"
-BLOG_EMAIL = "mglerner@gmail.com"
+BLOG_EMAIL = "mglerner@proton.com"
 BLOG_DESCRIPTION = "Just what it sounds like"  # (translatable)
 
 # Nikola is multilingual!
@@ -142,7 +142,10 @@ NAVIGATION_LINKS = {
 
 # Name of the theme to use.
 #THEME = "bootstrap3"
-THEME = "bootstrap3-gradients"
+#THEME = "bootstrap3-gradients"
+#THEME = "slidemenu"
+#THEME = "yesplease"
+THEME = "jidn"
 
 # Primary color of your theme. This will be used to customize your theme and
 # auto-generate related colors in POSTS_SECTION_COLORS. Must be a HEX value.
@@ -1349,7 +1352,14 @@ UNSLUGIFY_TITLES = True
 
 # Put in global_context things you want available on all your templates.
 # It can be anything, data, functions, modules, etc.
+## Updated by jidn
 GLOBAL_CONTEXT = {}
+# See README.md for extra configuration details
+GLOBAL_CONTEXT.update({
+    "JIDN": {},  # Extra info about authors
+    # "JIDN-theme": "theme-base-blue",
+})
+
 
 # Add functions here and they will be called with template
 # GLOBAL_CONTEXT as parameter when the template is about to be
