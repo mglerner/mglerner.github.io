@@ -190,6 +190,7 @@ POSTS = (
     ("posts/*.txt", "posts", "post.tmpl"),
     ("posts/*.md", "posts", "post.tmpl"),
     ("posts/*.html", "posts", "post.tmpl"),
+    ("posts/*.ipynb", "posts", "post.tmpl"),
 )
 
 PAGES = (
@@ -197,6 +198,7 @@ PAGES = (
     ("pages/*.txt", "pages", "story.tmpl"),
     ("pages/*.md", "pages", "story.tmpl"),
     ("pages/*.html", "pages", "story.tmpl"),
+    ("pages/*.ipynb", "pages", "story.tmpl"),
 )
 
 
@@ -272,6 +274,7 @@ COMPILERS = {
     "rest": ('.txt', '.rst'),
     "markdown": ('.md', '.mdown', '.markdown'),
     "html": ('.html', '.htm'),
+    "ipynb": ('.ipynb',),
 }
 
 # Create by default posts in one file format?
