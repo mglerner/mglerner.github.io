@@ -6,15 +6,15 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
-  <loc>http://www.mglerner.com/blog/galleries/rss.xml</loc>
-  <lastmod>2017-10-11T20:41:00Z</lastmod>
+  <loc>https://mglerner.github.io/galleries/rss.xml</loc>
+  <lastmod>2017-10-12T00:58:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>http://www.mglerner.com/blog/rss.xml</loc>
-  <lastmod>2017-10-11T22:38:00Z</lastmod>
+  <loc>https://mglerner.github.io/rss.xml</loc>
+  <lastmod>2017-10-12T01:04:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>http://www.mglerner.com/blog/sitemap.xml</loc>
-  <lastmod>2017-10-11T22:38:00Z</lastmod>
+  <loc>https://mglerner.github.io/sitemap.xml</loc>
+  <lastmod>2017-10-12T01:04:00Z</lastmod>
  </sitemap>
 </sitemapindex>

@@ -1,4 +1,4 @@
-Sitemap: http://www.mglerner.com/blog/sitemapindex.xml
+Sitemap: https://mglerner.github.io/sitemapindex.xml
 
 User-Agent: *
-Host: www.mglerner.com
+Host: mglerner.github.io
