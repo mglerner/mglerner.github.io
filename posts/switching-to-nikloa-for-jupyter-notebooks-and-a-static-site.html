@@ -240,6 +240,14 @@ for now, the clear answer is just to make a blank post and then copy
 in my markdown. Easy enough.</p>
 <p>Meanwhile, importing Jupyter notebooks seems to just work!</p>
 <p>then <code>nikola build</code>, then fire up a test server to check it out with <code>nikola serve --browser</code>, verify that all looks awesome, and push it to the blog with <code>nikola github_deploy</code>! </p>
+<h3>Jupyter issues</h3>
+<p>The conversion of Jupyter notebooks doesn't look perfect yet:</p>
+<ul>
+<li>Inline math (starting with a single dollar sign) doesn't always get
+  converted. Starting with two dollar signs does seem to consistently
+  work.</li>
+<li>For JSAnimations, the "animation bar" doesn't have images on the buttons.</li>
+</ul>
 </div>
     </div>
     <aside class="postpromonav"><nav><ul class="pager hidden-print">
