@@ -31,7 +31,7 @@
  </url>
  <url>
   <loc>https://mglerner.github.io/2017/index.html</loc>
-  <lastmod>2017-10-13T14:02:00Z</lastmod>
+  <lastmod>2017-10-13T14:12:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/archive.html</loc>
@@ -51,7 +51,7 @@
  </url>
  <url>
   <loc>https://mglerner.github.io/index.html</loc>
-  <lastmod>2017-10-13T14:02:00Z</lastmod>
+  <lastmod>2017-10-13T14:12:00Z</lastmod>
  </url>
  <url>
   <loc>https://mglerner.github.io/listings/index.html</loc>
@@ -106,10 +106,6 @@
   <lastmod>2017-10-13T14:02:00Z</lastmod>
  </url>
  <url>
-  <loc>https://mglerner.github.io/posts/testing-jsanimation-with-nikola.html</loc>
-  <lastmod>2017-10-13T13:58:00Z</lastmod>
- </url>
- <url>
   <loc>https://mglerner.github.io/posts/the-blogging-begins.html</loc>
   <lastmod>2017-10-12T13:59:00Z</lastmod>
  </url>
@@ -119,6 +115,6 @@
  </url>
  <url>
   <loc>https://mglerner.github.io/posts/visualizing-differential-geometry-in-jupyter-notebooks.html</loc>
-  <lastmod>2017-10-13T14:02:00Z</lastmod>
+  <lastmod>2017-10-13T14:12:00Z</lastmod>
  </url>
 </urlset>
