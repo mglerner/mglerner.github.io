@@ -240,7 +240,13 @@ then `nikola build`, then fire up a test server to check it out with `nikola ser
  * The twitter follow plugin doesn't work. I think that should be
    straightforward, but I'll fix it later. 
  * The text is too big. I can apparently change that in `jidn`'s
-   `custom.css` but I don't quite get how.
+ `custom.css` but I don't quite get how.
+ * There are no links to next/previous posts at the bottom of a post,
+   and the social stuff isn't working. I don't think that's my fault,
+   because it also happens when I create a blank `jidn` site. I
+   cheated with the social stuff by editing `post.tmpl` in an ugly way
+   (not sure why the icons don't work). 
+
 ## Jupyter issues
 
 The conversion of Jupyter notebooks doesn't look perfect yet:
