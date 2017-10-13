@@ -187,3 +187,12 @@ in my markdown. Easy enough.
 Meanwhile, importing Jupyter notebooks seems to just work!
 
 then `nikola build`, then fire up a test server to check it out with `nikola serve --browser`, verify that all looks awesome, and push it to the blog with `nikola github_deploy`! 
+
+## Jupyter issues
+
+The conversion of Jupyter notebooks doesn't look perfect yet:
+
+* Inline math (starting with a single dollar sign) doesn't always get
+  converted. Starting with two dollar signs does seem to consistently
+  work.
+* For JSAnimations, the "animation bar" doesn't have images on the buttons.
