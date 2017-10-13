@@ -11,7 +11,7 @@
 
 I've been using WordPress for quite a while, almost entirely because it's an out-of-the-box blog setup that just works. But it kind of sucks for what I mostly want to do, which is stick some code into blog posts. In fact, what usually happens is that I do something in a Jupyter notebook, and want to stick it up as a blog post. That's a real pain in WordPress. The best I found was converting the notebooks to html and then including them as a static block, but those invariably are brittle and ugly.
 
-So, smart people like [Fernando Perez]() and [Michelle Gill]() switched over to something that deals natively with Jupyter notebooks a long time ago (so long ago they were called IPython Notebooks!). I'm a slow pony, but I'm switching to Nikola. It seems to be the easiest one at the moment. It's a static page generator, which is more than fine for my purposes, and it deals natively with Jupyter notebooks. Sweet. I thought it would be useful to document the process for future-me. I leaned heavily on the Nikola site (including the [documentation for import_wordpress](https://getnikola.com/handbook.html#importing-your-wordpress-site-into-nikola)). The process wasn't completely trivial, but that's because I did some hacky stuff to get Jupyter Notebooks included in my WordPress posts anyway. This seems like a lot of work for like 13 posts, but nobody ever claimed I was wise.
+So, smart people like [Jake Vanderplas](http://jakevdp.github.io) and [themodernscientist](http://themodernscientist.com) switched over to something that deals natively with Jupyter notebooks a long time ago (so long ago they were called IPython Notebooks!). I'm a slow pony, but I'm switching to Nikola. It seems to be the easiest one at the moment. It's a static page generator, which is more than fine for my purposes, and it deals natively with Jupyter notebooks. Sweet. I thought it would be useful to document the process for future-me. I leaned heavily on the Nikola site (including the [documentation for import_wordpress](https://getnikola.com/handbook.html#importing-your-wordpress-site-into-nikola)). The process wasn't completely trivial, but that's because I did some hacky stuff to get Jupyter Notebooks included in my WordPress posts anyway. This seems like a lot of work for like 13 posts, but nobody ever claimed I was wise.
 
 ## Grabbing the site
 
@@ -43,7 +43,7 @@ nikola import_wordpress ~/Downloads/biophysicsandbeer.wordpress.2017-10-10.xml
 I don't actually get some of my content imported. In particular, the quoted Python code doesn't show up. So,
 
 ```shell
-nikola import_wordpress --download-auth=[my secret username]:"[my secret password]" --install-wordpress-compiler --transform-to-html ~/Downloads/biophysicsandbeer.wordpress.2017-10-10.xml
+nikola import_wordpress --download-auth=[my secret username]:[my secret password] --install-wordpress-compiler --transform-to-html ~/Downloads/biophysicsandbeer.wordpress.2017-10-10.xml
 ```
 
 Tells it to be explicit about converting to html and downloading everything it can. It also produces some errors, specifically a bunch of lines like
@@ -74,10 +74,57 @@ I used the pageview WordPress plugin (short code? I don't know) to include pre-r
 
 2. Add all of the old comments by hand. This isn't taking a huge amount of time, because I don't have a huge amount of comments, and I'm not going crazy with matching formatting. I'm just copying the comments div from the old blog. If you're doing this to your own blog, don't forget to get rid of the "response" part of the comments div. If I had it to do over, I'd write a script that did that for me, or I'd learn how to import comments into Disqus, but it didn't take much time this way. On the plus side, I'm ditching some (not all) spam I had missed.
 
-###TODO
 
- * The twitter follow plugin doesn't work. I think that should be straightforward, but I'll fix it later.
- * Get a graphical header back. I have all of the images downloaded, so I just need to figure out how the css/templates work. Maybe make my own theme. But I tried using one of the built-in Nikola themes (srcco.de) and I ended up running into more trouble than I wanted to deal with. This will take an hour or two later.
+## Getting a graphical header/theme fun time
+
+I found the [Nikola tutorial for theming](https://getnikola.com/creating-a-theme.html) ... somewhat more than I was
+interested in. But, it had enough useful nuggets to figure out the
+basics. The basic idea is (1) put my header image somewhere (2) edit
+the header template. Let's go.
+
+First, I'm going to want to change the `base_header.tmpl` so I
+searched for themes that came with that on the
+[Nikola Theme site](https://github.com/getnikola/nikola-themes/find/master). Of
+those, I like `jidn` the most. So,
+
+```shell
+nikola theme -i bootstrap3-gradients
+```
+
+Then edit `conf.py` to switch the theme to jidn and, as indicated in
+the text when you install the jidn theme, add a few lines to `conf.py`
+
+```
+THEME = "jidn"
+...
+GLOBAL_CONTEXT.update({
+    "JIDN": {},  # Extra info about authors
+    # "JIDN-theme": "theme-base-blue",
+})
+...
+```
+(Actually, as described in the jidn README.md, you can add more info
+to that dictionary, so I added a link to my twitter profile image,
+etc. Neat.)
+
+The WordPress import stuck all of the versions of my header in
+`files/blog/wp-content/wp-content/uploads/` and I'm just copying them
+to `files` to make them easy to find. Then I add the `img` tag right
+after the title in `themes/jidn/templates/base_header.tmpl`:
+
+```
+    <h2 id="brand" class="masthead-title">
+      <a href="${abs_link(_link("root", None, lang))}" title="${blog_title}" rel="home">${blog_title}</a>
+    </h2>
+    <img src="/mglblogheader.png" />
+```
+
+I'm very far from up-to-date with modern web
+design, but that looks OK for now.
+
+While I'm editing the templates,
+there's a link to "blog" in the sidebar I don't want, so I replaced it
+with a link to the about page.
 
 ## Back to the redirects
 
@@ -188,6 +235,12 @@ Meanwhile, importing Jupyter notebooks seems to just work!
 
 then `nikola build`, then fire up a test server to check it out with `nikola serve --browser`, verify that all looks awesome, and push it to the blog with `nikola github_deploy`! 
 
+##TODO
+
+ * The twitter follow plugin doesn't work. I think that should be
+   straightforward, but I'll fix it later. 
+ * The text is too big. I can apparently change that in `jidn`'s
+   `custom.css` but I don't quite get how.
 ## Jupyter issues
 
 The conversion of Jupyter notebooks doesn't look perfect yet:

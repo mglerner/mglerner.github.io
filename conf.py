@@ -17,7 +17,7 @@ import time
 
 
 # Data about this site
-BLOG_AUTHOR = "mglerner"  # (translatable)
+BLOG_AUTHOR = "Michael G. Lerner"  # (translatable)
 BLOG_TITLE = "Biophysics and Beer"  # (translatable)
 # This is the main URL for your site. It will be used
 # in a prominent link. Don't forget the protocol (http/https)!
@@ -25,8 +25,8 @@ SITE_URL = "https://mglerner.github.io/"
 # This is the URL where Nikola's output will be deployed.
 # If not set, defaults to SITE_URL
 # BASE_URL = "http://www.mglerner.com/blog/"
-BLOG_EMAIL = "mglerner@proton.com"
-BLOG_DESCRIPTION = "Just what it sounds like"  # (translatable)
+BLOG_EMAIL = "mglerner@protonmail.com"
+BLOG_DESCRIPTION = "Just what it sounds like."  # (translatable)
 
 # Nikola is multilingual!
 #
@@ -141,11 +141,12 @@ NAVIGATION_LINKS = {
 }
 
 # Name of the theme to use.
-THEME = "bootstrap3"
+#THEME = "bootstrap3"
 #THEME = "bootstrap3-gradients"
 #THEME = "slidemenu"
 #THEME = "yesplease"
-#THEME = "jidn"
+THEME = "jidn"
+#THEME = "hyde"
 
 # Primary color of your theme. This will be used to customize your theme and
 # auto-generate related colors in POSTS_SECTION_COLORS. Must be a HEX value.
@@ -1359,7 +1360,16 @@ UNSLUGIFY_TITLES = True
 GLOBAL_CONTEXT = {}
 # See README.md for extra configuration details
 GLOBAL_CONTEXT.update({
-    "JIDN": {},  # Extra info about authors
+    "JIDN": {
+        BLOG_AUTHOR:{
+            "image": "https://pbs.twimg.com/profile_images/196327413/MGLProfile_400x400.jpg",
+            "email":BLOG_EMAIL,
+            "social":(
+                "https://twitter.com/mglerner",
+                "https://github.com/mglerner",
+            )
+        }
+    },  # Extra info about authors
     # "JIDN-theme": "theme-base-blue",
 })
 
