@@ -1,1 +1,12 @@
 /* Help! Someone tell me how to make the fonts smaller here! */
+html {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+}
+@media (min-width: 38em) {
+  html {
+    font-size: 16px;
+  }
+}
+
