@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " vocab="http://ogp.me/ns" lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Making IPython Notebooks for the matplotlib examples | Biophysics and Beer</title>
-<link href="../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link href="../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
-<link href="../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
-<meta name="theme-color" content="#5670d4">
-<meta name="generator" content="Nikola (getnikola.com)">
+<link href="../assets/css/all.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
 <link rel="canonical" href="https://mglerner.github.io/posts/making-ipython-notebooks-for-the-matplotlib-examples.html">
-<!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><meta name="author" content="mglerner">
+<!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><meta name="author" content="Michael G. Lerner">
 <link rel="prev" href="histograms-and-kernel-density-estimation-kde-2.html" title="Histograms and Kernel Density Estimation (KDE)" type="text/html">
 <link rel="next" href="speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html" title="Lookup Tables" type="text/html">
 <meta property="og:site_name" content="Biophysics and Beer">
@@ -23,77 +20,54 @@ matplotlib comes with tons of fantastic examples. I’m not as familiar with mat
 <meta property="article:published_time" content="2013-12-29T10:48:12Z">
 </head>
 <body>
-<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+            styles, `#sidebar-checkbox` for behavior. -->
+    <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"><!-- Toggleable sidebar --><div class="sidebar" id="sidebar">
 
-<!-- Menubar -->
-
-<nav class="navbar navbar-inverse navbar-static-top"><div class="container">
-<!-- This keeps the margins nice -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="https://mglerner.github.io/">
-
-                <span id="blog-title">Biophysics and Beer</span>
-            </a>
-        </div>
-<!-- /.navbar-header -->
-        <div class="collapse navbar-collapse" id="bs-navbar" aria-expanded="false">
-            <ul class="nav navbar-nav">
-<li>
-<a href="../archive.html">Archives</a>
-                </li>
-<li>
-<a href="../categories/index.html">Tags</a>
-                </li>
-<li>
-<a href="../rss.xml">RSS feed</a>
-
-                
-            </li>
-</ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-    <a href="making-ipython-notebooks-for-the-matplotlib-examples.src.html" id="sourcelink">Source</a>
-    </li>
-
-                
-            </ul>
+        <nav role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../"><i class="fa fa-2x fa-fw fa-home"></i> Home</a>
+          <!--a class="sidebar-nav-item" href="/blog"><i class="fa fa-2x fa-fw fa-user-circle" /> Blog</a-->
+          <a class="sidebar-nav-item" href="../pages/about.html"><i class="fa fa-2x fa-fw fa-user-circle"></i> About
+        </a></nav><nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../archive.html">Archives</a>
+        <a class="sidebar-nav-item" href="../categories/index.html">Tags</a>
+        <a class="sidebar-nav-item" href="../rss.xml">RSS feed</a>
+    
+    
+    </nav>
 </div>
-<!-- /.navbar-collapse -->
-    </div>
-<!-- /.container -->
-</nav><!-- End of Menubar --><div class="container" id="content" role="main">
-    <div class="body-content">
-        <!--Body content-->
-        <div class="row">
-            
-            
-<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="#" class="u-url">Making IPython Notebooks for the matplotlib examples</a></h1>
 
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          
+    <h2 id="brand" class="masthead-title">
+      <a href="https://mglerner.github.io/" title="Biophysics and Beer" rel="home">Biophysics and Beer</a>
+    </h2>
+    <img src="../mglblogheader.png">
+</div>
+      </div>
+
+      <div class="container content" id="content">
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/BlogPosting"><header><h1 class="post-title p-name entry-title" itemprop="headline">
+      <a href="https://mglerner.github.io/posts/making-ipython-notebooks-for-the-matplotlib-examples.html" class="u-url">Making IPython Notebooks for the matplotlib examples</a>
+</h1>
         <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                    mglerner
-            </span></p>
-            <p class="dateline"><a href="#" rel="bookmark"><time class="published dt-published" datetime="2013-12-29T10:48:12Z" itemprop="datePublished" title="2013-12-29 10:48">2013-12-29 10:48</time></a></p>
+        <meta itemprop="inLanguage" content="en">
+<p class="dateline">
+            <time class="post-date published dt-published" datetime="2013-12-29T10:48:12+00:00" itemprop="datePublished" title="2013-12-29 10:48">2013-12-29 10:48</time></p>
                 <p class="commentline">
         
     <a href="making-ipython-notebooks-for-the-matplotlib-examples.html#disqus_thread" data-disqus-identifier="cache/posts/making-ipython-notebooks-for-the-matplotlib-examples.html">Comments</a>
 
 
-            
         </p>
-<p class="sourceline"><a href="making-ipython-notebooks-for-the-matplotlib-examples.src.html" class="sourcelink">Source</a></p>
-
-        </div>
+</div>
         
 
-    </header><div class="e-content entry-content" itemprop="articleBody text">
-    <p>[twitter-follow username="mglerner" scheme="dark"]</p>
+    </header><section class="e-content entry-content" itemprop="articleBody text"><p>[twitter-follow username="mglerner" scheme="dark"]</p>
 <p><a href="http://matplotlib.org/">matplotlib</a> comes with tons of fantastic <a href="http://matplotlib.org/examples/index.html">examples</a>. I’m not as familiar with matplotlib as I probably should be, so I often find myself wanting to tinker a bit, but needing to refer to those examples. Since matplotlib comes with such wonderful documentation, I though it would be great to just turn those docs into <a href="https://github.com/ipython/ipython/wiki/A-gallery-of-interesting-IPython-Notebooks">IPython Notebooks</a> for easy tinkering. That’s probably biting off a bit more than I want to chew at the moment, considering that the matplotlib docs are fairly involved and written in <a href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> instead of <a href="http://daringfireball.net/projects/markdown/">markdown</a> (what the IPython Notebook uses).</p>
 <p>Luckily, the IPython Notebook format is so mind-bendingly sane that I didn’t even need to read any documentation to understand it. So, instead, I wrote a bit of code that gobbles up matplotlib example scripts and spits out IPython Notebooks. <del datetime="2013-12-31T19:43:42+00:00">The whole notebook is JSON, but I only want simple things, so I hardcode everything except for the cells.</del> (After Daniel’s comment below, I started to write my own JSONEncoder. Then, I realized that I was right about the “it’s all JSON” thing and rewrote the notebook class). I have a little IPyNB class that knows how to add cells to itself and spit out the results as strings and files:</p>
 <pre class="brush:py">
@@ -577,15 +551,46 @@ In []:
 </div>
 <!-- #comments -->
 
-    </div>
-    <aside class="postpromonav"><nav><ul class="pager hidden-print">
-<li class="previous">
-                <a href="histograms-and-kernel-density-estimation-kde-2.html" rel="prev" title="Histograms and Kernel Density Estimation (KDE)">Previous post</a>
-            </li>
-            <li class="next">
-                <a href="speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html" rel="next" title="Lookup Tables">Next post</a>
-            </li>
-        </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+    </section><aside class="sharing no-print"><a href="#content" aria-label="Post beginning">
+       <i class="fa fa-2x fa-fw fa-arrow-circle-up" aria-hidden="true" title="Post beginning"></i>
+    </a>
+    <a href="https://mglerner.github.io/posts/histograms-and-kernel-density-estimation-kde-2.html" rel="prev" title="Histograms and Kernel Density Estimation (KDE)">
+       <i class="fa fa-2x fa-fw fa-arrow-circle-left" aria-hidden="true" title="Previous post: Histograms and Kernel Density Estimation (KDE)"></i>
+    </a>
+    <a href="https://mglerner.github.io/posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html" rel="next" title="Next post: Lookup Tables" aria-label="Next post: Lookup Tables">
+       <i class="fa fa-2x fa-fw fa-arrow-circle-right" aria-hidden="true"></i>
+    </a>
+    <span class="post-sharing">
+     <a href="http://twitter.com/share?text=Making+IPython+Notebooks+for+the+matplotlib+examples&amp;url=https%3A%2F%2Fmglerner.github.io%2Fposts%2Fmaking-ipython-notebooks-for-the-matplotlib-examples.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" aria-label="Share on Twitter">
+       <i class="fa fa-2x fa-fw fa-twitter-square" aria-hidden="true" title="Share on Twitter">
+     </i></a>
+     <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmglerner.github.io%2Fposts%2Fmaking-ipython-notebooks-for-the-matplotlib-examples.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" aria-label="Share on Facebook">
+       <i class="fa fa-2x fa-fw fa-facebook-square" style="margin-left: -8px" aria-hidden="true" title="Share of Facebook">
+     </i></a>
+     <a href="https://plus.google.com/share?url=https%3A%2F%2Fmglerner.github.io%2Fposts%2Fmaking-ipython-notebooks-for-the-matplotlib-examples.html" aria-label="Share on Google+" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+       <i class="fa fa-2x fa-fw fa-google-plus-square" style="margin-left: -8px" aria-hidden="true" title="Share on Google+">
+     </i></a>
+     </span>
+</aside><div itemprop="author" itemscope itemtype="http://schema.org/Person">
+<footer class="byline author author-bio vcard"><hr>
+<meta itemprop="image" content="https://pbs.twimg.com/profile_images/196327413/MGLProfile_400x400.jpg">
+<div class="author-image" style="background: url(https://pbs.twimg.com/profile_images/196327413/MGLProfile_400x400.jpg)"></div>
+     <h3 class="byline-name fn" itemprop="name">Michael G. Lerner
+        <span class="post-sharing">
+            <a href="mailto:mglerner@protonmail.com?subject=Making%20IPython%20Notebooks%20for%20the%20matplotlib%20examples" aria-label="Email author">
+            <i class="fa fa-2 fa-fw fa-envelope" aria-hidden="true" title="Email author">
+            </i></a>
+        </span>
+        <span class="post-sharing">
+            <a href="https://twitter.com/mglerner" target="_blank" arial-label="Go to Twitter"> <i class="fa fa-fw fa-twitter" aria-hidden="true" title="Twitter"></i></a>
+            <a href="https://github.com/mglerner" target="_blank" arial-label="Go to GitHub"> <i class="fa fa-fw fa-github" aria-hidden="true" title="GitHub"></i></a>
+        </span>
+     </h3>
+</footer>
+</div>
+
+
+        <section class="comments hidden-print"><h2>Comments</h2>
         
         
         <div id="disqus_thread"></div>
@@ -607,19 +612,16 @@ In []:
     <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
-        </section></article><script>var disqus_shortname="biophysics-and-beer";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
-</div>
-        <!--End of body content-->
-
-        <footer id="footer">
-            Contents © 2017         <a href="mailto:mglerner@proton.com">mglerner</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+        </section></article><script>var disqus_shortname="biophysics-and-beer";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2017         <a href="mailto:mglerner@protonmail.com">Michael G. Lerner</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>
-</div>
-
-
-            <script src="../assets/js/all-nocdn.js"></script><script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
+    </div>
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
+    
+    
+            <script src="../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
     moment.locale("en");
     fancydates(0, "YYYY-MM-DD HH:mm");
     </script><!-- end fancy dates -->
