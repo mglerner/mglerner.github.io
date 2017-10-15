@@ -11,7 +11,22 @@
 
 I've been using WordPress for quite a while, almost entirely because it's an out-of-the-box blog setup that just works. But it kind of sucks for what I mostly want to do, which is stick some code into blog posts. In fact, what usually happens is that I do something in a Jupyter notebook, and want to stick it up as a blog post. That's a real pain in WordPress. The best I found was converting the notebooks to html and then including them as a static block, but those invariably are brittle and ugly.
 
-So, smart people like [Jake Vanderplas](http://jakevdp.github.io) and [themodernscientist](http://themodernscientist.com) switched over to something that deals natively with Jupyter notebooks a long time ago (so long ago they were called IPython Notebooks!). I'm a slow pony, but I'm switching to Nikola. It seems to be the easiest one at the moment. It's a static page generator, which is more than fine for my purposes, and it deals natively with Jupyter notebooks. Sweet. I thought it would be useful to document the process for future-me. I leaned heavily on the Nikola site (including the [documentation for import_wordpress](https://getnikola.com/handbook.html#importing-your-wordpress-site-into-nikola)). The process wasn't completely trivial, but that's because I did some hacky stuff to get Jupyter Notebooks included in my WordPress posts anyway. This seems like a lot of work for like 13 posts, but nobody ever claimed I was wise.
+So, smart people like [Jake Vanderplas](http://jakevdp.github.io) and
+[themodernscientist](http://themodernscientist.com) switched over to
+something that deals natively with Jupyter notebooks a long time ago
+(so long ago they were called IPython Notebooks!). I'm a slow pony,
+but I'm switching to Nikola. It seems to be the easiest one at the
+moment. It's a static page generator, which is more than fine for my
+purposes, and it deals natively with Jupyter notebooks. Sweet. I
+thought it would be useful to document the process for future-me. I
+leaned heavily on the Nikola site (including the
+[documentation for import_wordpress](https://getnikola.com/handbook.html#importing-your-wordpress-site-into-nikola)). The
+process wasn't completely trivial, but that's because I did some hacky
+stuff to get Jupyter Notebooks included in my WordPress posts
+anyway. This seems like a lot of work for like 13 posts, but nobody
+ever claimed I was wise.
+
+<!-- TEASER_END -->
 
 ## Grabbing the site
 
@@ -66,8 +81,28 @@ And it almost all works. Here are the missing things:
 
 ###My pre-rendered Jupyter notebooks suck.
 
-I used the pageview WordPress plugin (short code? I don't know) to include pre-rendered Jupyter notebooks. That just breaks upon import. But the Nikloa posts are just straight HTML. I can just include the stuff directly. That was pretty easy. In my future free time (ha!), I might go back and convert some of them directly to Jupyter notebooks.
 
+I used the pageview WordPress plugin (short code? I don't know) to
+include pre-rendered Jupyter notebooks. That just breaks upon
+import. But the Nikloa posts are just straight HTML. I can just
+include the stuff directly. That was pretty easy. In my future free
+time (ha!), I might go back and convert some of them directly to
+Jupyter notebooks. The main remaining reason to do so, I think, is to
+make it so that "teasers" (i.e. the ability to only show the first few
+paragraphs) works. See the bit about teasers later in the post. When I
+do that, I need to make sure I include comments explicitly in the
+Jupyter notebook. As mentioned below, I can just include the raw html
+for them, and tell the Jupyter notebook to render it via something
+like
+
+```python
+from IPython.core.display import HTML
+HTML('''fancy pants html code here''')
+```
+
+I also need to remember to edit the meta data at the end of the
+imported Jupyter notebook so that Nikola gets the date right.
+ 
 ###Comments are all missing.
 
 1. For future stuff to work, I'll get a Disqus ID and start using it. (biophysics-and-beer ... check).
@@ -259,17 +294,30 @@ block" so it's possible that I screwed something up.
 
 That fixes the lack of next/previous/social buttons. Sweet!
 
+## Cleaning up long posts
+
+Some of the posts are really long. You can tell Nikola to only show a
+"teaser" by putting
+
+```python
+INDEX_TEASERS = True
+```
+
+in `conf.py`
+
+And then adding
+
+```
+<!-- TEASER_END -->
+```
+
+to a Markdown cell in a Jupyter notebook, or directly to a Markdown
+post, or directly to an html post. Cool.
+
 ##TODO
 
- * The twitter follow plugin doesn't work. I think that should be
-   straightforward, but I'll fix it later. 
  * The text is too big. I can apparently change that in `jidn`'s
  `custom.css` but I don't quite get how.
- * There are no links to next/previous posts at the bottom of a post,
-   and the social stuff isn't working. I don't think that's my fault,
-   because it also happens when I create a blank `jidn` site. I
-   cheated with the social stuff by editing `post.tmpl` in an ugly way
-   (not sure why the icons don't work).
 
 ## Jupyter issues
 
