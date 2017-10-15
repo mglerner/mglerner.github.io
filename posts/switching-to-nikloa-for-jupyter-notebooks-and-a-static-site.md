@@ -233,7 +233,31 @@ in my markdown. Easy enough.
 
 Meanwhile, importing Jupyter notebooks seems to just work!
 
-then `nikola build`, then fire up a test server to check it out with `nikola serve --browser`, verify that all looks awesome, and push it to the blog with `nikola github_deploy`! 
+then `nikola build`, then fire up a test server to check it out with
+`nikola serve --browser`, verify that all looks awesome, and push it
+to the blog with `nikola github_deploy`!
+
+## Missing buttons
+
+The code in `post.tmpl` looks like it should work, but the icons don't
+show up. It looks to me like it's trying to grab stuff from
+[FontAwesome](http://fontawesome.io/get-started/), but I don't see
+anywhere that the FontAwesome stuff is actually linked on my
+site. Following the FontAwesome directions,
+
+* Download the `font-awesome` directory.
+* Stick it in `themes/jidn/assets/font-awesome`
+* Add the following to `base.tmpl`:
+
+```
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+```
+
+... Now, I added it right before `</head>`, which looks ot me like
+it's OK, but it's right after a place where it says "don't change this
+block" so it's possible that I screwed something up.
+
+That fixes the lack of next/previous/social buttons. Sweet!
 
 ##TODO
 
@@ -245,7 +269,7 @@ then `nikola build`, then fire up a test server to check it out with `nikola ser
    and the social stuff isn't working. I don't think that's my fault,
    because it also happens when I create a blank `jidn` site. I
    cheated with the social stuff by editing `post.tmpl` in an ugly way
-   (not sure why the icons don't work). 
+   (not sure why the icons don't work).
 
 ## Jupyter issues
 

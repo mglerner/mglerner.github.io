@@ -153,7 +153,7 @@ def social_link(url):
         title = substitute.get(icon.title(), icon.title())
         icon = substitute.get(icon, icon)
 
-    rv = '''<a href="{url}" target="_blank" arial-label="Go to {title}"> <i class="fa fa-fw fa-{icon}" aria-hidden="true" title="{title}" />{icon}</a>'''.format(url=url, icon=icon, title=title)
-    #rv = '''<a href="{url}" target="_blank" arial-label="Go to {title}"> <i class="fa fa-fw fa-{icon}" aria-hidden="true" title="{title}" /></a>'''.format(url=url, icon=icon, title=title)
+    #rv = '''<a href="{url}" target="_blank" arial-label="Go to {title}"> <i class="fa fa-fw fa-{icon}" aria-hidden="true" title="{title}" />{icon}</a>'''.format(url=url, icon=icon, title=title)
+    rv = '''<a href="{url}" target="_blank" arial-label="Go to {title}"> <i class="fa fa-fw fa-{icon}" aria-hidden="true" title="{title}" /></a>'''.format(url=url, icon=icon, title=title)
     return rv
 %>

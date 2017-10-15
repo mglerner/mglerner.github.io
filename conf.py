@@ -1364,6 +1364,7 @@ GLOBAL_CONTEXT.update({
         BLOG_AUTHOR:{
             "image": "https://pbs.twimg.com/profile_images/196327413/MGLProfile_400x400.jpg",
             "email":BLOG_EMAIL,
+            "bio": """Biophysicist, pedagogy, lipids, membranes, sometimes even proteins and nucleic acids. <a href="https://github.com/mglerner/IntroductoryPhysics">Decolonising my Introductory Physics Syllabus</a>.""",
             "social":(
                 "https://twitter.com/mglerner",
                 "https://github.com/mglerner",
