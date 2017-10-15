@@ -17,6 +17,7 @@
 <meta property="og:description" content="I've been using WordPress for quite a while, almost entirely because it's an out-of-the-box blog setup that just works. But it kind of sucks for what I mostly want to do, which is stick some code into">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2017-10-12T13:52:49Z">
+<link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css">
 </head>
 <body>
     <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -252,7 +253,29 @@ import. Almost. Of all things, it sticks that metadata in twice. So,
 for now, the clear answer is just to make a blank post and then copy
 in my markdown. Easy enough.</p>
 <p>Meanwhile, importing Jupyter notebooks seems to just work!</p>
-<p>then <code>nikola build</code>, then fire up a test server to check it out with <code>nikola serve --browser</code>, verify that all looks awesome, and push it to the blog with <code>nikola github_deploy</code>! </p>
+<p>then <code>nikola build</code>, then fire up a test server to check it out with
+<code>nikola serve --browser</code>, verify that all looks awesome, and push it
+to the blog with <code>nikola github_deploy</code>!</p>
+<h3>Missing buttons</h3>
+<p>The code in <code>post.tmpl</code> looks like it should work, but the icons don't
+show up. It looks to me like it's trying to grab stuff from
+<a href="http://fontawesome.io/get-started/">FontAwesome</a>, but I don't see
+anywhere that the FontAwesome stuff is actually linked on my
+site. Following the FontAwesome directions,</p>
+<ul>
+<li>Download the <code>font-awesome</code> directory.</li>
+<li>Stick it in <code>themes/jidn/assets/font-awesome</code>
+</li>
+<li>Add the following to <code>base.tmpl</code>:</li>
+</ul>
+<pre class="code literal-block"><span></span>&lt;link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"&gt;
+</pre>
+
+
+<p>... Now, I added it right before <code>&lt;/head&gt;</code>, which looks ot me like
+it's OK, but it's right after a place where it says "don't change this
+block" so it's possible that I screwed something up.</p>
+<p>That fixes the lack of next/previous/social buttons. Sweet!</p>
 <h3>TODO</h3>
 <ul>
 <li>The twitter follow plugin doesn't work. I think that should be
@@ -263,7 +286,7 @@ in my markdown. Easy enough.</p>
    and the social stuff isn't working. I don't think that's my fault,
    because it also happens when I create a blank <code>jidn</code> site. I
    cheated with the social stuff by editing <code>post.tmpl</code> in an ugly way
-   (not sure why the icons don't work). </li>
+   (not sure why the icons don't work).</li>
 </ul>
 <h3>Jupyter issues</h3>
 <p>The conversion of Jupyter notebooks doesn't look perfect yet:</p>
@@ -305,10 +328,11 @@ in my markdown. Easy enough.</p>
             </i></a>
         </span>
         <span class="post-sharing">
-            <a href="https://twitter.com/mglerner" target="_blank" arial-label="Go to Twitter"> <i class="fa fa-fw fa-twitter" aria-hidden="true" title="Twitter"></i>twitter</a>
-            <a href="https://github.com/mglerner" target="_blank" arial-label="Go to GitHub"> <i class="fa fa-fw fa-github" aria-hidden="true" title="GitHub"></i>github</a>
+            <a href="https://twitter.com/mglerner" target="_blank" arial-label="Go to Twitter"> <i class="fa fa-fw fa-twitter" aria-hidden="true" title="Twitter"></i></a>
+            <a href="https://github.com/mglerner" target="_blank" arial-label="Go to GitHub"> <i class="fa fa-fw fa-github" aria-hidden="true" title="GitHub"></i></a>
         </span>
      </h3>
+     <p class="bio">Biophysicist, pedagogy, lipids, membranes, sometimes even proteins and nucleic acids. <a href="https://github.com/mglerner/IntroductoryPhysics">Decolonising my Introductory Physics Syllabus</a>.</p>
 </footer>
 </div>
 
