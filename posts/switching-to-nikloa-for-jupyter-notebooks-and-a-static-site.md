@@ -101,7 +101,8 @@ HTML('''fancy pants html code here''')
 ```
 
 I also need to remember to edit the meta data at the end of the
-imported Jupyter notebook so that Nikola gets the date right.
+imported Jupyter notebook so that Nikola gets the date right. You have
+to remember to do that *after* Nikola imports the post.
  
 ###Comments are all missing.
 
