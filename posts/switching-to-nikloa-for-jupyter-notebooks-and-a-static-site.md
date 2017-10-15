@@ -327,4 +327,6 @@ The conversion of Jupyter notebooks doesn't look perfect yet:
 * Inline math (starting with a single dollar sign) doesn't always get
   converted. Starting with two dollar signs does seem to consistently
   work.
-* For JSAnimations, the "animation bar" doesn't have images on the buttons.
+* For JSAnimations, the "animation bar" doesn't have images on the
+  buttons. That seems to have magically fixed itself. The FontAwesome
+  thing again?
