@@ -69,7 +69,22 @@
 
     </header><section class="e-content entry-content" itemprop="articleBody text"><div>
 <p>I've been using WordPress for quite a while, almost entirely because it's an out-of-the-box blog setup that just works. But it kind of sucks for what I mostly want to do, which is stick some code into blog posts. In fact, what usually happens is that I do something in a Jupyter notebook, and want to stick it up as a blog post. That's a real pain in WordPress. The best I found was converting the notebooks to html and then including them as a static block, but those invariably are brittle and ugly.</p>
-<p>So, smart people like <a href="http://jakevdp.github.io">Jake Vanderplas</a> and <a href="http://themodernscientist.com">themodernscientist</a> switched over to something that deals natively with Jupyter notebooks a long time ago (so long ago they were called IPython Notebooks!). I'm a slow pony, but I'm switching to Nikola. It seems to be the easiest one at the moment. It's a static page generator, which is more than fine for my purposes, and it deals natively with Jupyter notebooks. Sweet. I thought it would be useful to document the process for future-me. I leaned heavily on the Nikola site (including the <a href="https://getnikola.com/handbook.html#importing-your-wordpress-site-into-nikola">documentation for import_wordpress</a>). The process wasn't completely trivial, but that's because I did some hacky stuff to get Jupyter Notebooks included in my WordPress posts anyway. This seems like a lot of work for like 13 posts, but nobody ever claimed I was wise.</p>
+<p>So, smart people like <a href="http://jakevdp.github.io">Jake Vanderplas</a> and
+<a href="http://themodernscientist.com">themodernscientist</a> switched over to
+something that deals natively with Jupyter notebooks a long time ago
+(so long ago they were called IPython Notebooks!). I'm a slow pony,
+but I'm switching to Nikola. It seems to be the easiest one at the
+moment. It's a static page generator, which is more than fine for my
+purposes, and it deals natively with Jupyter notebooks. Sweet. I
+thought it would be useful to document the process for future-me. I
+leaned heavily on the Nikola site (including the
+<a href="https://getnikola.com/handbook.html#importing-your-wordpress-site-into-nikola">documentation for import_wordpress</a>). The
+process wasn't completely trivial, but that's because I did some hacky
+stuff to get Jupyter Notebooks included in my WordPress posts
+anyway. This seems like a lot of work for like 13 posts, but nobody
+ever claimed I was wise.</p>
+<!-- TEASER_END -->
+
 <h3>Grabbing the site</h3>
 <p>Log in as an administrator, go to the Tools menu, click on Export, then download an Export File. Nice and easy. Thanks, WordPress!</p>
 <h3>Install Nikola</h3>
@@ -111,7 +126,25 @@ nikola serve --browser
 
 <p>And it almost all works. Here are the missing things:</p>
 <h4>My pre-rendered Jupyter notebooks suck.</h4>
-<p>I used the pageview WordPress plugin (short code? I don't know) to include pre-rendered Jupyter notebooks. That just breaks upon import. But the Nikloa posts are just straight HTML. I can just include the stuff directly. That was pretty easy. In my future free time (ha!), I might go back and convert some of them directly to Jupyter notebooks.</p>
+<p>I used the pageview WordPress plugin (short code? I don't know) to
+include pre-rendered Jupyter notebooks. That just breaks upon
+import. But the Nikloa posts are just straight HTML. I can just
+include the stuff directly. That was pretty easy. In my future free
+time (ha!), I might go back and convert some of them directly to
+Jupyter notebooks. The main remaining reason to do so, I think, is to
+make it so that "teasers" (i.e. the ability to only show the first few
+paragraphs) works. See the bit about teasers later in the post. When I
+do that, I need to make sure I include comments explicitly in the
+Jupyter notebook. As mentioned below, I can just include the raw html
+for them, and tell the Jupyter notebook to render it via something
+like</p>
+<pre class="code literal-block"><span></span><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="n">HTML</span><span class="p">(</span><span class="s1">'''fancy pants html code here'''</span><span class="p">)</span>
+</pre>
+
+
+<p>I also need to remember to edit the meta data at the end of the
+imported Jupyter notebook so that Nikola gets the date right.</p>
 <h4>Comments are all missing.</h4>
 <ol>
 <li>
@@ -276,17 +309,25 @@ site. Following the FontAwesome directions,</p>
 it's OK, but it's right after a place where it says "don't change this
 block" so it's possible that I screwed something up.</p>
 <p>That fixes the lack of next/previous/social buttons. Sweet!</p>
+<h3>Cleaning up long posts</h3>
+<p>Some of the posts are really long. You can tell Nikola to only show a
+"teaser" by putting</p>
+<pre class="code literal-block"><span></span><span class="n">INDEX_TEASERS</span> <span class="o">=</span> <span class="bp">True</span>
+</pre>
+
+
+<p>in <code>conf.py</code></p>
+<p>And then adding</p>
+<pre class="code literal-block"><span></span>&lt;!-- TEASER_END --&gt;
+</pre>
+
+
+<p>to a Markdown cell in a Jupyter notebook, or directly to a Markdown
+post, or directly to an html post. Cool.</p>
 <h3>TODO</h3>
 <ul>
-<li>The twitter follow plugin doesn't work. I think that should be
-   straightforward, but I'll fix it later. </li>
 <li>The text is too big. I can apparently change that in <code>jidn</code>'s
  <code>custom.css</code> but I don't quite get how.</li>
-<li>There are no links to next/previous posts at the bottom of a post,
-   and the social stuff isn't working. I don't think that's my fault,
-   because it also happens when I create a blank <code>jidn</code> site. I
-   cheated with the social stuff by editing <code>post.tmpl</code> in an ugly way
-   (not sure why the icons don't work).</li>
 </ul>
 <h3>Jupyter issues</h3>
 <p>The conversion of Jupyter notebooks doesn't look perfect yet:</p>

@@ -3,30 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Optimizing MSD calculations | Biophysics and Beer</title>
+<title>using numba to speed up mean-squared displacement calculations | Biophysics and Beer</title>
 <link href="../assets/css/all.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
 <link rel="canonical" href="https://mglerner.github.io/posts/using-numba-to-speed-up-mean-squared-displacement-calculations.html">
 <!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><meta name="author" content="Michael G. Lerner">
-<link rel="prev" href="more-march-madness-monte-carlo-style.html" title="MMMC2015" type="text/html">
-<link rel="next" href="can-i-be-smarter-about-late-policies.html" title="Can I be smarter about late policies?" type="text/html">
+<link rel="prev" href="visualizing-differential-geometry-in-jupyter-notebooks.html" title="Visualizing differential geometry in Jupyter notebooks" type="text/html">
 <meta property="og:site_name" content="Biophysics and Beer">
-<meta property="og:title" content="Optimizing MSD calculations">
+<meta property="og:title" content="using numba to speed up mean-squared displacement calculations">
 <meta property="og:url" content="https://mglerner.github.io/posts/using-numba-to-speed-up-mean-squared-displacement-calculations.html">
-<meta property="og:description" content="[twitter-follow username=&quot;mglerner&quot; scheme=&quot;dark&quot;]
-This whole post is available as an IPython Notebook here.
-  
-    
-
-
-
-
-
-
-Writing a faster mean-squared-displacement function¶I'm trying to calculate t">
+<meta property="og:description" content="Writing a faster mean-squared-displacement function¶I'm trying to calculate the Mean Squared Displacement (MSD) of a particle trajectory. In reality, I have an array of positions for numtrj particles ">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2015-07-02T14:35:41Z">
+<meta property="article:published_time" content="2017-10-15T17:05:22Z">
 <link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css">
 </head>
 <body>
@@ -62,12 +51,12 @@ Writing a faster mean-squared-displacement function¶I'm trying to calculate t">
       <div class="container content" id="content">
         
 <article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/BlogPosting"><header><h1 class="post-title p-name entry-title" itemprop="headline">
-      <a href="https://mglerner.github.io/posts/using-numba-to-speed-up-mean-squared-displacement-calculations.html" class="u-url">Optimizing MSD calculations</a>
+      <a href="https://mglerner.github.io/posts/using-numba-to-speed-up-mean-squared-displacement-calculations.html" class="u-url">using numba to speed up mean-squared displacement calculations</a>
 </h1>
         <div class="metadata">
         <meta itemprop="inLanguage" content="en">
 <p class="dateline">
-            <time class="post-date published dt-published" datetime="2015-07-02T14:35:41+00:00" itemprop="datePublished" title="2015-07-02 14:35">2015-07-02 14:35</time></p>
+            <time class="post-date published dt-published" datetime="2017-10-15T17:05:22+00:00" itemprop="datePublished" title="2017-10-15 17:05">2017-10-15 17:05</time></p>
                 <p class="commentline">
         
     <a href="using-numba-to-speed-up-mean-squared-displacement-calculations.html#disqus_thread" data-disqus-identifier="cache/posts/using-numba-to-speed-up-mean-squared-displacement-calculations.html">Comments</a>
@@ -77,9 +66,7 @@ Writing a faster mean-squared-displacement function¶I'm trying to calculate t">
 </div>
         
 
-    </header><section class="e-content entry-content" itemprop="articleBody text"><p>[twitter-follow username="mglerner" scheme="dark"]</p>
-<p>This whole post is available as an IPython Notebook <a href="http://nbviewer.ipython.org/gist/mglerner/8a03b1064a4d37d66194">here</a>.<br></p>
-<div tabindex="-1" id="notebook" class="border-box-sizing">
+    </header><section class="e-content entry-content" itemprop="articleBody text"><div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
 <div class="cell border-box-sizing text_cell rendered">
@@ -87,33 +74,34 @@ Writing a faster mean-squared-displacement function¶I'm trying to calculate t">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Writing-a-faster-mean-squared-displacement-function">Writing a faster mean-squared-displacement function<a class="anchor-link" href="using-numba-to-speed-up-mean-squared-displacement-calculations.html#Writing-a-faster-mean-squared-displacement-function">¶</a>
-</h1>
+<h2 id="Writing-a-faster-mean-squared-displacement-function">Writing a faster mean-squared-displacement function<a class="anchor-link" href="using-numba-to-speed-up-mean-squared-displacement-calculations.html#Writing-a-faster-mean-squared-displacement-function">¶</a>
+</h2>
 <p>I'm trying to calculate the Mean Squared Displacement (MSD) of a particle trajectory. In reality, I have an array of positions for <code>numtrj</code> particles and <code>numpts</code> timepoints and <code>dim</code> dimensions: <code>pos[numtrj, numpts, dim]</code>. I think my question has the same answer if I just have the <code>x</code> trajectory of a single particle, though.</p>
 <p>In case you haven't done MSD calculations before, there's one cute way in which you get extra information out of a trajectory. Say I have just five time points, and my positions are</p>
-<div class="highlight"><pre><span class="n">In</span> <span class="p">[</span><span class="mi">83</span><span class="p">]:</span> <span class="n">x</span>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">83</span><span class="p">]:</span> <span class="n">x</span>
 
 <span class="n">Out</span><span class="p">[</span><span class="mi">83</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span> <span class="mf">0.</span>        <span class="p">,</span>  <span class="mf">1.74528704</span><span class="p">,</span>  <span class="mf">1.59639865</span><span class="p">,</span>  <span class="mf">2.59976219</span><span class="p">,</span>  <span class="mf">3.70852457</span><span class="p">])</span>
 </pre></div>
 <p>You could just get squared displacement by looking at x**2. However, you could also say that you have 4 different values for the displacement at one timestep:</p>
-<div class="highlight"><pre><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
 </pre></div>
 <p>Similarly, three values for displacement at two timesteps: x[2:] - x[:-2]. Etc. So, the way I'm calculating MSD at the moment is:</p>
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">msd_1d</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">msd_1d</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
         <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">:]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[:</span><span class="o">-</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">result</span>
 </pre></div>
 <p>or</p>
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">get_msd_traj</span><span class="p">(</span><span class="n">pos</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_msd_traj</span><span class="p">(</span><span class="n">pos</span><span class="p">):</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">pos</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
         <span class="n">result</span><span class="p">[:,</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">((</span><span class="n">pos</span><span class="p">[:,</span><span class="n">i</span><span class="p">:,:]</span> <span class="o">-</span> <span class="n">pos</span><span class="p">[:,:</span><span class="o">-</span><span class="n">i</span><span class="p">,:])</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">result</span>
 </pre></div>
 <p>(side note: often the data comes indexed like <code>pos[numpts, numtrj, dim]</code> for molecular dynamics trajectories, but that doesn't change anything here)</p>
-<p>So, I asked <a href="https://twitter.com/synapticarbors">Joshua Adelman</a> if he had any quick thoughts.</p>
+<p>So, I asked <a href="https://twitter.com/synapticarbors">Joshua Adelman</a> if he had any quick thoughts.
+<!-- TEASER_END --></p>
 <p>Josh cleared up some basic misconceptions for me and gave a couple of suggestions:</p>
 
 </div>
@@ -124,17 +112,17 @@ Writing a faster mean-squared-displacement function¶I'm trying to calculate t">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="From-Josh">From Josh<a class="anchor-link" href="using-numba-to-speed-up-mean-squared-displacement-calculations.html#From-Josh">¶</a>
-</h2>
+<h3 id="From-Josh">From Josh<a class="anchor-link" href="using-numba-to-speed-up-mean-squared-displacement-calculations.html#From-Josh">¶</a>
+</h3>
 <blockquote>
 <p>Hi Michael,</p>
 <p>In general, numba is not going to speed up calculations that involve numpy built-in methods (unless they are things like np.exp, np.sin, np.cos) or array slicing. It works best if you have unrolled any vectorization into explicited nested loops and operate on arrays element-by-element. If you go that route, check to see if you can get the code to compile using @jit(nopython=True), which would be indicitive of numba being able to translate the code to llvm IR without using python objects (which tend to slow things down). I've also had a lot of success lately parallelizing numba code using threading if you aren't dealing with any python objects. If you can compile in nopython mode, then you can also specify:</p>
-<div class="highlight"><pre><span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">nogil</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">nogil</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 <p>and use a ThreadPool to chop up the work, using something like:</p>
 <p><a href="http://numba.pydata.org/numba-doc/0.19.1/user/examples.html?highlight=nogil#multi-threading">http://numba.pydata.org/numba-doc/0.19.1/user/examples.html?highlight=nogil#multi-threading</a></p>
 <p>it's undocumented, but for simple stuff you can use:</p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">multiprocessing.pool</span> <span class="kn">import</span> <span class="n">ThreadPool</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">multiprocessing.pool</span> <span class="kn">import</span> <span class="n">ThreadPool</span>
 <span class="n">pool</span> <span class="o">=</span> <span class="n">ThreadPool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="n">nthreads</span><span class="p">)</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
 </pre></div>
@@ -152,8 +140,8 @@ Writing a faster mean-squared-displacement function¶I'm trying to calculate t">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Back-to-me">Back to me<a class="anchor-link" href="using-numba-to-speed-up-mean-squared-displacement-calculations.html#Back-to-me">¶</a>
-</h2>
+<h3 id="Back-to-me">Back to me<a class="anchor-link" href="using-numba-to-speed-up-mean-squared-displacement-calculations.html#Back-to-me">¶</a>
+</h3>
 <p>So, I tried several things. You have to do some fiddling around to get <code>nopython=True</code> to work. In addition to not knowing about <code>np.average</code>, things like <code>x[1:] - x[:-1]</code> are doomed to failure. However, that last part isn't really trouble, because one of Josh's points was that I should write out all of my loops explicitly. Here are two versions of the 1D version:</p>
 
 </div>
@@ -164,7 +152,7 @@ Writing a faster mean-squared-displacement function¶I'm trying to calculate t">
 <div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">numba</span> <span class="k">import</span> <span class="n">jit</span>
 </pre></div>
 
@@ -178,13 +166,13 @@ Writing a faster mean-squared-displacement function¶I'm trying to calculate t">
 <div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">msd_1d</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">msd_1d</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
         <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">:]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[:</span><span class="o">-</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">result</span>
 
-<span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span> <span class="o">=</span> <span class="k">True</span><span class="p">)</span>
+<span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">msd_1d_nb1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">delta</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
@@ -194,7 +182,7 @@ Writing a faster mean-squared-displacement function¶I'm trying to calculate t">
         <span class="n">result</span><span class="p">[</span><span class="n">delta</span><span class="p">]</span> <span class="o">=</span> <span class="n">thisresult</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">delta</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">result</span>
     
-<span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span> <span class="o">=</span> <span class="k">True</span><span class="p">)</span>
+<span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">msd_1d_nb2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">delta</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
@@ -224,7 +212,7 @@ Writing a faster mean-squared-displacement function¶I'm trying to calculate t">
 <div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="o">%</span><span class="k">timeit</span> msd_1d(np.random.randn(10))
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">timeit</span> msd_1d(np.random.randn(10))
 <span class="o">%</span><span class="k">timeit</span> msd_1d_nb1(np.random.randn(10))
 <span class="o">%</span><span class="k">timeit</span> msd_1d_nb2(np.random.randn(10))
 </pre></div>
@@ -238,7 +226,10 @@ Writing a faster mean-squared-displacement function¶I'm trying to calculate t">
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>The slowest run took 4.14 times longer than the fastest. This could mean that an intermediate result is being cached 
 10000 loops, best of 3: 114 µs per loop
@@ -259,7 +250,7 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 <div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="o">%</span><span class="k">timeit</span> msd_1d(np.random.randn(100))
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">timeit</span> msd_1d(np.random.randn(100))
 <span class="o">%</span><span class="k">timeit</span> msd_1d_nb1(np.random.randn(100))
 <span class="o">%</span><span class="k">timeit</span> msd_1d_nb2(np.random.randn(100))
 </pre></div>
@@ -273,7 +264,10 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>1000 loops, best of 3: 1.19 ms per loop
 100000 loops, best of 3: 15.8 µs per loop
@@ -291,7 +285,7 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 <div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="o">%</span><span class="k">timeit</span> msd_1d(np.random.randn(1000))
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">timeit</span> msd_1d(np.random.randn(1000))
 <span class="o">%</span><span class="k">timeit</span> msd_1d_nb1(np.random.randn(1000))
 <span class="o">%</span><span class="k">timeit</span> msd_1d_nb2(np.random.randn(1000))
 </pre></div>
@@ -305,7 +299,10 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>100 loops, best of 3: 13.3 ms per loop
 1000 loops, best of 3: 540 µs per loop
@@ -333,8 +330,8 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-larger-version">The larger version<a class="anchor-link" href="using-numba-to-speed-up-mean-squared-displacement-calculations.html#The-larger-version">¶</a>
-</h2>
+<h3 id="The-larger-version">The larger version<a class="anchor-link" href="using-numba-to-speed-up-mean-squared-displacement-calculations.html#The-larger-version">¶</a>
+</h3>
 <p>So, it looks like there's not much of a difference between version 1 and 2. But it does look like version 1 is a bit faster.</p>
 
 </div>
@@ -345,13 +342,13 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 <div class="prompt input_prompt">In [6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">get_msd_traj</span><span class="p">(</span><span class="n">pos</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_msd_traj</span><span class="p">(</span><span class="n">pos</span><span class="p">):</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">pos</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
         <span class="n">result</span><span class="p">[:,</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">((</span><span class="n">pos</span><span class="p">[:,</span><span class="n">i</span><span class="p">:,:]</span> <span class="o">-</span> <span class="n">pos</span><span class="p">[:,:</span><span class="o">-</span><span class="n">i</span><span class="p">,:])</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">result</span>
 
-<span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span> <span class="o">=</span> <span class="k">True</span><span class="p">)</span>
+<span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">get_msd_traj_nb1</span><span class="p">(</span><span class="n">pos</span><span class="p">):</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
     <span class="n">deltastop</span> <span class="o">=</span> <span class="n">pos</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -385,7 +382,7 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 <div class="prompt input_prompt">In [7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">get_msd_traj</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="n">get_msd_traj_nb1</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
 </pre></div>
 
@@ -398,7 +395,10 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 
 
 <div class="output_area">
+
 <div class="prompt output_prompt">Out[7]:</div>
+
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -416,7 +416,7 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 <div class="prompt input_prompt">In [8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="o">%</span><span class="k">timeit</span> get_msd_traj(np.random.randn(10,10,2))
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">timeit</span> get_msd_traj(np.random.randn(10,10,2))
 <span class="o">%</span><span class="k">timeit</span> get_msd_traj_nb1(np.random.randn(10,10,2))
 </pre></div>
 
@@ -429,7 +429,10 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>1000 loops, best of 3: 200 µs per loop
 100000 loops, best of 3: 14.6 µs per loop
@@ -446,7 +449,7 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 <div class="prompt input_prompt">In [9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="o">%</span><span class="k">timeit</span> get_msd_traj(np.random.randn(100,100,2))
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">timeit</span> get_msd_traj(np.random.randn(100,100,2))
 <span class="o">%</span><span class="k">timeit</span> get_msd_traj_nb1(np.random.randn(100,100,2))
 </pre></div>
 
@@ -459,7 +462,10 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>10 loops, best of 3: 12.3 ms per loop
 1000 loops, best of 3: 1.84 ms per loop
@@ -476,7 +482,7 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 <div class="prompt input_prompt">In [10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="o">%</span><span class="k">timeit</span> get_msd_traj(np.random.randn(512,2001,2))
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">timeit</span> get_msd_traj(np.random.randn(512,2001,2))
 <span class="o">%</span><span class="k">timeit</span> get_msd_traj_nb1(np.random.randn(512,2001,2))
 </pre></div>
 
@@ -489,7 +495,10 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>1 loops, best of 3: 27.8 s per loop
 1 loops, best of 3: 2.47 s per loop
@@ -511,14 +520,69 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 </div>
 </div>
 </div>
-    </div>
-    </div>
-    <h2>Comments from Old blog</h2>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="k">import</span> <span class="n">HTML</span>
+<span class="n">HTML</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">&lt;a href="http://example.com"&gt;link&lt;/a&gt;</span>
+<span class="s1">    &lt;h2&gt;Comments from Old blog&lt;/h2&gt;</span>
+<span class="s1">    			&lt;div id="comments"&gt;</span>
+
+
+<span class="s1">			&lt;h3 id="comments-title"&gt;One Response to &lt;em&gt;Using numba to speed up mean-squared displacement calculations&lt;/em&gt;&lt;/h3&gt;</span>
+
+
+<span class="s1">			&lt;ol class="commentlist"&gt;</span>
+<span class="s1">					&lt;li class="comment byuser comment-author-mglerner bypostauthor even thread-even depth-1" id="li-comment-27141"&gt;</span>
+<span class="s1">		&lt;div id="comment-27141"&gt;</span>
+<span class="s1">			&lt;div class="comment-author vcard"&gt;</span>
+<span class="s1">				&lt;img alt='' src='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=40&amp;#038;d=mm&amp;#038;r=g' srcset='http://1.gravatar.com/avatar/d49bf8fdd300871a66f21a8a97674483?s=80&amp;amp;d=mm&amp;amp;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' /&gt;				&lt;cite class="fn"&gt;mglerner&lt;/cite&gt; &lt;span class="says"&gt;says:&lt;/span&gt;			&lt;/div&gt;&lt;!-- .comment-author .vcard --&gt;</span>
+<span class="s1">			</span>
+<span class="s1">			&lt;div class="comment-meta commentmetadata"&gt;&lt;a href="http://www.mglerner.com/blog/?p=52#comment-27141"&gt;</span>
+<span class="s1">				July 3, 2015 at 3:21 pm&lt;/a&gt; &lt;a class="comment-edit-link" href="http://www.mglerner.com/blog/wp-admin/comment.php?action=editcomment&amp;#038;c=27141"&gt;(Edit)&lt;/a&gt;			&lt;/div&gt;&lt;!-- .comment-meta .commentmetadata --&gt;</span>
+
+<span class="s1">			&lt;div class="comment-body"&gt;&lt;p&gt;On twitter, &lt;a href="https://twitter.com/khinsen" rel="nofollow"&gt;Konrad Hinsen&lt;/a&gt; &lt;a href="https://twitter.com/khinsen/status/616853234041384961" rel="nofollow"&gt;pointed out&lt;/a&gt; that I could get a bigger speedup (likely a factor of 1000, but it's NlogN instead of N^2, so it only gets better) by using a better algorithm. Several years ago, I did try to use an FFT-based method. I was sketched out by the fact that the results I obtained were similar to the exact results, but not identical. It sounds likely that his method is just better. The paper claims it's exact, and a followup conversation indicates that they get better accuracy by doing fewer calculations (thus less accumulated error). Filed away for next time!&lt;/p&gt;</span>
+<span class="s1">&lt;/div&gt;</span>
+
+<span class="s1">			&lt;div class="reply"&gt;</span>
+<span class="s1">				&lt;a rel='nofollow' class='comment-reply-link' href='http://www.mglerner.com/blog/?p=52&amp;#038;replytocom=27141#respond' onclick='return addComment.moveForm( "comment-27141", "27141", "respond", "52" )' aria-label='Reply to mglerner'&gt;Reply&lt;/a&gt;			&lt;/div&gt;&lt;!-- .reply --&gt;</span>
+<span class="s1">		&lt;/div&gt;&lt;!-- #comment-##  --&gt;</span>
+
+<span class="s1">	&lt;/li&gt;&lt;!-- #comment-## --&gt;</span>
+<span class="s1">			&lt;/ol&gt;</span>
+
+
+<span class="s1">	</span>
+
+<span class="s1">&lt;/div&gt;&lt;!-- #comments --&gt;'''</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[1]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+
+<a href="http://example.com">link</a>
+    <h3>Comments from Old blog</h3>
     			<div id="comments">
 
 
-			<h3 id="comments-title">One Response to <em>Using numba to speed up mean-squared displacement calculations</em>
-</h3>
+			<h4 id="comments-title">One Response to <em>Using numba to speed up mean-squared displacement calculations</em>
+</h4>
 
 
 			<ol class="commentlist">
@@ -548,20 +612,25 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 			</ol>
 </div>
 <!-- #comments -->
+</div>
 
+</div>
 
-  
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+
     </section><aside class="sharing no-print"><a href="#content" aria-label="Post beginning">
        <i class="fa fa-2x fa-fw fa-arrow-circle-up" aria-hidden="true" title="Post beginning"></i>
     </a>
-    <a href="https://mglerner.github.io/posts/more-march-madness-monte-carlo-style.html" rel="prev" title="MMMC2015">
-       <i class="fa fa-2x fa-fw fa-arrow-circle-left" aria-hidden="true" title="Previous post: MMMC2015"></i>
-    </a>
-    <a href="https://mglerner.github.io/posts/can-i-be-smarter-about-late-policies.html" rel="next" title="Next post: Can I be smarter about late policies?" aria-label="Next post: Can I be smarter about late policies?">
-       <i class="fa fa-2x fa-fw fa-arrow-circle-right" aria-hidden="true"></i>
+    <a href="https://mglerner.github.io/posts/visualizing-differential-geometry-in-jupyter-notebooks.html" rel="prev" title="Visualizing differential geometry in Jupyter notebooks">
+       <i class="fa fa-2x fa-fw fa-arrow-circle-left" aria-hidden="true" title="Previous post: Visualizing differential geometry in Jupyter notebooks"></i>
     </a>
     <span class="post-sharing">
-     <a href="http://twitter.com/share?text=Optimizing+MSD+calculations&amp;url=https%3A%2F%2Fmglerner.github.io%2Fposts%2Fusing-numba-to-speed-up-mean-squared-displacement-calculations.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" aria-label="Share on Twitter">
+     <a href="http://twitter.com/share?text=using+numba+to+speed+up+mean-squared+displacement+calculations&amp;url=https%3A%2F%2Fmglerner.github.io%2Fposts%2Fusing-numba-to-speed-up-mean-squared-displacement-calculations.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" aria-label="Share on Twitter">
        <i class="fa fa-2x fa-fw fa-twitter-square" aria-hidden="true" title="Share on Twitter">
      </i></a>
      <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmglerner.github.io%2Fposts%2Fusing-numba-to-speed-up-mean-squared-displacement-calculations.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" aria-label="Share on Facebook">
@@ -577,7 +646,7 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 <div class="author-image" style="background: url(https://pbs.twimg.com/profile_images/196327413/MGLProfile_400x400.jpg)"></div>
      <h3 class="byline-name fn" itemprop="name">Michael G. Lerner
         <span class="post-sharing">
-            <a href="mailto:mglerner@protonmail.com?subject=Optimizing%20MSD%20calculations" aria-label="Email author">
+            <a href="mailto:mglerner@protonmail.com?subject=using%20numba%20to%20speed%20up%20mean-squared%20displacement%20calculations" aria-label="Email author">
             <i class="fa fa-2 fa-fw fa-envelope" aria-hidden="true" title="Email author">
             </i></a>
         </span>
@@ -598,7 +667,7 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
         <script>
         var disqus_shortname ="biophysics-and-beer",
             disqus_url="https://mglerner.github.io/posts/using-numba-to-speed-up-mean-squared-displacement-calculations.html",
-        disqus_title="Optimizing MSD calculations",
+        disqus_title="using numba to speed up mean-squared displacement calculations",
         disqus_identifier="cache/posts/using-numba-to-speed-up-mean-squared-displacement-calculations.html",
         disqus_config = function () {
             this.language = "en";
@@ -613,7 +682,9 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
     <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
-        </section></article><script>var disqus_shortname="biophysics-and-beer";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2017         <a href="mailto:mglerner@protonmail.com">Michael G. Lerner</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        </section><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}});
+        </script></article><script>var disqus_shortname="biophysics-and-beer";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2017         <a href="mailto:mglerner@protonmail.com">Michael G. Lerner</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>
