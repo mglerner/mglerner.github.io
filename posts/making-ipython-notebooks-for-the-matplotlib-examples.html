@@ -9,8 +9,8 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
 <link rel="canonical" href="https://mglerner.github.io/posts/making-ipython-notebooks-for-the-matplotlib-examples.html">
 <!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><meta name="author" content="Michael G. Lerner">
-<link rel="prev" href="histograms-and-kernel-density-estimation-kde-2.html" title="Histograms and Kernel Density Estimation (KDE)" type="text/html">
-<link rel="next" href="speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html" title="Lookup Tables" type="text/html">
+<link rel="prev" href="histograms-and-kernel-density-estimation-kde-2.html" title="Histograms and kernel density estimation KDE 2" type="text/html">
+<link rel="next" href="evolution-of-a-learning-goal.html" title="Evolution of a Learning Goal" type="text/html">
 <meta property="og:site_name" content="Biophysics and Beer">
 <meta property="og:title" content="Making IPython Notebooks for the matplotlib examples">
 <meta property="og:url" content="https://mglerner.github.io/posts/making-ipython-notebooks-for-the-matplotlib-examples.html">
@@ -68,7 +68,17 @@
         
 
     </header><section class="e-content entry-content" itemprop="articleBody text"><p><a href="http://matplotlib.org/">matplotlib</a> comes with tons of fantastic <a href="http://matplotlib.org/examples/index.html">examples</a>. I’m not as familiar with matplotlib as I probably should be, so I often find myself wanting to tinker a bit, but needing to refer to those examples. Since matplotlib comes with such wonderful documentation, I though it would be great to just turn those docs into <a href="https://github.com/ipython/ipython/wiki/A-gallery-of-interesting-IPython-Notebooks">IPython Notebooks</a> for easy tinkering. That’s probably biting off a bit more than I want to chew at the moment, considering that the matplotlib docs are fairly involved and written in <a href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> instead of <a href="http://daringfireball.net/projects/markdown/">markdown</a> (what the IPython Notebook uses).</p>
-<p>Luckily, the IPython Notebook format is so mind-bendingly sane that I didn’t even need to read any documentation to understand it. So, instead, I wrote a bit of code that gobbles up matplotlib example scripts and spits out IPython Notebooks. <del datetime="2013-12-31T19:43:42+00:00">The whole notebook is JSON, but I only want simple things, so I hardcode everything except for the cells.</del> (After Daniel’s comment below, I started to write my own JSONEncoder. Then, I realized that I was right about the “it’s all JSON” thing and rewrote the notebook class). I have a little IPyNB class that knows how to add cells to itself and spit out the results as strings and files:</p>
+<p>Luckily, the IPython Notebook format is so mind-bendingly sane that
+I didn’t even need to read any documentation to understand it. So,
+instead, I wrote a bit of code that gobbles up matplotlib example
+scripts and spits out IPython Notebooks. <del datetime="2013-12-31T19:43:42+00:00">The whole notebook is JSON, but I
+only want simple things, so I hardcode everything except for the
+cells.</del> (After Daniel’s comment below, I started to write my own
+JSONEncoder. Then, I realized that I was right about the “it’s all
+JSON” thing and rewrote the notebook class). I have a little IPyNB
+class that knows how to add cells to itself and spit out the results
+as strings and files:</p>
+<!--TEASER_END -->
 <pre class="brush:py">
 import os, json, glob
         
@@ -553,10 +563,10 @@ In []:
     </section><aside class="sharing no-print"><a href="#content" aria-label="Post beginning">
        <i class="fa fa-2x fa-fw fa-arrow-circle-up" aria-hidden="true" title="Post beginning"></i>
     </a>
-    <a href="https://mglerner.github.io/posts/histograms-and-kernel-density-estimation-kde-2.html" rel="prev" title="Histograms and Kernel Density Estimation (KDE)">
-       <i class="fa fa-2x fa-fw fa-arrow-circle-left" aria-hidden="true" title="Previous post: Histograms and Kernel Density Estimation (KDE)"></i>
+    <a href="https://mglerner.github.io/posts/histograms-and-kernel-density-estimation-kde-2.html" rel="prev" title="Histograms and kernel density estimation KDE 2">
+       <i class="fa fa-2x fa-fw fa-arrow-circle-left" aria-hidden="true" title="Previous post: Histograms and kernel density estimation KDE 2"></i>
     </a>
-    <a href="https://mglerner.github.io/posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html" rel="next" title="Next post: Lookup Tables" aria-label="Next post: Lookup Tables">
+    <a href="https://mglerner.github.io/posts/evolution-of-a-learning-goal.html" rel="next" title="Next post: Evolution of a Learning Goal" aria-label="Next post: Evolution of a Learning Goal">
        <i class="fa fa-2x fa-fw fa-arrow-circle-right" aria-hidden="true"></i>
     </a>
     <span class="post-sharing">

@@ -3,29 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MMMC2015 | Biophysics and Beer</title>
+<title>More March Madness Monte Carlo style | Biophysics and Beer</title>
 <link href="../assets/css/all.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
 <link rel="canonical" href="https://mglerner.github.io/posts/more-march-madness-monte-carlo-style.html">
 <!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><meta name="author" content="Michael G. Lerner">
-<link rel="prev" href="evolution-of-a-learning-goal.html" title="Evolution of a Learning Goal" type="text/html">
-<link rel="next" href="using-numba-to-speed-up-mean-squared-displacement-calculations.html" title="using numba to speed up mean-squared displacement calculations" type="text/html">
+<link rel="prev" href="speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html" title="Speeding up calculations with lookup tables and Lagrangian interpolation" type="text/html">
+<link rel="next" href="using-numba-to-speed-up-mean-squared-displacement-calculations.html" title="Using numba to speed up mean-squared displacement calculations" type="text/html">
 <meta property="og:site_name" content="Biophysics and Beer">
-<meta property="og:title" content="MMMC2015">
+<meta property="og:title" content="More March Madness Monte Carlo style">
 <meta property="og:url" content="https://mglerner.github.io/posts/more-march-madness-monte-carlo-style.html">
-<meta property="og:description" content="This whole post is available as an IPython Notebook here.
-  
-    
+<meta property="og:description" content="You can download this post as a Juypter notebook here
 
 
 
 
 
 
-MMMC the 2015 update¶See the original blog post for details and history. Here's the short story: in my Statistical and Thermal P">
+
+
+MMMC the 2015 update¶See the original blog post for details and history. Here's the short story: in my Statistical and Thermal Physics cla">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2015-03-19T15:43:39Z">
+<meta property="article:published_time" content="2015-03-19T15:43:00Z">
 <link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css">
 </head>
 <body>
@@ -61,12 +61,12 @@ MMMC the 2015 update¶See the original blog post for details and history. Here's
       <div class="container content" id="content">
         
 <article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/BlogPosting"><header><h1 class="post-title p-name entry-title" itemprop="headline">
-      <a href="https://mglerner.github.io/posts/more-march-madness-monte-carlo-style.html" class="u-url">MMMC2015</a>
+      <a href="https://mglerner.github.io/posts/more-march-madness-monte-carlo-style.html" class="u-url">More March Madness Monte Carlo style</a>
 </h1>
         <div class="metadata">
         <meta itemprop="inLanguage" content="en">
 <p class="dateline">
-            <time class="post-date published dt-published" datetime="2015-03-19T15:43:39+00:00" itemprop="datePublished" title="2015-03-19 15:43">2015-03-19 15:43</time></p>
+            <time class="post-date published dt-published" datetime="2015-03-19T15:43:00+00:00" itemprop="datePublished" title="2015-03-19 15:43">2015-03-19 15:43</time></p>
                 <p class="commentline">
         
     <a href="more-march-madness-monte-carlo-style.html#disqus_thread" data-disqus-identifier="cache/posts/more-march-madness-monte-carlo-style.html">Comments</a>
@@ -76,8 +76,7 @@ MMMC the 2015 update¶See the original blog post for details and history. Here's
 </div>
         
 
-    </header><section class="e-content entry-content" itemprop="articleBody text"><p>This whole post is available as an IPython Notebook <a href="http://nbviewer.ipython.org/github/mglerner/MarchMadnessMonteCarlo/blob/master/MMMC2015.ipynb">here</a>.<br></p>
-<div tabindex="-1" id="notebook" class="border-box-sizing">
+    </header><section class="e-content entry-content" itemprop="articleBody text"><div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
 <div class="cell border-box-sizing text_cell rendered">
@@ -85,8 +84,18 @@ MMMC the 2015 update¶See the original blog post for details and history. Here's
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="MMMC-the-2015-update">MMMC the 2015 update<a class="anchor-link" href="more-march-madness-monte-carlo-style.html#MMMC-the-2015-update">¶</a>
-</h1>
+<p>You can download this post as a Juypter notebook <a href="more-march-madness-monte-carlo-style.ipynb">here</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="MMMC-the-2015-update">MMMC the 2015 update<a class="anchor-link" href="more-march-madness-monte-carlo-style.html#MMMC-the-2015-update">¶</a>
+</h2>
 <p>See the <a href="http://www.mglerner.com/blog/?p=16">original blog post</a> for details and history. Here's the short story: in my Statistical and Thermal Physics class, we want to use Monte Carlo simulations to generate brackets for March Madness. There are at least two obvious ways to go about this:</p>
 <ol>
 <li>
@@ -97,7 +106,7 @@ MMMC the 2015 update¶See the original blog post for details and history. Here's
 </li>
 </ol>
 <p>As you can tell, we take option 2 above. I've made things a bit nicer from a user standpoint this year; here's a walkthrough. First, load up our standard IPython setup</p>
-
+<!-- TEASER_END -->
 </div>
 </div>
 </div>
@@ -106,13 +115,13 @@ MMMC the 2015 update¶See the original blog post for details and history. Here's
 <div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s">'darkgrid'</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">'darkgrid'</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">HTML</span>
 </pre></div>
 
 </div>
@@ -125,8 +134,8 @@ MMMC the 2015 update¶See the original blog post for details and history. Here's
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-basics">The basics<a class="anchor-link" href="more-march-madness-monte-carlo-style.html#The-basics">¶</a>
-</h2>
+<h3 id="The-basics">The basics<a class="anchor-link" href="more-march-madness-monte-carlo-style.html#The-basics">¶</a>
+</h3>
 <p>make me a single bracket at a given temperature</p>
 
 </div>
@@ -137,10 +146,10 @@ MMMC the 2015 update¶See the original blog post for details and history. Here's
 <div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">MarchMadnessMonteCarlo</span> <span class="kn">as</span> <span class="nn">MMMC</span>
-<span class="n">teams</span> <span class="o">=</span> <span class="n">MMMC</span><span class="o">.</span><span class="n">teams</span><span class="p">[</span><span class="s">'south'</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">MarchMadnessMonteCarlo</span> <span class="k">as</span> <span class="nn">MMMC</span>
+<span class="n">teams</span> <span class="o">=</span> <span class="n">MMMC</span><span class="o">.</span><span class="n">teams</span><span class="p">[</span><span class="s1">'south'</span><span class="p">]</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">MMMC</span><span class="o">.</span><span class="n">Bracket</span><span class="p">(</span><span class="n">teams</span><span class="o">=</span><span class="n">teams</span><span class="p">,</span><span class="n">T</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="k">print</span> <span class="n">b</span>
+<span class="nb">print</span> <span class="n">b</span>
 </pre></div>
 
 </div>
@@ -152,7 +161,10 @@ MMMC the 2015 update¶See the original blog post for details and history. Here's
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Duke (1)                                                     
 Robert Morris (16)        Duk (1)                            
@@ -195,8 +207,8 @@ Total bracket energy: -17.4533174222
 <div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">sr</span> <span class="o">=</span> <span class="n">MMMC</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">1000</span><span class="p">,[</span><span class="s">'Kentucky'</span><span class="p">,</span><span class="s">'Wisconsin'</span><span class="p">,</span><span class="s">'Villanova'</span><span class="p">,</span><span class="s">'Duke'</span><span class="p">],</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">MMMC</span><span class="o">.</span><span class="n">showstats</span><span class="p">(</span><span class="n">sr</span><span class="p">,</span><span class="n">newfig</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sr</span> <span class="o">=</span> <span class="n">MMMC</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">1000</span><span class="p">,[</span><span class="s1">'Kentucky'</span><span class="p">,</span><span class="s1">'Wisconsin'</span><span class="p">,</span><span class="s1">'Villanova'</span><span class="p">,</span><span class="s1">'Duke'</span><span class="p">],</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">MMMC</span><span class="o">.</span><span class="n">showstats</span><span class="p">(</span><span class="n">sr</span><span class="p">,</span><span class="n">newfig</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -208,7 +220,10 @@ Total bracket energy: -17.4533174222
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Lowest energy bracket
 Kentucky (1)                               
@@ -229,7 +244,10 @@ Total bracket energy: -3.04122415391
 </div>
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 
 
 <div class="output_png output_subarea ">
@@ -257,13 +275,13 @@ Total bracket energy: -3.04122415391
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="What-should-our-temperature-be?">What should our temperature be?<a class="anchor-link" href="more-march-madness-monte-carlo-style.html#What-should-our-temperature-be?">¶</a>
-</h1>
+<h2 id="What-should-our-temperature-be?">What should our temperature be?<a class="anchor-link" href="more-march-madness-monte-carlo-style.html#What-should-our-temperature-be?">¶</a>
+</h2>
 <p>If we had chosen option 1 at the top, we'd just flip coins with a given probability of winning. Here (and this may be a questionable decision), we need to set an overall temperature for our simulation. Intuitively, the higher the temperature, the closer we come to a random outcome. The lower the temperature, the closer we come to a "best seed always wins" bracket. If we're going to make sense of temperature, we should pick a reasonable energy function.</p>
 <p>We can use <a href="http://www.kenpom.com">KenPom</a>'s <code>log5</code> defined as</p>
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">log5_energy_game</span><span class="p">(</span><span class="n">winner</span><span class="p">,</span> <span class="n">loser</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">log5_energy_game</span><span class="p">(</span><span class="n">winner</span><span class="p">,</span> <span class="n">loser</span><span class="p">):</span>
     <span class="n">A</span><span class="p">,</span><span class="n">B</span> <span class="o">=</span> <span class="n">strength</span><span class="p">[</span><span class="n">winner</span><span class="p">],</span><span class="n">strength</span><span class="p">[</span><span class="n">loser</span><span class="p">]</span>
-    <span class="c"># see http://207.56.97.150/articles/playoff2002.htm</span>
+    <span class="c1"># see http://207.56.97.150/articles/playoff2002.htm</span>
     <span class="n">win_pct</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">-</span><span class="n">A</span><span class="o">*</span><span class="n">B</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">A</span><span class="o">+</span><span class="n">B</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="n">B</span><span class="p">)</span>
     <span class="k">return</span> <span class="o">-</span><span class="n">win_pct</span>
 </pre></div>
@@ -278,7 +296,7 @@ Total bracket energy: -3.04122415391
 <div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">MarchMadnessMonteCarlo.examples</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">MarchMadnessMonteCarlo.examples</span>
 <span class="n">MMMC</span><span class="o">.</span><span class="n">set_energy_function</span><span class="p">(</span><span class="n">MarchMadnessMonteCarlo</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">log5_energy_game</span><span class="p">)</span>
 </pre></div>
 
@@ -302,15 +320,15 @@ Total bracket energy: -3.04122415391
 <div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">winpct8</span><span class="p">(</span><span class="n">team8</span><span class="p">,</span><span class="n">team9</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">numtrials</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">winpct8</span><span class="p">(</span><span class="n">team8</span><span class="p">,</span><span class="n">team9</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">numtrials</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
     <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">MMMC</span><span class="o">.</span><span class="n">playgame</span><span class="p">(</span><span class="n">team8</span><span class="p">,</span><span class="n">team9</span><span class="p">,</span><span class="n">T</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">team8</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numtrials</span><span class="p">)]</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">plotwins</span><span class="p">(</span><span class="n">team8</span><span class="p">,</span><span class="n">team9</span><span class="p">,</span><span class="n">numtrials</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
     <span class="n">Ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
     <span class="n">pct</span> <span class="o">=</span> <span class="p">[</span><span class="n">winpct8</span><span class="p">(</span><span class="n">team8</span><span class="p">,</span><span class="n">team9</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">numtrials</span><span class="p">)</span> <span class="k">for</span> <span class="n">T</span> <span class="ow">in</span> <span class="n">Ts</span><span class="p">]</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Ts</span><span class="p">,</span><span class="n">pct</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s">'{t1} vs. {t2}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t1</span><span class="o">=</span><span class="n">team8</span><span class="p">,</span><span class="n">t2</span><span class="o">=</span><span class="n">team9</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'T'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'winpct'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Ts</span><span class="p">,</span><span class="n">pct</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">'</span><span class="si">{t1}</span><span class="s1"> vs. </span><span class="si">{t2}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t1</span><span class="o">=</span><span class="n">team8</span><span class="p">,</span><span class="n">t2</span><span class="o">=</span><span class="n">team9</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'T'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'winpct'</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -333,10 +351,10 @@ Total bracket energy: -3.04122415391
 <div class="prompt input_prompt">In [6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">plotwins</span><span class="p">(</span><span class="s">'Cincinnati'</span><span class="p">,</span><span class="s">'Purdue'</span><span class="p">)</span>
-<span class="n">plotwins</span><span class="p">(</span><span class="s">'Oregon'</span><span class="p">,</span><span class="s">'Oklahoma St.'</span><span class="p">)</span>
-<span class="n">plotwins</span><span class="p">(</span><span class="s">'North Carolina St.'</span><span class="p">,</span><span class="s">'LSU'</span><span class="p">)</span>
-<span class="n">plotwins</span><span class="p">(</span><span class="s">'San Diego St.'</span><span class="p">,</span><span class="s">"St. John's"</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plotwins</span><span class="p">(</span><span class="s1">'Cincinnati'</span><span class="p">,</span><span class="s1">'Purdue'</span><span class="p">)</span>
+<span class="n">plotwins</span><span class="p">(</span><span class="s1">'Oregon'</span><span class="p">,</span><span class="s1">'Oklahoma St.'</span><span class="p">)</span>
+<span class="n">plotwins</span><span class="p">(</span><span class="s1">'North Carolina St.'</span><span class="p">,</span><span class="s1">'LSU'</span><span class="p">)</span>
+<span class="n">plotwins</span><span class="p">(</span><span class="s1">'San Diego St.'</span><span class="p">,</span><span class="s2">"St. John's"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
 
@@ -349,7 +367,10 @@ Total bracket energy: -3.04122415391
 
 
 <div class="output_area">
+
 <div class="prompt output_prompt">Out[6]:</div>
+
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -359,7 +380,10 @@ Total bracket energy: -3.04122415391
 </div>
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 
 
 <div class="output_png output_subarea ">
@@ -389,7 +413,7 @@ Total bracket energy: -3.04122415391
 <div class="prompt input_prompt">In [7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">MarchMadnessMonteCarlo</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">log5_energy_game</span><span class="p">(</span><span class="s">'Kentucky'</span><span class="p">,</span><span class="s">'Kansas'</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">MarchMadnessMonteCarlo</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">log5_energy_game</span><span class="p">(</span><span class="s1">'Kentucky'</span><span class="p">,</span><span class="s1">'Kansas'</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -401,7 +425,10 @@ Total bracket energy: -3.04122415391
 
 
 <div class="output_area">
+
 <div class="prompt output_prompt">Out[7]:</div>
+
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -419,7 +446,7 @@ Total bracket energy: -3.04122415391
 <div class="prompt input_prompt">In [8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">plotwins</span><span class="p">(</span><span class="s">'Kentucky'</span><span class="p">,</span><span class="s">'Kansas'</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plotwins</span><span class="p">(</span><span class="s1">'Kentucky'</span><span class="p">,</span><span class="s1">'Kansas'</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -431,7 +458,10 @@ Total bracket energy: -3.04122415391
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 
 
 <div class="output_png output_subarea ">
@@ -450,8 +480,8 @@ Total bracket energy: -3.04122415391
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>If I pick <code>T=1.5</code>, I get Kentucky, the favorite, winning 60% of the time. You can feel free to choose a "saner" temperature, but I'm rooting for KU here!</p>
-<h2 id="Running-some-brackets!">Running some brackets!<a class="anchor-link" href="more-march-madness-monte-carlo-style.html#Running-some-brackets!">¶</a>
-</h2>
+<h3 id="Running-some-brackets!">Running some brackets!<a class="anchor-link" href="more-march-madness-monte-carlo-style.html#Running-some-brackets!">¶</a>
+</h3>
 <p>So what does a bracket happen to look like? Well, in the original blog post, I mentioned that we came up with two different ways to run brackets. It can take a while to run a bracket, so a fast way (implemented as <code>runbracket2</code>) is to run separate brackets for each of the individual regions, then take the winner from each region's most common bracket to form a Final Four. Below, we do just that, running 10,000 trials for each of the regions, and 1000 trials for the Final Four.</p>
 
 </div>
@@ -462,7 +492,7 @@ Total bracket energy: -3.04122415391
 <div class="prompt input_prompt">In [9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">results</span> <span class="o">=</span> <span class="n">MMMC</span><span class="o">.</span><span class="n">runbracket2</span><span class="p">(</span><span class="n">ntrials1</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span><span class="n">ntrials2</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">T</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">MMMC</span><span class="o">.</span><span class="n">runbracket2</span><span class="p">(</span><span class="n">ntrials1</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span><span class="n">ntrials2</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">T</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -474,7 +504,10 @@ Total bracket energy: -3.04122415391
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>YOUR LOWEST ENERGY BRACKETS
 LOWEST ENERGY BRACKET FOR REGION midwest
@@ -685,9 +718,9 @@ number of times this bracket happened: 176
 <div class="prompt input_prompt">In [10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="c"># Basic visualization</span>
-<span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="s">'midwest west east south'</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
-    <span class="n">MMMC</span><span class="o">.</span><span class="n">showstats</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">region</span><span class="p">],</span><span class="n">description</span><span class="o">=</span><span class="n">region</span><span class="p">,</span><span class="n">newfig</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Basic visualization</span>
+<span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="s1">'midwest west east south'</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+    <span class="n">MMMC</span><span class="o">.</span><span class="n">showstats</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">region</span><span class="p">],</span><span class="n">description</span><span class="o">=</span><span class="n">region</span><span class="p">,</span><span class="n">newfig</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -699,7 +732,10 @@ number of times this bracket happened: 176
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 
 
 <div class="output_png output_subarea ">
@@ -709,7 +745,10 @@ number of times this bracket happened: 176
 </div>
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 
 
 <div class="output_png output_subarea ">
@@ -719,7 +758,10 @@ number of times this bracket happened: 176
 </div>
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 
 
 <div class="output_png output_subarea ">
@@ -729,7 +771,10 @@ number of times this bracket happened: 176
 </div>
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 
 
 <div class="output_png output_subarea ">
@@ -749,8 +794,8 @@ number of times this bracket happened: 176
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Here you can see the classic reason to do Monte Carlo samping in the first place: we're absolutely nowhere near fully sampling bracket space. You can tell this from each of the "Unique brackets over the trajectory" plots, none of which have leveled out.</p>
 <p>Further, you can see that the strength distribution in each of the regions is pretty different. Check out the energy distribution histograms for visual proof.</p>
-<h3 id="Nice-tables">Nice tables<a class="anchor-link" href="more-march-madness-monte-carlo-style.html#Nice-tables">¶</a>
-</h3>
+<h4 id="Nice-tables">Nice tables<a class="anchor-link" href="more-march-madness-monte-carlo-style.html#Nice-tables">¶</a>
+</h4>
 <p>And here's our set of tabulated results. Note that things look a little funny for the Final Four: <code>runbracket2</code> runs the final four separate from the rest of the tourney. So, only four teams are allowed to have Championship and Win percentages above zero (the final four percentages are taken from the first chunk of the tourney).</p>
 
 </div>
@@ -761,7 +806,7 @@ number of times this bracket happened: 176
 <div class="prompt input_prompt">In [11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">h</span> <span class="o">=</span> <span class="n">HTML</span><span class="p">(</span><span class="n">MMMC</span><span class="o">.</span><span class="n">maketable</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="n">HTML</span><span class="p">(</span><span class="n">MMMC</span><span class="o">.</span><span class="n">maketable</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
 <span class="n">h</span>
 </pre></div>
 
@@ -774,7 +819,10 @@ number of times this bracket happened: 176
 
 
 <div class="output_area">
+
 <div class="prompt output_prompt">Out[11]:</div>
+
+
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <table>
@@ -1582,7 +1630,7 @@ number of times this bracket happened: 176
 <div class="prompt input_prompt">In [12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">results</span> <span class="o">=</span> <span class="n">MMMC</span><span class="o">.</span><span class="n">runbracket1</span><span class="p">(</span><span class="n">ntrials</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span><span class="n">T</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">MMMC</span><span class="o">.</span><span class="n">runbracket1</span><span class="p">(</span><span class="n">ntrials</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span><span class="n">T</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1594,7 +1642,10 @@ number of times this bracket happened: 176
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Lowest energy bracket
 Kentucky (1)                                                                   
@@ -1743,7 +1794,7 @@ Total bracket energy: -38.100050778
 <div class="prompt input_prompt">In [13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">h</span> <span class="o">=</span> <span class="n">HTML</span><span class="p">(</span><span class="n">MMMC</span><span class="o">.</span><span class="n">maketable</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="n">HTML</span><span class="p">(</span><span class="n">MMMC</span><span class="o">.</span><span class="n">maketable</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
 <span class="n">h</span>
 </pre></div>
 
@@ -1756,7 +1807,10 @@ Total bracket energy: -38.100050778
 
 
 <div class="output_area">
+
 <div class="prompt output_prompt">Out[13]:</div>
+
+
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <table>
@@ -2564,7 +2618,7 @@ Total bracket energy: -38.100050778
 <div class="prompt input_prompt">In [14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">results</span> <span class="o">=</span> <span class="n">MMMC</span><span class="o">.</span><span class="n">runbracket1</span><span class="p">(</span><span class="n">ntrials</span><span class="o">=</span><span class="mi">100000</span><span class="p">,</span><span class="n">T</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">MMMC</span><span class="o">.</span><span class="n">runbracket1</span><span class="p">(</span><span class="n">ntrials</span><span class="o">=</span><span class="mi">100000</span><span class="p">,</span><span class="n">T</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -2576,7 +2630,10 @@ Total bracket energy: -38.100050778
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Lowest energy bracket
 Kentucky (1)                                                                   
@@ -2725,7 +2782,7 @@ Total bracket energy: -37.1483683417
 <div class="prompt input_prompt">In [15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">h</span> <span class="o">=</span> <span class="n">HTML</span><span class="p">(</span><span class="n">MMMC</span><span class="o">.</span><span class="n">maketable</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="n">HTML</span><span class="p">(</span><span class="n">MMMC</span><span class="o">.</span><span class="n">maketable</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
 <span class="n">h</span>
 </pre></div>
 
@@ -2738,7 +2795,10 @@ Total bracket energy: -37.1483683417
 
 
 <div class="output_area">
+
 <div class="prompt output_prompt">Out[15]:</div>
+
+
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <table>
@@ -3536,7 +3596,7 @@ Total bracket energy: -37.1483683417
 <div class="prompt input_prompt">In [17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">MMMC</span><span class="o">.</span><span class="n">showstats</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s">'all'</span><span class="p">],</span><span class="n">description</span><span class="o">=</span><span class="s">'full run'</span><span class="p">,</span><span class="n">newfig</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">MMMC</span><span class="o">.</span><span class="n">showstats</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">'all'</span><span class="p">],</span><span class="n">description</span><span class="o">=</span><span class="s1">'full run'</span><span class="p">,</span><span class="n">newfig</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -3548,7 +3608,10 @@ Total bracket energy: -37.1483683417
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 
 
 <div class="output_png output_subarea ">
@@ -3567,8 +3630,8 @@ Total bracket energy: -37.1483683417
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Not bad! (Also, note the shape of the energy distribution, and the fact taht the "Unique brackets" group is still basically linear!)</p>
-<h2 id="Who-wins?">Who wins?<a class="anchor-link" href="more-march-madness-monte-carlo-style.html#Who-wins?">¶</a>
-</h2>
+<h3 id="Who-wins?">Who wins?<a class="anchor-link" href="more-march-madness-monte-carlo-style.html#Who-wins?">¶</a>
+</h3>
 <p>But let's be honest for a minute. We all know Kansas is going to win. What do the brackets where that happened look like?</p>
 
 </div>
@@ -3579,7 +3642,7 @@ Total bracket energy: -37.1483683417
 <div class="prompt input_prompt">In [18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">goodbrackets</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">results</span><span class="p">[</span><span class="s">'all'</span><span class="p">]</span><span class="o">.</span><span class="n">brackets</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">bracket</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">'Kansas'</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">goodbrackets</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">results</span><span class="p">[</span><span class="s1">'all'</span><span class="p">]</span><span class="o">.</span><span class="n">brackets</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">bracket</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'Kansas'</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -3592,10 +3655,10 @@ Total bracket energy: -37.1483683417
 <div class="prompt input_prompt">In [19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="kn">from</span> <span class="nn">MarchMadnessMonteCarlo.Brackets</span> <span class="kn">import</span> <span class="n">Stats</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">MarchMadnessMonteCarlo.Brackets</span> <span class="k">import</span> <span class="n">Stats</span>
 <span class="n">lb</span><span class="p">,</span> <span class="n">mcb</span><span class="p">,</span> <span class="n">mcb_count</span><span class="p">,</span> <span class="n">unique_brackets</span><span class="p">,</span> <span class="n">lowest_sightings</span> <span class="o">=</span> <span class="n">Stats</span><span class="o">.</span><span class="n">gather_uniquestats</span><span class="p">(</span><span class="n">goodbrackets</span><span class="p">)</span>
 <span class="n">sr</span> <span class="o">=</span> <span class="n">MMMC</span><span class="o">.</span><span class="n">SimulationResults</span><span class="p">(</span><span class="n">goodbrackets</span><span class="p">,</span><span class="n">unique_brackets</span><span class="p">,</span><span class="n">lb</span><span class="p">,</span><span class="n">lowest_sightings</span><span class="p">,</span><span class="n">mcb</span><span class="p">,</span><span class="n">mcb_count</span><span class="p">)</span>
-<span class="n">trueresults</span> <span class="o">=</span> <span class="p">{</span><span class="s">'all'</span><span class="p">:</span><span class="n">sr</span><span class="p">}</span>
+<span class="n">trueresults</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'all'</span><span class="p">:</span><span class="n">sr</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -3608,7 +3671,7 @@ Total bracket energy: -37.1483683417
 <div class="prompt input_prompt">In [20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">h</span> <span class="o">=</span> <span class="n">HTML</span><span class="p">(</span><span class="n">MMMC</span><span class="o">.</span><span class="n">maketable</span><span class="p">(</span><span class="n">trueresults</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="n">HTML</span><span class="p">(</span><span class="n">MMMC</span><span class="o">.</span><span class="n">maketable</span><span class="p">(</span><span class="n">trueresults</span><span class="p">))</span>
 <span class="n">h</span>
 </pre></div>
 
@@ -3621,7 +3684,10 @@ Total bracket energy: -37.1483683417
 
 
 <div class="output_area">
+
 <div class="prompt output_prompt">Out[20]:</div>
+
+
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <table>
@@ -4419,7 +4485,7 @@ Total bracket energy: -37.1483683417
 <div class="prompt input_prompt">In [21]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">sr</span><span class="o">.</span><span class="n">most_common_bracket</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sr</span><span class="o">.</span><span class="n">most_common_bracket</span>
 </pre></div>
 
 </div>
@@ -4431,7 +4497,10 @@ Total bracket energy: -37.1483683417
 
 
 <div class="output_area">
+
 <div class="prompt output_prompt">Out[21]:</div>
+
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -4513,7 +4582,7 @@ Total bracket energy: -35.9796902956</pre>
 <div class="prompt input_prompt">In [22]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">sr</span><span class="o">.</span><span class="n">most_common_bracket_count</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sr</span><span class="o">.</span><span class="n">most_common_bracket_count</span>
 </pre></div>
 
 </div>
@@ -4525,7 +4594,10 @@ Total bracket energy: -35.9796902956</pre>
 
 
 <div class="output_area">
+
 <div class="prompt output_prompt">Out[22]:</div>
+
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -4557,18 +4629,18 @@ Total bracket energy: -35.9796902956</pre>
 <div class="prompt input_prompt">In [46]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="kn">from</span> <span class="nn">MarchMadnessMonteCarlo</span> <span class="kn">import</span> <span class="n">RankingsAndStrength</span> <span class="k">as</span> <span class="n">RAS</span>
-<span class="n">strength</span> <span class="o">=</span> <span class="n">RAS</span><span class="o">.</span><span class="n">kenpom</span><span class="p">[</span><span class="s">'Pyth'</span><span class="p">]</span>
-<span class="n">jsstrength</span> <span class="o">=</span> <span class="n">RAS</span><span class="o">.</span><span class="n">sagarin</span><span class="p">[</span><span class="s">'Rating'</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">MarchMadnessMonteCarlo</span> <span class="k">import</span> <span class="n">RankingsAndStrength</span> <span class="k">as</span> <span class="n">RAS</span>
+<span class="n">strength</span> <span class="o">=</span> <span class="n">RAS</span><span class="o">.</span><span class="n">kenpom</span><span class="p">[</span><span class="s1">'Pyth'</span><span class="p">]</span>
+<span class="n">jsstrength</span> <span class="o">=</span> <span class="n">RAS</span><span class="o">.</span><span class="n">sagarin</span><span class="p">[</span><span class="s1">'Rating'</span><span class="p">]</span>
 
 <span class="k">def</span> <span class="nf">weighted_KU_energy_game</span><span class="p">(</span><span class="n">winner</span><span class="p">,</span> <span class="n">loser</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">winner</span> <span class="o">==</span> <span class="s">'Kansas'</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">winner</span> <span class="o">==</span> <span class="s1">'Kansas'</span><span class="p">:</span>
         <span class="n">win_pct</span> <span class="o">=</span> <span class="mf">0.99</span>
-    <span class="k">elif</span> <span class="n">loser</span> <span class="o">==</span> <span class="s">'Kansas'</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">loser</span> <span class="o">==</span> <span class="s1">'Kansas'</span><span class="p">:</span>
         <span class="n">win_pct</span> <span class="o">=</span> <span class="mf">0.01</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">A</span><span class="p">,</span><span class="n">B</span> <span class="o">=</span> <span class="n">strength</span><span class="p">[</span><span class="n">winner</span><span class="p">],</span><span class="n">strength</span><span class="p">[</span><span class="n">loser</span><span class="p">]</span>
-        <span class="c"># see http://207.56.97.150/articles/playoff2002.htm</span>
+        <span class="c1"># see http://207.56.97.150/articles/playoff2002.htm</span>
         <span class="n">kenpom</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">-</span><span class="n">A</span><span class="o">*</span><span class="n">B</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">A</span><span class="o">+</span><span class="n">B</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="n">B</span><span class="p">)</span>
         <span class="n">A</span><span class="p">,</span><span class="n">B</span> <span class="o">=</span> <span class="n">jsstrength</span><span class="p">[</span><span class="n">winner</span><span class="p">]</span><span class="o">/</span><span class="mi">100</span><span class="p">,</span> <span class="n">jsstrength</span><span class="p">[</span><span class="n">loser</span><span class="p">]</span><span class="o">/</span><span class="mi">100</span>
         <span class="n">A</span><span class="p">,</span><span class="n">B</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="mf">0.9999</span><span class="p">),</span><span class="nb">min</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="mf">0.9999</span><span class="p">)</span>
@@ -4587,7 +4659,7 @@ Total bracket energy: -35.9796902956</pre>
 <div class="prompt input_prompt">In [48]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">MMMC</span><span class="o">.</span><span class="n">set_energy_function</span><span class="p">(</span><span class="n">weighted_KU_energy_game</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">MMMC</span><span class="o">.</span><span class="n">set_energy_function</span><span class="p">(</span><span class="n">weighted_KU_energy_game</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -4600,7 +4672,7 @@ Total bracket energy: -35.9796902956</pre>
 <div class="prompt input_prompt">In [55]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">results</span> <span class="o">=</span> <span class="n">MMMC</span><span class="o">.</span><span class="n">runbracket1</span><span class="p">(</span><span class="n">ntrials</span><span class="o">=</span><span class="mi">100000</span><span class="p">,</span><span class="n">T</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">MMMC</span><span class="o">.</span><span class="n">runbracket1</span><span class="p">(</span><span class="n">ntrials</span><span class="o">=</span><span class="mi">100000</span><span class="p">,</span><span class="n">T</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -4612,7 +4684,10 @@ Total bracket energy: -35.9796902956</pre>
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Lowest energy bracket
 Kentucky (1)                                                                   
@@ -4761,7 +4836,7 @@ Total bracket energy: -38.9077921757
 <div class="prompt input_prompt">In [56]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">MMMC</span><span class="o">.</span><span class="n">showstats</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s">'all'</span><span class="p">],</span><span class="n">description</span><span class="o">=</span><span class="s">'full run'</span><span class="p">,</span><span class="n">newfig</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">MMMC</span><span class="o">.</span><span class="n">showstats</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">'all'</span><span class="p">],</span><span class="n">description</span><span class="o">=</span><span class="s1">'full run'</span><span class="p">,</span><span class="n">newfig</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -4773,7 +4848,10 @@ Total bracket energy: -38.9077921757
 
 
 <div class="output_area">
+
 <div class="prompt"></div>
+
+
 
 
 <div class="output_png output_subarea ">
@@ -4791,7 +4869,7 @@ Total bracket energy: -38.9077921757
 <div class="prompt input_prompt">In [57]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">h</span> <span class="o">=</span> <span class="n">HTML</span><span class="p">(</span><span class="n">MMMC</span><span class="o">.</span><span class="n">maketable</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="n">HTML</span><span class="p">(</span><span class="n">MMMC</span><span class="o">.</span><span class="n">maketable</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
 <span class="n">h</span>
 </pre></div>
 
@@ -4804,7 +4882,10 @@ Total bracket energy: -38.9077921757
 
 
 <div class="output_area">
+
 <div class="prompt output_prompt">Out[57]:</div>
+
+
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <table>
@@ -5613,14 +5694,14 @@ Total bracket energy: -38.9077921757
     </section><aside class="sharing no-print"><a href="#content" aria-label="Post beginning">
        <i class="fa fa-2x fa-fw fa-arrow-circle-up" aria-hidden="true" title="Post beginning"></i>
     </a>
-    <a href="https://mglerner.github.io/posts/evolution-of-a-learning-goal.html" rel="prev" title="Evolution of a Learning Goal">
-       <i class="fa fa-2x fa-fw fa-arrow-circle-left" aria-hidden="true" title="Previous post: Evolution of a Learning Goal"></i>
+    <a href="https://mglerner.github.io/posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html" rel="prev" title="Speeding up calculations with lookup tables and Lagrangian interpolation">
+       <i class="fa fa-2x fa-fw fa-arrow-circle-left" aria-hidden="true" title="Previous post: Speeding up calculations with lookup tables and Lagrangian interpolation"></i>
     </a>
-    <a href="https://mglerner.github.io/posts/using-numba-to-speed-up-mean-squared-displacement-calculations.html" rel="next" title="Next post: using numba to speed up mean-squared displacement calculations" aria-label="Next post: using numba to speed up mean-squared displacement calculations">
+    <a href="https://mglerner.github.io/posts/using-numba-to-speed-up-mean-squared-displacement-calculations.html" rel="next" title="Next post: Using numba to speed up mean-squared displacement calculations" aria-label="Next post: Using numba to speed up mean-squared displacement calculations">
        <i class="fa fa-2x fa-fw fa-arrow-circle-right" aria-hidden="true"></i>
     </a>
     <span class="post-sharing">
-     <a href="http://twitter.com/share?text=MMMC2015&amp;url=https%3A%2F%2Fmglerner.github.io%2Fposts%2Fmore-march-madness-monte-carlo-style.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" aria-label="Share on Twitter">
+     <a href="http://twitter.com/share?text=More+March+Madness+Monte+Carlo+style&amp;url=https%3A%2F%2Fmglerner.github.io%2Fposts%2Fmore-march-madness-monte-carlo-style.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" aria-label="Share on Twitter">
        <i class="fa fa-2x fa-fw fa-twitter-square" aria-hidden="true" title="Share on Twitter">
      </i></a>
      <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmglerner.github.io%2Fposts%2Fmore-march-madness-monte-carlo-style.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" aria-label="Share on Facebook">
@@ -5636,7 +5717,7 @@ Total bracket energy: -38.9077921757
 <div class="author-image" style="background: url(https://pbs.twimg.com/profile_images/196327413/MGLProfile_400x400.jpg)"></div>
      <h3 class="byline-name fn" itemprop="name">Michael G. Lerner
         <span class="post-sharing">
-            <a href="mailto:mglerner@protonmail.com?subject=MMMC2015" aria-label="Email author">
+            <a href="mailto:mglerner@protonmail.com?subject=More%20March%20Madness%20Monte%20Carlo%20style" aria-label="Email author">
             <i class="fa fa-2 fa-fw fa-envelope" aria-hidden="true" title="Email author">
             </i></a>
         </span>
@@ -5657,7 +5738,7 @@ Total bracket energy: -38.9077921757
         <script>
         var disqus_shortname ="biophysics-and-beer",
             disqus_url="https://mglerner.github.io/posts/more-march-madness-monte-carlo-style.html",
-        disqus_title="MMMC2015",
+        disqus_title="More March Madness Monte Carlo style",
         disqus_identifier="cache/posts/more-march-madness-monte-carlo-style.html",
         disqus_config = function () {
             this.language = "en";
@@ -5672,7 +5753,9 @@ Total bracket energy: -38.9077921757
     <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
-        </section></article><script>var disqus_shortname="biophysics-and-beer";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2017         <a href="mailto:mglerner@protonmail.com">Michael G. Lerner</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        </section><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}});
+        </script></article><script>var disqus_shortname="biophysics-and-beer";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2017         <a href="mailto:mglerner@protonmail.com">Michael G. Lerner</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>

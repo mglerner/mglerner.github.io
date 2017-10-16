@@ -74,7 +74,16 @@ The basics
 <p><strong>Quick summary for the class is at the end</strong></p>
 <h1>The basics</h1>
 <p>We started off writing an energy function and figuring out how to play a simple 8-team bracket (side-note: IPython notebooks were great for this purpose! We were able to record our class sessions and post them online, along with a “Scientific Cookbook”). This version of Thermal Physics doesn’t have a programming prerequisite, so the coding parts of the assignments stopped with running and analyzing 8-team brackets.</p>
-<p>We then spent a chunk of class time comparing our simulations with the 2-state paramagnets we’d seen in Schroeder’s text (we covered section 8.2 a bit out of sequence). In that context, it was clear what a Monte Carlo move was. We convinced ourselves that we could do something similar in <strong>bracket space</strong>, but that we couldn’t just flip a single game (we also had to consider flipping the games that <em>depended</em> on that game). The coding for that part was definitely beyond the scope of this class, but I hacked up an ugly version for us to use.</p>
+<p>We then spent a chunk of class time comparing our simulations with
+the 2-state paramagnets we’d seen in Schroeder’s text (we covered
+section 8.2 a bit out of sequence). In that context, it was clear what
+a Monte Carlo move was. We convinced ourselves that we could do
+something similar in <strong>bracket space</strong>, but that we
+couldn’t just flip a single game (we also had to consider flipping the
+games that <em>depended</em> on that game). The coding for that part
+was definitely beyond the scope of this class, but I hacked up an ugly
+version for us to use.</p>
+<!-- TEASER_END -->
 <p>Warnings to the programmers in audience: this code is very much not pretty and very much not optimized. In particular, the Bracket code is really slow, to the point where it takes a noticeable amount of time to run 10000 brackets. The main goals were (1) get something written (2) make it easy for the students to modify the parts they need to modify. Please feel free to send comments! If I get more than 1, I’ll consider stuffing things on github, etc.</p>
 <p>So, to run things, download all of the Python files Brackets.py JeffSagarin.py KenPomeroy.py MonteCarloBrackets.py RankingsAndStrength.py Stats.py Visualization.py decorators.py from <a title="This directory on my website" href="http://mglerner.com/MarchMadness/">This directory on my website</a>.</p>
 <p><strong>EDIT: See the comments. Daniel Smith has made some improvements and started a github repo, which I’ve forked.</strong></p>

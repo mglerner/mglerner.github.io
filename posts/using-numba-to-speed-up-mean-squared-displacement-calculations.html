@@ -3,18 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>using numba to speed up mean-squared displacement calculations | Biophysics and Beer</title>
+<title>Using numba to speed up mean-squared displacement calculations | Biophysics and Beer</title>
 <link href="../assets/css/all.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
 <link rel="canonical" href="https://mglerner.github.io/posts/using-numba-to-speed-up-mean-squared-displacement-calculations.html">
 <!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><meta name="author" content="Michael G. Lerner">
-<link rel="prev" href="more-march-madness-monte-carlo-style.html" title="MMMC2015" type="text/html">
+<link rel="prev" href="more-march-madness-monte-carlo-style.html" title="More March Madness Monte Carlo style" type="text/html">
 <link rel="next" href="can-i-be-smarter-about-late-policies.html" title="Can I be smarter about late policies?" type="text/html">
 <meta property="og:site_name" content="Biophysics and Beer">
-<meta property="og:title" content="using numba to speed up mean-squared displacement calculations">
+<meta property="og:title" content="Using numba to speed up mean-squared displacement calculations">
 <meta property="og:url" content="https://mglerner.github.io/posts/using-numba-to-speed-up-mean-squared-displacement-calculations.html">
-<meta property="og:description" content="Writing a faster mean-squared-displacement function¶I'm trying to calculate the Mean Squared Displacement (MSD) of a particle trajectory. In reality, I have an array of positions for numtrj particles ">
+<meta property="og:description" content="You can download this whole thing as a Jupyter notebook here
+
+
+
+
+
+
+
+
+Writing a faster mean-squared-displacement function¶I'm trying to calculate the Mean Squared Displacement (MSD) of a particle traje">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2015-07-02T14:35:00Z">
 <link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css">
@@ -52,7 +61,7 @@
       <div class="container content" id="content">
         
 <article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/BlogPosting"><header><h1 class="post-title p-name entry-title" itemprop="headline">
-      <a href="https://mglerner.github.io/posts/using-numba-to-speed-up-mean-squared-displacement-calculations.html" class="u-url">using numba to speed up mean-squared displacement calculations</a>
+      <a href="https://mglerner.github.io/posts/using-numba-to-speed-up-mean-squared-displacement-calculations.html" class="u-url">Using numba to speed up mean-squared displacement calculations</a>
 </h1>
         <div class="metadata">
         <meta itemprop="inLanguage" content="en">
@@ -70,6 +79,16 @@
     </header><section class="e-content entry-content" itemprop="articleBody text"><div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can download this whole thing as a Jupyter notebook <a href="using-numba-to-speed-up-mean-squared-displacement-calculations.ipynb">here</a></p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -627,14 +646,14 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
     </section><aside class="sharing no-print"><a href="#content" aria-label="Post beginning">
        <i class="fa fa-2x fa-fw fa-arrow-circle-up" aria-hidden="true" title="Post beginning"></i>
     </a>
-    <a href="https://mglerner.github.io/posts/more-march-madness-monte-carlo-style.html" rel="prev" title="MMMC2015">
-       <i class="fa fa-2x fa-fw fa-arrow-circle-left" aria-hidden="true" title="Previous post: MMMC2015"></i>
+    <a href="https://mglerner.github.io/posts/more-march-madness-monte-carlo-style.html" rel="prev" title="More March Madness Monte Carlo style">
+       <i class="fa fa-2x fa-fw fa-arrow-circle-left" aria-hidden="true" title="Previous post: More March Madness Monte Carlo style"></i>
     </a>
     <a href="https://mglerner.github.io/posts/can-i-be-smarter-about-late-policies.html" rel="next" title="Next post: Can I be smarter about late policies?" aria-label="Next post: Can I be smarter about late policies?">
        <i class="fa fa-2x fa-fw fa-arrow-circle-right" aria-hidden="true"></i>
     </a>
     <span class="post-sharing">
-     <a href="http://twitter.com/share?text=using+numba+to+speed+up+mean-squared+displacement+calculations&amp;url=https%3A%2F%2Fmglerner.github.io%2Fposts%2Fusing-numba-to-speed-up-mean-squared-displacement-calculations.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" aria-label="Share on Twitter">
+     <a href="http://twitter.com/share?text=Using+numba+to+speed+up+mean-squared+displacement+calculations&amp;url=https%3A%2F%2Fmglerner.github.io%2Fposts%2Fusing-numba-to-speed-up-mean-squared-displacement-calculations.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" aria-label="Share on Twitter">
        <i class="fa fa-2x fa-fw fa-twitter-square" aria-hidden="true" title="Share on Twitter">
      </i></a>
      <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmglerner.github.io%2Fposts%2Fusing-numba-to-speed-up-mean-squared-displacement-calculations.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" aria-label="Share on Facebook">
@@ -650,7 +669,7 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
 <div class="author-image" style="background: url(https://pbs.twimg.com/profile_images/196327413/MGLProfile_400x400.jpg)"></div>
      <h3 class="byline-name fn" itemprop="name">Michael G. Lerner
         <span class="post-sharing">
-            <a href="mailto:mglerner@protonmail.com?subject=using%20numba%20to%20speed%20up%20mean-squared%20displacement%20calculations" aria-label="Email author">
+            <a href="mailto:mglerner@protonmail.com?subject=Using%20numba%20to%20speed%20up%20mean-squared%20displacement%20calculations" aria-label="Email author">
             <i class="fa fa-2 fa-fw fa-envelope" aria-hidden="true" title="Email author">
             </i></a>
         </span>
@@ -671,7 +690,7 @@ The slowest run took 14872.73 times longer than the fastest. This could mean tha
         <script>
         var disqus_shortname ="biophysics-and-beer",
             disqus_url="https://mglerner.github.io/posts/using-numba-to-speed-up-mean-squared-displacement-calculations.html",
-        disqus_title="using numba to speed up mean-squared displacement calculations",
+        disqus_title="Using numba to speed up mean-squared displacement calculations",
         disqus_identifier="cache/posts/using-numba-to-speed-up-mean-squared-displacement-calculations.html",
         disqus_config = function () {
             this.language = "en";

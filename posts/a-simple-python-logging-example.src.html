@@ -1,5 +1,18 @@
 <html><body><p>I’m slowly converting most of my lab to Python. One of the great things is how fantastic the documentation for things like <a title="matplotlib" href="http://matplotlib.sourceforge.net">matplotlib</a> is. On the other hand, some of the Python documentation itself is ridiculous.</p>
-<p>Somebody wanted to set up some simple logging. He wanted to have a couple of different logging levels, he wanted to be able to switch between them from the command line, and he wanted to be able to spit messages to stdout as well. The <a title="Logging module documentation" href="http://docs.python.org/library/logging.html">official docs</a> have a trivial example that’s very nice, but a bit too trivial and then several examples that were way too much for someone who’s in his first week of Python. He also really wanted to be able to specify numbers on the command line, and didn’t want to remember what the logging module’s internal constants (e.g. logging.CRITICAL == 50) are. Instead, he wanted to be able to give words or small, easy to remember numbers. Here’s the simple example we came up with:</p>
+<p>Somebody wanted to set up some simple logging. He wanted to have a
+couple of different logging levels, he wanted to be able to switch
+between them from the command line, and he wanted to be able to spit
+messages to stdout as well. The <a title="Logging module
+documentation"
+href="http://docs.python.org/library/logging.html">official docs</a>
+have a trivial example that’s very nice, but a bit too trivial and
+then several examples that were way too much for someone who’s in his
+first week of Python. He also really wanted to be able to specify
+numbers on the command line, and didn’t want to remember what the
+logging module’s internal constants (e.g. logging.CRITICAL == 50)
+are. Instead, he wanted to be able to give words or small, easy to
+remember numbers. Here’s the simple example we came up with:</p>
+<!-- TEASER_END -->
 <pre class="brush:py">
 #!/usr/bin/env python
 

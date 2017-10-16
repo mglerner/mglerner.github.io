@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://mglerner.github.io/posts/drum-head-normal-modes-with-movies.html">
 <!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><meta name="author" content="Michael G. Lerner">
 <link rel="prev" href="march-madness-monte-carlo-style.html" title="March Madness, Monte Carlo Style!" type="text/html">
-<link rel="next" href="histograms-and-kernel-density-estimation-kde-2.html" title="Histograms and Kernel Density Estimation (KDE)" type="text/html">
+<link rel="next" href="histograms-and-kernel-density-estimation-kde-2.html" title="Histograms and kernel density estimation KDE 2" type="text/html">
 <meta property="og:site_name" content="Biophysics and Beer">
 <meta property="og:title" content="Drum head normal modes, with movies">
 <meta property="og:url" content="https://mglerner.github.io/posts/drum-head-normal-modes-with-movies.html">
@@ -69,6 +69,7 @@
 
     </header><section class="e-content entry-content" itemprop="articleBody text"><p>We’re working our way through Boas in my Mathematical Physics class, and we’ve come to the point in the PDE chapter where every good Physics student figures out what the normal modes of a circular drum head ought to look like. Punchline:</p>
 <p><iframe width="640" height="360" src="http://www.youtube.com/embed/xYz5AI1ah5c?rel=0" frameborder="0" allowfullscreen></iframe></p>
+<!-- TEASER_END -->
 <h1>Drum heads</h1>
 <p>So, we get to the intuitive answer that we’re looking for $$J_n(k_{mn}r)\cos(n\theta)\cos(kvt)$$, where $$k_{mn}$$ is the $$m^{th}$$ zero of $$J_m$$ (we could also look for the $$\sin \sin$$, $$\sin \cos$$ or $$\cos \sin$$ solutions, but they’re not fundamentally different), and Boas has the standard picture of the nodelines to help with visualization. I’m becoming increasingly convinced that students should be competent with at least a little bit of Python. You could argue for Matlab or Mathematica, but I’m leaning heavily towards Python for a number of reasons[*]. The point is that things like “the sum of two specific traveling waves is a standing wave” are just easier to see if you can visualize and animate things, and they pack a bigger punch if you can do that yourself.</p>
 <h1>matplotlib animation interlude</h1>
@@ -208,7 +209,7 @@ ffmpeg -q:a 5 -r 5 -b:v 19200 -i img%04d.png movie.mp4
     <a href="https://mglerner.github.io/posts/march-madness-monte-carlo-style.html" rel="prev" title="March Madness, Monte Carlo Style!">
        <i class="fa fa-2x fa-fw fa-arrow-circle-left" aria-hidden="true" title="Previous post: March Madness, Monte Carlo Style!"></i>
     </a>
-    <a href="https://mglerner.github.io/posts/histograms-and-kernel-density-estimation-kde-2.html" rel="next" title="Next post: Histograms and Kernel Density Estimation (KDE)" aria-label="Next post: Histograms and Kernel Density Estimation (KDE)">
+    <a href="https://mglerner.github.io/posts/histograms-and-kernel-density-estimation-kde-2.html" rel="next" title="Next post: Histograms and kernel density estimation KDE 2" aria-label="Next post: Histograms and kernel density estimation KDE 2">
        <i class="fa fa-2x fa-fw fa-arrow-circle-right" aria-hidden="true"></i>
     </a>
     <span class="post-sharing">

@@ -14,7 +14,9 @@
 <meta property="og:site_name" content="Biophysics and Beer">
 <meta property="og:title" content="Switching to Nikloa for Jupyter Notebooks and a static site">
 <meta property="og:url" content="https://mglerner.github.io/posts/switching-to-nikloa-for-jupyter-notebooks-and-a-static-site.html">
-<meta property="og:description" content="I've been using WordPress for quite a while, almost entirely because it's an out-of-the-box blog setup that just works. But it kind of sucks for what I mostly want to do, which is stick some code into">
+<meta property="og:description" content="I've been using WordPress for quite a while, almost entirely because
+it's an out-of-the-box blog setup that just works. But it kind of
+sucks for what I mostly want to do, which is stick some code into">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2017-10-12T13:52:49Z">
 <link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css">
@@ -68,7 +70,14 @@
         
 
     </header><section class="e-content entry-content" itemprop="articleBody text"><div>
-<p>I've been using WordPress for quite a while, almost entirely because it's an out-of-the-box blog setup that just works. But it kind of sucks for what I mostly want to do, which is stick some code into blog posts. In fact, what usually happens is that I do something in a Jupyter notebook, and want to stick it up as a blog post. That's a real pain in WordPress. The best I found was converting the notebooks to html and then including them as a static block, but those invariably are brittle and ugly.</p>
+<p>I've been using WordPress for quite a while, almost entirely because
+it's an out-of-the-box blog setup that just works. But it kind of
+sucks for what I mostly want to do, which is stick some code into blog
+posts. In fact, what usually happens is that I do something in a
+Jupyter notebook, and want to stick it up as a blog post. That's a
+real pain in WordPress. The best I found was converting the notebooks
+to html and then including them as a static block, but those
+invariably are brittle and ugly.</p>
 <p>So, smart people like <a href="http://jakevdp.github.io">Jake Vanderplas</a> and
 <a href="http://themodernscientist.com">themodernscientist</a> switched over to
 something that deals natively with Jupyter notebooks a long time ago
@@ -83,13 +92,24 @@ process wasn't completely trivial, but that's because I did some hacky
 stuff to get Jupyter Notebooks included in my WordPress posts
 anyway. This seems like a lot of work for like 13 posts, but nobody
 ever claimed I was wise.</p>
+<p><strong>[UPDATE: I ended up switching all of my old IPython/Jupyter posts over to notebooks rather than HTML. If you read an earlier version of this, basically everything else is the same]</strong></p>
 <!-- TEASER_END -->
 
 <h3>Grabbing the site</h3>
-<p>Log in as an administrator, go to the Tools menu, click on Export, then download an Export File. Nice and easy. Thanks, WordPress!</p>
+<p>Log in as an administrator, go to the Tools menu, click on Export,
+then download an Export File. Nice and easy. Thanks, WordPress!</p>
 <h3>Install Nikola</h3>
-<p><em>Note:</em> <code>pip</code> doesn't actually play nicely with the conda environments. It looks like it installs nikola's stuff on top of everything else (e.g. the Nikola tools are available even when I'm not in the <code>blog</code> environment from below). That's not great. I probably should use a virtualenv, but I don't have time to learn what one of those is today.</p>
-<p>I'm using Anaconda for my Python, and Nikola installs via pip, so I make a new environment just for the blog. Probably good practice anyway. Speaking of which, this is all Python 3. There's some <a href="https://github.com/ContinuumIO/anaconda-issues/issues/542">weird bug</a> involved in having pip upgrade setuptools, </p>
+<p><em>Note:</em> <code>pip</code> doesn't actually play nicely with the conda
+ environments. It looks like it installs nikola's stuff on top of
+ everything else (e.g. the Nikola tools are available even when I'm
+ not in the <code>blog</code> environment from below). That's not great. I
+ probably should use a virtualenv, but I don't have time to learn what
+ one of those is today.</p>
+<p>I'm using Anaconda for my Python, and Nikola installs via pip, so I
+make a new environment just for the blog. Probably good practice
+anyway. Speaking of which, this is all Python 3. There's some
+<a href="https://github.com/ContinuumIO/anaconda-issues/issues/542">weird bug</a>
+involved in having pip upgrade setuptools,</p>
 <pre class="code literal-block"><span></span>conda create --name blog
 <span class="nb">source</span> activate blog
 conda install setuptools
@@ -106,17 +126,22 @@ mkdir output
 </pre>
 
 
-<p>I don't actually get some of my content imported. In particular, the quoted Python code doesn't show up. So,</p>
+<p>I don't actually get some of my content imported. In particular, the
+quoted Python code doesn't show up. So,</p>
 <pre class="code literal-block"><span></span>nikola import_wordpress --download-auth<span class="o">=[</span>my secret username<span class="o">]</span>:<span class="o">[</span>my secret password<span class="o">]</span> --install-wordpress-compiler --transform-to-html ~/Downloads/biophysicsandbeer.wordpress.2017-10-10.xml
 </pre>
 
 
-<p>Tells it to be explicit about converting to html and downloading everything it can. It also produces some errors, specifically a bunch of lines like</p>
+<p>Tells it to be explicit about converting to html and downloading
+everything it can. It also produces some errors, specifically a bunch
+of lines like</p>
 <pre class="code literal-block"><span></span>[2017-10-11T19:49:10Z] WARNING: Nikola: Can't do a redirect for: 'http://www.mglerner.com/blog/?p=8/'
 </pre>
 
 
-<p>which are telling us that it can't just spit out a new file in place of the old one because the question marks in the URL mean request data. We'll deal with this in a minute.</p>
+<p>which are telling us that it can't just spit out a new file in place
+of the old one because the question marks in the URL mean request
+data. We'll deal with this in a minute.</p>
 <p>We then fire up the site with</p>
 <pre class="code literal-block"><span></span><span class="nb">cd</span> new_site
 nikola build
@@ -125,41 +150,77 @@ nikola serve --browser
 
 
 <p>And it almost all works. Here are the missing things:</p>
-<h4>My pre-rendered Jupyter notebooks suck.</h4>
-<p>I used the pageview WordPress plugin (short code? I don't know) to
-include pre-rendered Jupyter notebooks. That just breaks upon
-import. But the Nikloa posts are just straight HTML. I can just
-include the stuff directly. That was pretty easy. In my future free
-time (ha!), I might go back and convert some of them directly to
-Jupyter notebooks. The main remaining reason to do so, I think, is to
-make it so that "teasers" (i.e. the ability to only show the first few
-paragraphs) works. See the bit about teasers later in the post. When I
-do that, I need to make sure I include comments explicitly in the
-Jupyter notebook. As mentioned below, I can just include the raw html
-for them, and tell the Jupyter notebook to render it via something
-like</p>
-<pre class="code literal-block"><span></span><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>
-<span class="n">HTML</span><span class="p">(</span><span class="s1">'''fancy pants html code here'''</span><span class="p">)</span>
+<h3>Comments are all missing.</h3>
+<ol>
+<li>For future stuff to work, I'll get a Disqus ID and start using
+   it. (biophysics-and-beer ... check).</li>
+<li>Add all of the old comments by hand. This isn't taking a huge
+   amount of time, because I don't have a huge amount of comments, and
+   I'm not going crazy with matching formatting. I'm just copying the
+   comments div from the old blog. If you're doing this to your own
+   blog, don't forget to get rid of the "response" part of the
+   comments div. If I had it to do over, I'd write a script that did
+   that for me, or I'd learn how to import comments into Disqus, but
+   it didn't take much time this way. On the plus side, I'm ditching
+   some (not all) spam I had missed.</li>
+</ol>
+<h3>Cleaning up long posts</h3>
+<p>Some of the posts are really long. Like, to the point where the main
+page is something ridiculous like 80MB. I <em>think</em> WordPress deals with
+this automatically (only showing the first few paragraphs in the
+index), because I didn't remember it being an issue. You can tell
+Nikola to only show a "teaser" by putting</p>
+<pre class="code literal-block"><span></span><span class="n">INDEX_TEASERS</span> <span class="o">=</span> <span class="bp">True</span>
 </pre>
 
 
+<p>in <code>conf.py</code></p>
+<p>And then adding</p>
+<pre class="code literal-block"><span></span>&lt;!-- TEASER_END --&gt;
+</pre>
+
+
+<p>to a Markdown cell in a Jupyter notebook, or directly to a Markdown
+post, or directly to an html post. Cool.</p>
+<h3>My pre-rendered Jupyter notebooks suck.</h3>
+<p>I used the pageview WordPress plugin (short code? I don't know) to
+include pre-rendered Jupyter notebooks. That just breaks upon
+import. But the Nikloa posts are just straight HTML. I can just
+include the stuff directly.</p>
+<p>That was pretty easy, and it worked, but it seemed lame and "Teasers"
+didn't work when I stuck them in the middle of the pre-rendered HTML
+blocks. So, I switched everything over to Jupyter notebooks.</p>
+<p>When I do that, I need to</p>
+<ul>
+<li>make sure I include comments explicitly in the Jupyter notebook. As
+mentioned above, I can just include the raw html for them. To do this
+in a Markdown cell in a Jupyter notebook, do something like</li>
+</ul>
+<pre class="code literal-block"><span></span><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="n">HTML</span><span class="p">(</span><span class="s1">'''fancy pants html code for comments here'''</span><span class="p">)</span>
+</pre>
+
+
+<ul>
+<li>
 <p>I also need to remember to edit the meta data at the end of the
 imported Jupyter notebook so that Nikola gets the date right. You have
 to remember to do that <em>after</em> Nikola imports the post.</p>
-<h4>Comments are all missing.</h4>
-<ol>
-<li>
-<p>For future stuff to work, I'll get a Disqus ID and start using it. (biophysics-and-beer ... check).</p>
 </li>
 <li>
-<p>Add all of the old comments by hand. This isn't taking a huge amount of time, because I don't have a huge amount of comments, and I'm not going crazy with matching formatting. I'm just copying the comments div from the old blog. If you're doing this to your own blog, don't forget to get rid of the "response" part of the comments div. If I had it to do over, I'd write a script that did that for me, or I'd learn how to import comments into Disqus, but it didn't take much time this way. On the plus side, I'm ditching some (not all) spam I had missed.</p>
+<p>I also need to remember to stick a Markdown cell near the top with a
+  link to download the whole things as a Jupyter notebook
+  directly. This part is pretty awesome: I can link directly to the
+  Jupyter notebook on the Nikola site, rather than stuffing a copy in
+  a gist, etc. Neat!</p>
 </li>
-</ol>
+</ul>
 <h3>Getting a graphical header/theme fun time</h3>
-<p>I found the <a href="https://getnikola.com/creating-a-theme.html">Nikola tutorial for theming</a> ... somewhat more than I was
-interested in. But, it had enough useful nuggets to figure out the
-basics. The basic idea is (1) put my header image somewhere (2) edit
-the header template. Let's go.</p>
+<p>I found the
+<a href="https://getnikola.com/creating-a-theme.html">Nikola tutorial for theming</a>
+... somewhat more than I was interested in. But, it had enough useful
+nuggets to figure out the basics. The basic idea is (1) put my header
+image somewhere (2) edit the header template. Let's go.</p>
 <p>First, I'm going to want to change the <code>base_header.tmpl</code> so I
 searched for themes that came with that on the
 <a href="https://github.com/getnikola/nikola-themes/find/master">Nikola Theme site</a>. Of
@@ -199,13 +260,42 @@ design, but that looks OK for now.</p>
 <p>While I'm editing the templates,
 there's a link to "blog" in the sidebar I don't want, so I replaced it
 with a link to the about page.</p>
+<h3>Missing buttons</h3>
+<p>The code in <code>post.tmpl</code> looks like it should work, but the icons don't
+show up. This means I'm missing the links to my twitter/github
+profile, the "share this on your favorite social media site" links,
+and the buttons that link to next/previous post.</p>
+<p>It looks to me like it's trying to grab stuff from
+<a href="http://fontawesome.io/get-started/">FontAwesome</a>, but I don't see
+anywhere that the FontAwesome stuff is actually linked on my
+site. Following the FontAwesome directions,</p>
+<ul>
+<li>Download the <code>font-awesome</code> directory.</li>
+<li>Stick it in <code>themes/jidn/assets/font-awesome</code>
+</li>
+<li>Add the following to <code>base.tmpl</code>:</li>
+</ul>
+<pre class="code literal-block"><span></span>&lt;link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"&gt;
+</pre>
+
+
+<p>... Now, I added it right before <code>&lt;/head&gt;</code>, which looks ot me like
+it's OK, but it's right after a place where it says "don't change this
+block" so it's possible that I screwed something up.</p>
+<p>That fixes the lack of next/previous/social buttons.</p>
 <h3>Back to the redirects</h3>
-<p>Those redirects are kind of a pain. That's Nikola saying it can't just spit out a new file in place of the old file because the question marks mean request data. Thanks, wordpress! I wanted simple stuff like an <code>.htaccess</code> file saying</p>
+<p>Those redirects are kind of a pain. That's Nikola saying it can't just
+spit out a new file in place of the old file because the question
+marks mean request data. Thanks, wordpress! I wanted simple stuff like
+an <code>.htaccess</code> file saying</p>
 <pre class="code literal-block"><span></span>Redirect /blog/page8 /blog/new-and-fancy.html
 </pre>
 
 
-<p>but no ... Now I need to look at a <a href="https://stackoverflow.com/questions/9182585/apache-redirect-permanent-for-url-with-data-in-string-question-mark">StackOverflow answer</a> and remember why I stopped being a web developer years ago. Here's my new <code>.htaccess</code> file</p>
+<p>but no ... Now I need to look at a
+<a href="https://stackoverflow.com/questions/9182585/apache-redirect-permanent-for-url-with-data-in-string-question-mark">StackOverflow answer</a>
+and remember why I stopped being a web developer years ago. Here's my
+new <code>.htaccess</code> file</p>
 <pre class="code literal-block"><span></span>RewriteEngine on
 RewriteBase /
 
@@ -216,19 +306,29 @@ RewriteRule ^ /blog/posts/the-blogging-begins.html [L,R=301]
 </pre>
 
 
-<p>to handle people accessing each page both with and without a trailing slash. Now, where should I point the redirects?</p>
+<p>to handle people accessing each page both with and without a trailing
+slash. Now, where should I point the redirects?</p>
 <h3>Static site means why host it myself?</h3>
-<p>It made sense to host my own WordPress site. But I'm not sure I need to host my own static site. In fact, life would probably be easier if I just used  github pages. Cool.  Github has <a href="https://pages.github.com">instructions</a> that basically boil down to "set up a repo called mglerner.github.io and do some special things" ... and Nikola means I don't have to actually know what those special things are! After initializing my Nikola blog directory as a github repo and doing</p>
+<p>It made sense to host my own WordPress site. But I'm not sure I need
+to host my own static site. In fact, life would probably be easier if
+I just used github pages. Cool.  Github has
+<a href="https://pages.github.com">instructions</a> that basically boil down to
+"set up a repo called mglerner.github.io and do some special things"
+... and Nikola means I don't have to actually know what those special
+things are! After initializing my Nikola blog directory as a github
+repo and doing</p>
 <pre class="code literal-block"><span></span>git remote add origin git@github.com:mglerner/mglerner.github.io.git
 </pre>
 
 
-<p>I can make Nikola rebuild things like github wants, add, commit and push everything automatically with</p>
+<p>I can make Nikola rebuild things like github wants, add, commit and
+push everything automatically with</p>
 <pre class="code literal-block"><span></span>nikola github_deploy
 </pre>
 
 
-<p>So, after having done that, I just make the <code>.htaccess</code> file listed above point everything from my old site to my fancy new github site.</p>
+<p>So, after having done that, I just make the <code>.htaccess</code> file listed
+above point everything from my old site to my fancy new github site.</p>
 <p>... and it's up and running!</p>
 <h3>Making it possible to post with Jupyter notebooks</h3>
 <p>This is documented in a few places, but sometimes things change, so
@@ -263,11 +363,21 @@ need to add the trailing line in <code>COMPILERS</code>.</p>
 
 
 <h3>Making posts</h3>
-<p>Now comes the whole point: making new posts. Blog posts come with meta data (when it was created, etc.) that normally gets automatically handled when you create a new post via <code>nikola new_post -e</code>. If you want to start with other formats (e.g. Markdown or Jupyter notebooks), you just stick the relevant file in <code>/posts</code> and import it via <code>nikola new_post -i</code>.</p>
+<p>Now comes the whole point: making new posts. Blog posts come with meta
+data (when it was created, etc.) that normally gets automatically
+handled when you create a new post via <code>nikola new_post -e</code>. If you
+want to start with other formats (e.g. Markdown or Jupyter notebooks),
+you just stick the relevant file in <code>/posts</code> and import it via <code>nikola
+new_post -i</code>.</p>
 <p>I took the notes for this migration in Markdown, so I just stick that
 file in <code>/posts/BlogMigration.md</code> run <code>nikola new_post -i
 posts/BlogMigration</code> ...</p>
-<p>Or, at least, that's how it should work. I'm a little disappointed to find that the new post import keeps breaking, saying it can't find metadata like the date. It's an easy workaround for markdown: I just make a new post, then copy over my markdown. Looking at the results, I find that Nikola wants the metadata imbedded in the markdown file. So, I should have started the markdown file with</p>
+<p>Or, at least, that's how it should work. I'm a little disappointed to
+find that the new post import keeps breaking, saying it can't find
+metadata like the date. It's an easy workaround for markdown: I just
+make a new post, then copy over my markdown. Looking at the results, I
+find that Nikola wants the metadata imbedded in the markdown file. So,
+I should have started the markdown file with</p>
 <pre class="code literal-block"><span></span>&lt;!--
 .. title: Switching to Nikloa for Jupyter Notebooks and a static site
 .. slug: switching-to-nikloa-for-jupyter-notebooks-and-a-static-site
@@ -290,41 +400,6 @@ in my markdown. Easy enough.</p>
 <p>then <code>nikola build</code>, then fire up a test server to check it out with
 <code>nikola serve --browser</code>, verify that all looks awesome, and push it
 to the blog with <code>nikola github_deploy</code>!</p>
-<h3>Missing buttons</h3>
-<p>The code in <code>post.tmpl</code> looks like it should work, but the icons don't
-show up. It looks to me like it's trying to grab stuff from
-<a href="http://fontawesome.io/get-started/">FontAwesome</a>, but I don't see
-anywhere that the FontAwesome stuff is actually linked on my
-site. Following the FontAwesome directions,</p>
-<ul>
-<li>Download the <code>font-awesome</code> directory.</li>
-<li>Stick it in <code>themes/jidn/assets/font-awesome</code>
-</li>
-<li>Add the following to <code>base.tmpl</code>:</li>
-</ul>
-<pre class="code literal-block"><span></span>&lt;link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"&gt;
-</pre>
-
-
-<p>... Now, I added it right before <code>&lt;/head&gt;</code>, which looks ot me like
-it's OK, but it's right after a place where it says "don't change this
-block" so it's possible that I screwed something up.</p>
-<p>That fixes the lack of next/previous/social buttons. Sweet!</p>
-<h3>Cleaning up long posts</h3>
-<p>Some of the posts are really long. You can tell Nikola to only show a
-"teaser" by putting</p>
-<pre class="code literal-block"><span></span><span class="n">INDEX_TEASERS</span> <span class="o">=</span> <span class="bp">True</span>
-</pre>
-
-
-<p>in <code>conf.py</code></p>
-<p>And then adding</p>
-<pre class="code literal-block"><span></span>&lt;!-- TEASER_END --&gt;
-</pre>
-
-
-<p>to a Markdown cell in a Jupyter notebook, or directly to a Markdown
-post, or directly to an html post. Cool.</p>
 <h3>TODO</h3>
 <ul>
 <li>The text is too big. I can apparently change that in <code>jidn</code>'s
@@ -333,12 +408,17 @@ post, or directly to an html post. Cool.</p>
 <h3>Jupyter issues</h3>
 <p>The conversion of Jupyter notebooks doesn't look perfect yet:</p>
 <ul>
-<li>Inline math (starting with a single dollar sign) doesn't always get
+<li>
+<p>Inline math (starting with a single dollar sign) doesn't always get
   converted. Starting with two dollar signs does seem to consistently
-  work.</li>
-<li>For JSAnimations, the "animation bar" doesn't have images on the
-  buttons. That seems to have magically fixed itself. The FontAwesome
-  thing again?</li>
+  work.</p>
+</li>
+<li>
+<p>For JSAnimations, the "animation bar" doesn't have images on the
+  buttons. <strong>UPDATE:</strong> That seems to have magically fixed itself. The
+  FontAwesome thing may have been the key, but I'm going full
+  cargo-cult mentality here and just saying it worked.</p>
+</li>
 </ul>
 </div>
     </section><aside class="sharing no-print"><a href="#content" aria-label="Post beginning">
