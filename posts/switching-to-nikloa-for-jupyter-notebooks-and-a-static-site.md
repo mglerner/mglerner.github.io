@@ -9,7 +9,14 @@
 .. type: text
 -->
 
-I've been using WordPress for quite a while, almost entirely because it's an out-of-the-box blog setup that just works. But it kind of sucks for what I mostly want to do, which is stick some code into blog posts. In fact, what usually happens is that I do something in a Jupyter notebook, and want to stick it up as a blog post. That's a real pain in WordPress. The best I found was converting the notebooks to html and then including them as a static block, but those invariably are brittle and ugly.
+I've been using WordPress for quite a while, almost entirely because
+it's an out-of-the-box blog setup that just works. But it kind of
+sucks for what I mostly want to do, which is stick some code into blog
+posts. In fact, what usually happens is that I do something in a
+Jupyter notebook, and want to stick it up as a blog post. That's a
+real pain in WordPress. The best I found was converting the notebooks
+to html and then including them as a static block, but those
+invariably are brittle and ugly.
 
 So, smart people like [Jake Vanderplas](http://jakevdp.github.io) and
 [themodernscientist](http://themodernscientist.com) switched over to
@@ -26,17 +33,29 @@ stuff to get Jupyter Notebooks included in my WordPress posts
 anyway. This seems like a lot of work for like 13 posts, but nobody
 ever claimed I was wise.
 
+**[UPDATE: I ended up switching all of my old IPython/Jupyter posts over to notebooks rather than HTML. If you read an earlier version of this, basically everything else is the same]**
+
 <!-- TEASER_END -->
 
 ## Grabbing the site
 
-Log in as an administrator, go to the Tools menu, click on Export, then download an Export File. Nice and easy. Thanks, WordPress!
+Log in as an administrator, go to the Tools menu, click on Export,
+then download an Export File. Nice and easy. Thanks, WordPress!
 
 ## Install Nikola
 
-*Note:* `pip` doesn't actually play nicely with the conda environments. It looks like it installs nikola's stuff on top of everything else (e.g. the Nikola tools are available even when I'm not in the `blog` environment from below). That's not great. I probably should use a virtualenv, but I don't have time to learn what one of those is today.
+*Note:* `pip` doesn't actually play nicely with the conda
+ environments. It looks like it installs nikola's stuff on top of
+ everything else (e.g. the Nikola tools are available even when I'm
+ not in the `blog` environment from below). That's not great. I
+ probably should use a virtualenv, but I don't have time to learn what
+ one of those is today.
 
-I'm using Anaconda for my Python, and Nikola installs via pip, so I make a new environment just for the blog. Probably good practice anyway. Speaking of which, this is all Python 3. There's some [weird bug](https://github.com/ContinuumIO/anaconda-issues/issues/542) involved in having pip upgrade setuptools, 
+I'm using Anaconda for my Python, and Nikola installs via pip, so I
+make a new environment just for the blog. Probably good practice
+anyway. Speaking of which, this is all Python 3. There's some
+[weird bug](https://github.com/ContinuumIO/anaconda-issues/issues/542)
+involved in having pip upgrade setuptools,
 
 ```shell
 conda create --name blog
@@ -55,19 +74,24 @@ Now import the wordpress site. If I just say
 nikola import_wordpress ~/Downloads/biophysicsandbeer.wordpress.2017-10-10.xml
 ```
 
-I don't actually get some of my content imported. In particular, the quoted Python code doesn't show up. So,
+I don't actually get some of my content imported. In particular, the
+quoted Python code doesn't show up. So,
 
 ```shell
 nikola import_wordpress --download-auth=[my secret username]:[my secret password] --install-wordpress-compiler --transform-to-html ~/Downloads/biophysicsandbeer.wordpress.2017-10-10.xml
 ```
 
-Tells it to be explicit about converting to html and downloading everything it can. It also produces some errors, specifically a bunch of lines like
+Tells it to be explicit about converting to html and downloading
+everything it can. It also produces some errors, specifically a bunch
+of lines like
 
 ```
 [2017-10-11T19:49:10Z] WARNING: Nikola: Can't do a redirect for: 'http://www.mglerner.com/blog/?p=8/'
 ```
 
-which are telling us that it can't just spit out a new file in place of the old one because the question marks in the URL mean request data. We'll deal with this in a minute.
+which are telling us that it can't just spit out a new file in place
+of the old one because the question marks in the URL mean request
+data. We'll deal with this in a minute.
 
 We then fire up the site with
 
@@ -79,44 +103,83 @@ nikola serve --browser
 
 And it almost all works. Here are the missing things:
 
-###My pre-rendered Jupyter notebooks suck.
+## Comments are all missing.
 
+1. For future stuff to work, I'll get a Disqus ID and start using
+   it. (biophysics-and-beer ... check).
+2. Add all of the old comments by hand. This isn't taking a huge
+   amount of time, because I don't have a huge amount of comments, and
+   I'm not going crazy with matching formatting. I'm just copying the
+   comments div from the old blog. If you're doing this to your own
+   blog, don't forget to get rid of the "response" part of the
+   comments div. If I had it to do over, I'd write a script that did
+   that for me, or I'd learn how to import comments into Disqus, but
+   it didn't take much time this way. On the plus side, I'm ditching
+   some (not all) spam I had missed.
+
+## Cleaning up long posts
+
+Some of the posts are really long. Like, to the point where the main
+page is something ridiculous like 80MB. I *think* WordPress deals with
+this automatically (only showing the first few paragraphs in the
+index), because I didn't remember it being an issue. You can tell
+Nikola to only show a "teaser" by putting
+
+```python
+INDEX_TEASERS = True
+```
+
+in `conf.py`
+
+And then adding
+
+```
+<!-- TEASER_END -->
+```
+
+to a Markdown cell in a Jupyter notebook, or directly to a Markdown
+post, or directly to an html post. Cool.
+
+## My pre-rendered Jupyter notebooks suck.
 
 I used the pageview WordPress plugin (short code? I don't know) to
 include pre-rendered Jupyter notebooks. That just breaks upon
 import. But the Nikloa posts are just straight HTML. I can just
-include the stuff directly. That was pretty easy. In my future free
-time (ha!), I might go back and convert some of them directly to
-Jupyter notebooks. The main remaining reason to do so, I think, is to
-make it so that "teasers" (i.e. the ability to only show the first few
-paragraphs) works. See the bit about teasers later in the post. When I
-do that, I need to make sure I include comments explicitly in the
-Jupyter notebook. As mentioned below, I can just include the raw html
-for them, and tell the Jupyter notebook to render it via something
-like
+include the stuff directly.
+
+That was pretty easy, and it worked, but it seemed lame and "Teasers"
+didn't work when I stuck them in the middle of the pre-rendered HTML
+blocks. So, I switched everything over to Jupyter notebooks.
+
+When I do that, I need to
+
+ * make sure I include comments explicitly in the Jupyter notebook. As
+mentioned above, I can just include the raw html for them. To do this
+in a Markdown cell in a Jupyter notebook, do something like
 
 ```python
 from IPython.core.display import HTML
-HTML('''fancy pants html code here''')
+HTML('''fancy pants html code for comments here''')
 ```
 
-I also need to remember to edit the meta data at the end of the
+* I also need to remember to edit the meta data at the end of the
 imported Jupyter notebook so that Nikola gets the date right. You have
 to remember to do that *after* Nikola imports the post.
+
+* I also need to remember to stick a Markdown cell near the top with a
+  link to download the whole things as a Jupyter notebook
+  directly. This part is pretty awesome: I can link directly to the
+  Jupyter notebook on the Nikola site, rather than stuffing a copy in
+  a gist, etc. Neat!
  
-###Comments are all missing.
-
-1. For future stuff to work, I'll get a Disqus ID and start using it. (biophysics-and-beer ... check).
-
-2. Add all of the old comments by hand. This isn't taking a huge amount of time, because I don't have a huge amount of comments, and I'm not going crazy with matching formatting. I'm just copying the comments div from the old blog. If you're doing this to your own blog, don't forget to get rid of the "response" part of the comments div. If I had it to do over, I'd write a script that did that for me, or I'd learn how to import comments into Disqus, but it didn't take much time this way. On the plus side, I'm ditching some (not all) spam I had missed.
-
 
 ## Getting a graphical header/theme fun time
 
-I found the [Nikola tutorial for theming](https://getnikola.com/creating-a-theme.html) ... somewhat more than I was
-interested in. But, it had enough useful nuggets to figure out the
-basics. The basic idea is (1) put my header image somewhere (2) edit
-the header template. Let's go.
+I found the
+[Nikola tutorial for theming](https://getnikola.com/creating-a-theme.html)
+... somewhat more than I was interested in. But, it had enough useful
+nuggets to figure out the basics. The basic idea is (1) put my header
+image somewhere (2) edit the header template. Let's go.
 
 First, I'm going to want to change the `base_header.tmpl` so I
 searched for themes that came with that on the
@@ -162,15 +225,48 @@ While I'm editing the templates,
 there's a link to "blog" in the sidebar I don't want, so I replaced it
 with a link to the about page.
 
+## Missing buttons
+
+The code in `post.tmpl` looks like it should work, but the icons don't
+show up. This means I'm missing the links to my twitter/github
+profile, the "share this on your favorite social media site" links,
+and the buttons that link to next/previous post.
+
+
+It looks to me like it's trying to grab stuff from
+[FontAwesome](http://fontawesome.io/get-started/), but I don't see
+anywhere that the FontAwesome stuff is actually linked on my
+site. Following the FontAwesome directions,
+
+* Download the `font-awesome` directory.
+* Stick it in `themes/jidn/assets/font-awesome`
+* Add the following to `base.tmpl`:
+
+```
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+```
+
+... Now, I added it right before `</head>`, which looks ot me like
+it's OK, but it's right after a place where it says "don't change this
+block" so it's possible that I screwed something up.
+
+That fixes the lack of next/previous/social buttons.
+
 ## Back to the redirects
 
-Those redirects are kind of a pain. That's Nikola saying it can't just spit out a new file in place of the old file because the question marks mean request data. Thanks, wordpress! I wanted simple stuff like an `.htaccess` file saying
+Those redirects are kind of a pain. That's Nikola saying it can't just
+spit out a new file in place of the old file because the question
+marks mean request data. Thanks, wordpress! I wanted simple stuff like
+an `.htaccess` file saying
 
 ```
 Redirect /blog/page8 /blog/new-and-fancy.html
 ```
 
-but no ... Now I need to look at a [StackOverflow answer](https://stackoverflow.com/questions/9182585/apache-redirect-permanent-for-url-with-data-in-string-question-mark) and remember why I stopped being a web developer years ago. Here's my new `.htaccess` file
+but no ... Now I need to look at a
+[StackOverflow answer](https://stackoverflow.com/questions/9182585/apache-redirect-permanent-for-url-with-data-in-string-question-mark)
+and remember why I stopped being a web developer years ago. Here's my
+new `.htaccess` file
 
 ```
 RewriteEngine on
@@ -182,23 +278,33 @@ RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /blog/\?p=5 [NC]
 RewriteRule ^ /blog/posts/the-blogging-begins.html [L,R=301]
 ```
 
-to handle people accessing each page both with and without a trailing slash. Now, where should I point the redirects?
+to handle people accessing each page both with and without a trailing
+slash. Now, where should I point the redirects?
 
 ## Static site means why host it myself?
 
-It made sense to host my own WordPress site. But I'm not sure I need to host my own static site. In fact, life would probably be easier if I just used  github pages. Cool.  Github has [instructions](https://pages.github.com) that basically boil down to "set up a repo called mglerner.github.io and do some special things" ... and Nikola means I don't have to actually know what those special things are! After initializing my Nikola blog directory as a github repo and doing
+It made sense to host my own WordPress site. But I'm not sure I need
+to host my own static site. In fact, life would probably be easier if
+I just used github pages. Cool.  Github has
+[instructions](https://pages.github.com) that basically boil down to
+"set up a repo called mglerner.github.io and do some special things"
+... and Nikola means I don't have to actually know what those special
+things are! After initializing my Nikola blog directory as a github
+repo and doing
 
 ```shell
 git remote add origin git@github.com:mglerner/mglerner.github.io.git
 ```
 
-I can make Nikola rebuild things like github wants, add, commit and push everything automatically with
+I can make Nikola rebuild things like github wants, add, commit and
+push everything automatically with
 
 ```shell
 nikola github_deploy
 ```
 
-So, after having done that, I just make the `.htaccess` file listed above point everything from my old site to my fancy new github site.
+So, after having done that, I just make the `.htaccess` file listed
+above point everything from my old site to my fancy new github site.
 
 ... and it's up and running!
 
@@ -239,14 +345,24 @@ COMPILERS = {
 
 ## Making posts
 
-Now comes the whole point: making new posts. Blog posts come with meta data (when it was created, etc.) that normally gets automatically handled when you create a new post via `nikola new_post -e`. If you want to start with other formats (e.g. Markdown or Jupyter notebooks), you just stick the relevant file in `/posts` and import it via `nikola new_post -i`.
+Now comes the whole point: making new posts. Blog posts come with meta
+data (when it was created, etc.) that normally gets automatically
+handled when you create a new post via `nikola new_post -e`. If you
+want to start with other formats (e.g. Markdown or Jupyter notebooks),
+you just stick the relevant file in `/posts` and import it via `nikola
+new_post -i`.
 
 I took the notes for this migration in Markdown, so I just stick that
 file in `/posts/BlogMigration.md` run `nikola new_post -i
 posts/BlogMigration` ...
 
 
-Or, at least, that's how it should work. I'm a little disappointed to find that the new post import keeps breaking, saying it can't find metadata like the date. It's an easy workaround for markdown: I just make a new post, then copy over my markdown. Looking at the results, I find that Nikola wants the metadata imbedded in the markdown file. So, I should have started the markdown file with
+Or, at least, that's how it should work. I'm a little disappointed to
+find that the new post import keeps breaking, saying it can't find
+metadata like the date. It's an easy workaround for markdown: I just
+make a new post, then copy over my markdown. Looking at the results, I
+find that Nikola wants the metadata imbedded in the markdown file. So,
+I should have started the markdown file with
 
 ```
 <!--
@@ -273,49 +389,8 @@ then `nikola build`, then fire up a test server to check it out with
 `nikola serve --browser`, verify that all looks awesome, and push it
 to the blog with `nikola github_deploy`!
 
-## Missing buttons
 
-The code in `post.tmpl` looks like it should work, but the icons don't
-show up. It looks to me like it's trying to grab stuff from
-[FontAwesome](http://fontawesome.io/get-started/), but I don't see
-anywhere that the FontAwesome stuff is actually linked on my
-site. Following the FontAwesome directions,
-
-* Download the `font-awesome` directory.
-* Stick it in `themes/jidn/assets/font-awesome`
-* Add the following to `base.tmpl`:
-
-```
-<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-```
-
-... Now, I added it right before `</head>`, which looks ot me like
-it's OK, but it's right after a place where it says "don't change this
-block" so it's possible that I screwed something up.
-
-That fixes the lack of next/previous/social buttons. Sweet!
-
-## Cleaning up long posts
-
-Some of the posts are really long. You can tell Nikola to only show a
-"teaser" by putting
-
-```python
-INDEX_TEASERS = True
-```
-
-in `conf.py`
-
-And then adding
-
-```
-<!-- TEASER_END -->
-```
-
-to a Markdown cell in a Jupyter notebook, or directly to a Markdown
-post, or directly to an html post. Cool.
-
-##TODO
+## TODO
 
  * The text is too big. I can apparently change that in `jidn`'s
  `custom.css` but I don't quite get how.
@@ -327,6 +402,8 @@ The conversion of Jupyter notebooks doesn't look perfect yet:
 * Inline math (starting with a single dollar sign) doesn't always get
   converted. Starting with two dollar signs does seem to consistently
   work.
+
 * For JSAnimations, the "animation bar" doesn't have images on the
-  buttons. That seems to have magically fixed itself. The FontAwesome
-  thing again?
+  buttons. **UPDATE:** That seems to have magically fixed itself. The
+  FontAwesome thing may have been the key, but I'm going full
+  cargo-cult mentality here and just saying it worked.
