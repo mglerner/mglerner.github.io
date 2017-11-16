@@ -10,7 +10,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://mglerner.github.io/index.html">
 <link rel="next" href="index-1.html" type="text/html">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/post-tenure-job-stress-part-1n.html" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/coin-flipping-and-entropy.html" type="text/html">
 <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
 </head>
 <body>
@@ -47,7 +47,40 @@
         
 
 <div class="posts">
-    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/post-tenure-job-stress-part-1n.html" class="u-url">Post-tenure job stress, part 1/N</a></h1>
+    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/coin-flipping-and-entropy.html" class="u-url">Coin Flipping and Entropy</a></h1>
+        <div class="metadata">
+            <p class="dateline"><a href="posts/coin-flipping-and-entropy.html" rel="bookmark"><time class="post-date published dt-published" datetime="2017-11-16T17:35:56+00:00" title="2017-11-16 17:35">2017-11-16 17:35</time></a></p>
+                <p class="commentline">
+        
+    <a href="posts/coin-flipping-and-entropy.html#disqus_thread" data-disqus-identifier="cache/posts/coin-flipping-and-entropy.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="p-summary entry-summary">
+    <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can download this whole post as a Jupyter notebook <a href="posts/coin-flipping-and-entropy.ipynb">here</a></p>
+<h2 id="Some-useful-interactive-bits-for-coin-flipping-and-entropy.">Some useful interactive bits for coin flipping and entropy.<a class="anchor-link" href="posts/coin-flipping-and-entropy.html#Some-useful-interactive-bits-for-coin-flipping-and-entropy.">¶</a>
+</h2>
+<p>I made this post for my 1st semester intro physics class, as a lead in to the standard discussion of entropy (sue me, I can't make myself dive into this without starting from stat mech).</p>
+<h3 id="Say-you're-going-to-flip-4-coins.-What's-the-most-likely-outcome?-How-likely-is-it?">Say you're going to flip 4 coins. What's the most likely outcome? How likely is it?<a class="anchor-link" href="posts/coin-flipping-and-entropy.html#Say-you're-going-to-flip-4-coins.-What's-the-most-likely-outcome?-How-likely-is-it?">¶</a>
+</h3>
+<p>How should we keep track of outcomes? One easy way is to ask "how many heads did we get?"</p>
+<p class="more"><a href="posts/coin-flipping-and-entropy.html">Read more…</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+    </div>
+    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/post-tenure-job-stress-part-1n.html" class="u-url">Post-tenure job stress, part 1/N</a></h1>
         <div class="metadata">
             <p class="dateline"><a href="posts/post-tenure-job-stress-part-1n.html" rel="bookmark"><time class="post-date published dt-published" datetime="2017-11-06T03:15:34+00:00" title="2017-11-06 03:15">2017-11-06 03:15</time></a></p>
                 <p class="commentline">
@@ -435,103 +468,6 @@ JSON” thing and rewrote the notebook class). I have a little IPyNB
 class that knows how to add cells to itself and spit out the results
 as strings and files:</p>
 <p class="more"><a href="posts/making-ipython-notebooks-for-the-matplotlib-examples.html">Read more…</a></p>
-</div>
-    </div>
-    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/histograms-and-kernel-density-estimation-kde-2.html" class="u-url">Histograms and kernel density estimation KDE 2</a></h1>
-        <div class="metadata">
-            <p class="dateline"><a href="posts/histograms-and-kernel-density-estimation-kde-2.html" rel="bookmark"><time class="post-date published dt-published" datetime="2013-11-20T20:05:00+00:00" title="2013-11-20 20:05">2013-11-20 20:05</time></a></p>
-                <p class="commentline">
-        
-    <a href="posts/histograms-and-kernel-density-estimation-kde-2.html#disqus_thread" data-disqus-identifier="cache/posts/histograms-and-kernel-density-estimation-kde-2.html">Comments</a>
-
-
-        </p>
-</div>
-    </header><div class="p-summary entry-summary">
-    <div tabindex="-1" id="notebook" class="border-box-sizing">
-    <div class="container" id="notebook-container">
-
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>You can download this whole post as a Jupyter notebook <a href="posts/histograms-and-kernel-density-estimation-kde-2.ipynb">here</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Why-histograms">Why histograms<a class="anchor-link" href="posts/histograms-and-kernel-density-estimation-kde-2.html#Why-histograms">¶</a>
-</h2>
-<p>As we all know, <a href="http://en.wikipedia.org/wiki/Histogram">Histograms</a> are an extremely common way to make sense of discrete data. Whether we mean to or not, when we're using histograms, we're usually doing some form of <a href="http://en.wikipedia.org/wiki/Density_estimation">density estimation</a>. That is, although we only have a few discrete data points, we'd really pretend that we have some sort of continuous distribution, and we'd really like to know what that distribution is. For instance, I was recently grading an exam and trying to figure out what the underlying distribution of grades looked like, whether I should curve the exam, and, if so, how I should curve it.</p>
-<p>I'll poke at this in an <a href="http://ipython.org/notebook.html">IPython Notebook</a>; if you're doing this in a different environments, you may wish to uncomment out the commented lines so that your namespace is properly polluted.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
-<span class="o">%</span><span class="k">pylab</span> inline
-
-<span class="n">grades</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="mf">93.5</span><span class="p">,</span><span class="mi">93</span><span class="p">,</span><span class="mf">60.8</span><span class="p">,</span><span class="mf">94.5</span><span class="p">,</span><span class="mi">82</span><span class="p">,</span><span class="mf">87.5</span><span class="p">,</span><span class="mf">91.5</span><span class="p">,</span><span class="mf">99.5</span><span class="p">,</span><span class="mi">86</span><span class="p">,</span><span class="mf">93.5</span><span class="p">,</span><span class="mf">92.5</span><span class="p">,</span><span class="mi">78</span><span class="p">,</span><span class="mi">76</span><span class="p">,</span><span class="mi">69</span><span class="p">,</span><span class="mf">94.5</span><span class="p">,</span><span class="mf">89.5</span><span class="p">,</span><span class="mf">92.8</span><span class="p">,</span><span class="mi">78</span><span class="p">,</span><span class="mf">65.5</span><span class="p">,</span><span class="mi">98</span><span class="p">,</span><span class="mf">98.5</span><span class="p">,</span><span class="mf">92.3</span><span class="p">,</span><span class="mf">95.5</span><span class="p">,</span><span class="mi">76</span><span class="p">,</span><span class="mi">91</span><span class="p">,</span><span class="mi">95</span><span class="p">,</span><span class="mf">61.4</span><span class="p">,</span><span class="mi">96</span><span class="p">,</span><span class="mi">90</span><span class="p">))</span>
-<span class="n">junk</span> <span class="o">=</span> <span class="n">hist</span><span class="p">(</span><span class="n">grades</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Populating the interactive namespace from numpy and matplotlib
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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%0Ab5/Onz+vlpYW7dq1S6dPn/bcWvY0542XWXtlLbvqbf3Onj3b7eXg/XkDZ9hBb29vV01NjVasWKGa%0AmhoNHjxYJSUl3e7j8/lcf016b3OuWLFCdXV1OnTokEaNGqWVK1e6OucNbW1t2rlzpxYsWHDL33lh%0APW+4ec7nn3/eU+tZW1urtWvXqr6+XmfPnlVzc7M2btzY7T5eWM+e5ty0aZOn1jM9PV2rVq3S7Nmz%0ANWfOHE2YMEGDBg3qdh8vrGVvc3r1Z72rvtavr7UNO+hJSUlKSkrSlClTJEn5+fmqqalRQkKCGhoa%0AJEnnzp1TXFxcuLsKS29zxsbGdi7ismXL+vwvzd3y+eefa9KkSYqNjZV0/V9uL63nDTfPGRcX56n1%0APHjwoKZPn66RI0cqKipKTz31lL799lvPHZ89zbl//37PrWdRUZEOHjyovXv3avjw4UpLS/Pksdl1%0AzmHDhmn8+PGe/Vnvbf1ufgPn6dOnOy/D9SbsoCckJCg5OVnHjx+XdP16amZmpubOnavy8nJJUnl5%0AuebPnx/ursLS25w3FlKStm7d2u23z26qqKjovIwhSfPmzfPUet5w85znzp3r/N4L65menq7q6mq1%0AtrbKGKOqqir5/X7PHZ+9zem14/PXX3+VJJ08eVJbtmxRQUGBJ4/NrnNu3bpVBQUFnjs2b+ht/ebN%0Am6fNmzerra1NdXV1+vnnnzV16tTbbywSv7k9dOiQmTx5ssnJyTFPPvmkaWpqMr/99puZOXOmGTdu%0AnMnLyzMXLlyIxK4iOueFCxfMs88+a7Kzs01OTo554oknTENDg9tjmubmZjNy5Ehz6dKlztu8uJ49%0AzenF9SwtLTV+v99kZWWZwsJC09bW5sn1vHnOq1evem49Z8yYYfx+v8nNzTV79uwxxnjz2OxpTi+s%0A5cKFC82oUaNMdHS0SUpKMh988MFt1+/11183KSkpZvz48aaysrLP7fPGIgCwBB9BBwCWIOgAYAmC%0ADgCWIOgAYAmCDgCWIOgAYAmCDgCWIOgAYIn/A3wNYAG4w6ZrAAAAAElFTkSuQmCC">
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p class="more"><a href="posts/histograms-and-kernel-density-estimation-kde-2.html">Read more…</a></p>
-</div>
-</div>
-</div>
-</div>
 </div>
     </div>
     </article>

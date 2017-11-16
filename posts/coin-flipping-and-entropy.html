@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " vocab="http://ogp.me/ns" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coin Flipping and Entropy | Biophysics and Beer</title>
+<link href="../assets/css/all.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
+<link rel="canonical" href="https://mglerner.github.io/posts/coin-flipping-and-entropy.html">
+<!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><meta name="author" content="Michael G. Lerner">
+<link rel="prev" href="post-tenure-job-stress-part-1n.html" title="Post-tenure job stress, part 1/N" type="text/html">
+<meta property="og:site_name" content="Biophysics and Beer">
+<meta property="og:title" content="Coin Flipping and Entropy">
+<meta property="og:url" content="https://mglerner.github.io/posts/coin-flipping-and-entropy.html">
+<meta property="og:description" content="You can download this whole post as a Jupyter notebook here
+Some useful interactive bits for coin flipping and entropy.¶I made this post for my 1st semester intro physics class, as a lead in to the st">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2017-11-16T17:35:56Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@website">
+<meta name="twitter:creator" content="@username">
+<link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+    <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+            styles, `#sidebar-checkbox` for behavior. -->
+    <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"><!-- Toggleable sidebar --><div class="sidebar" id="sidebar">
+
+        <nav role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../"><i class="fa fa-2x fa-fw fa-home"></i> Home</a>
+          <!--a class="sidebar-nav-item" href="/blog"><i class="fa fa-2x fa-fw fa-user-circle" /> Blog</a-->
+          <a class="sidebar-nav-item" href="../pages/about.html"><i class="fa fa-2x fa-fw fa-user-circle"></i> About
+        </a></nav><nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../archive.html">Archives</a>
+        <a class="sidebar-nav-item" href="../categories/index.html">Tags</a>
+        <a class="sidebar-nav-item" href="../rss.xml">RSS feed</a>
+    
+    
+    </nav>
+</div>
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          
+    <h2 id="brand" class="masthead-title">
+      <a href="https://mglerner.github.io/" title="Biophysics and Beer" rel="home">Biophysics and Beer</a>
+    </h2>
+    <img src="../mglblogheader.png">
+</div>
+      </div>
+
+      <div class="container content" id="content">
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/BlogPosting"><header><h1 class="post-title p-name entry-title" itemprop="headline">
+      <a href="https://mglerner.github.io/posts/coin-flipping-and-entropy.html" class="u-url">Coin Flipping and Entropy</a>
+</h1>
+        <div class="metadata">
+        <meta itemprop="inLanguage" content="en">
+<p class="dateline">
+            <time class="post-date published dt-published" datetime="2017-11-16T17:35:56+00:00" itemprop="datePublished" title="2017-11-16 17:35">2017-11-16 17:35</time></p>
+                <p class="commentline">
+        
+    <a href="coin-flipping-and-entropy.html#disqus_thread" data-disqus-identifier="cache/posts/coin-flipping-and-entropy.html">Comments</a>
+
+
+        </p>
+</div>
+        
+
+    </header><section class="e-content entry-content" itemprop="articleBody text"><div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can download this whole post as a Jupyter notebook <a href="coin-flipping-and-entropy.ipynb">here</a></p>
+<h2 id="Some-useful-interactive-bits-for-coin-flipping-and-entropy.">Some useful interactive bits for coin flipping and entropy.<a class="anchor-link" href="coin-flipping-and-entropy.html#Some-useful-interactive-bits-for-coin-flipping-and-entropy.">¶</a>
+</h2>
+<p>I made this post for my 1st semester intro physics class, as a lead in to the standard discussion of entropy (sue me, I can't make myself dive into this without starting from stat mech).</p>
+<h3 id="Say-you're-going-to-flip-4-coins.-What's-the-most-likely-outcome?-How-likely-is-it?">Say you're going to flip 4 coins. What's the most likely outcome? How likely is it?<a class="anchor-link" href="coin-flipping-and-entropy.html#Say-you're-going-to-flip-4-coins.-What's-the-most-likely-outcome?-How-likely-is-it?">¶</a>
+</h3>
+<p>How should we keep track of outcomes? One easy way is to ask "how many heads did we get?"</p>
+<!-- TEASER_END -->
+
+<p>Well, intuitively, we'd all say you're most likely to get two heads and two tails. Let's check. If it's a fair coin, we can assume that we're equally likely to get a head or a tail on each flip. So, we flip the first coin, and make a table:</p>
+<table>
+<thead><tr>
+<th>1</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>H</td>
+</tr>
+<tr>
+<td>T</td>
+</tr>
+</tbody>
+</table>
+<p>Great. Two outcomes, equally likely. One head 50% of the time, zero heads 50% of the time. What if we flip a second coin (students should work all of this out on their own, but hey, I'm just a blog post). If the first was heads, the second could be either heads or tails. Ditto for the second.</p>
+<table>
+<thead><tr>
+<th>1</th>
+<th>2</th>
+<th></th>
+<th>How many heads?</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>H</strong></td>
+<td><strong>H</strong></td>
+<td></td>
+<td>2</td>
+</tr>
+<tr>
+<td>H</td>
+<td><strong>T</strong></td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>T</strong></td>
+<td><strong>H</strong></td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<td>T</td>
+<td><strong>T</strong></td>
+<td></td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>This time, it's a bit more interesting. We had three possible outcomes. We got two heads once, one head twice, and zero heads once. So, our most likely outcome is half heads, but not by a huge amount.</p>
+<p>If we add a third coin, and then a fourth coin, we get (again, students should work it all out)</p>
+<table>
+<thead><tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th></th>
+<th>How many heads?</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>H</strong></td>
+<td><strong>H</strong></td>
+<td><strong>H</strong></td>
+<td><strong>H</strong></td>
+<td></td>
+<td>4</td>
+</tr>
+<tr>
+<td>H</td>
+<td>H</td>
+<td>H</td>
+<td><strong>T</strong></td>
+<td></td>
+<td>3</td>
+</tr>
+<tr>
+<td>H</td>
+<td>H</td>
+<td><strong>T</strong></td>
+<td><strong>H</strong></td>
+<td></td>
+<td>3</td>
+</tr>
+<tr>
+<td>H</td>
+<td>H</td>
+<td>T</td>
+<td><strong>T</strong></td>
+<td></td>
+<td>2</td>
+</tr>
+<tr>
+<td>H</td>
+<td><strong>T</strong></td>
+<td><strong>H</strong></td>
+<td><strong>H</strong></td>
+<td></td>
+<td>3</td>
+</tr>
+<tr>
+<td>H</td>
+<td>T</td>
+<td>H</td>
+<td><strong>T</strong></td>
+<td></td>
+<td>2</td>
+</tr>
+<tr>
+<td>H</td>
+<td>T</td>
+<td><strong>T</strong></td>
+<td><strong>H</strong></td>
+<td></td>
+<td>2</td>
+</tr>
+<tr>
+<td>H</td>
+<td>T</td>
+<td>T</td>
+<td><strong>T</strong></td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>T</strong></td>
+<td><strong>H</strong></td>
+<td><strong>H</strong></td>
+<td><strong>H</strong></td>
+<td></td>
+<td>3</td>
+</tr>
+<tr>
+<td>T</td>
+<td>H</td>
+<td>H</td>
+<td><strong>T</strong></td>
+<td></td>
+<td>2</td>
+</tr>
+<tr>
+<td>T</td>
+<td>H</td>
+<td><strong>T</strong></td>
+<td><strong>H</strong></td>
+<td></td>
+<td>2</td>
+</tr>
+<tr>
+<td>T</td>
+<td>H</td>
+<td>T</td>
+<td><strong>T</strong></td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<td>T</td>
+<td><strong>T</strong></td>
+<td><strong>H</strong></td>
+<td><strong>H</strong></td>
+<td></td>
+<td>2</td>
+</tr>
+<tr>
+<td>T</td>
+<td>T</td>
+<td>H</td>
+<td><strong>T</strong></td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<td>T</td>
+<td>T</td>
+<td><strong>T</strong></td>
+<td><strong>H</strong></td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<td>T</td>
+<td>T</td>
+<td>T</td>
+<td><strong>T</strong></td>
+<td></td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>And if we tabulate that, we have 16 possible outcomes. We get 4 heads 1/16 of the time, 3 heads 4/16 of the time, 2 heads 6/16 of the time, 1 head 4/16 of the time, and 0 heads 1/16 of the time.</p>
+<p>We can visualize that with a histogram.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="o">,</span> <span class="nn">itertools</span><span class="o">,</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span><span class="o">,</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">HTML</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="k">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interactive</span><span class="p">,</span> <span class="n">fixed</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">heads</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span><span class="n">name</span><span class="o">=</span><span class="s1">'Number of heads'</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">heads</span><span class="p">,</span><span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">);</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWkAAAEFCAYAAAAhTRZvAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz%0AAAALEgAACxIB0t1+/AAAADl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uIDIuMS4wLCBo%0AdHRwOi8vbWF0cGxvdGxpYi5vcmcvpW3flQAAEIxJREFUeJzt3XuQZGV9xvHvuLM6BTsopFq8IWsi%0A/IIxiGiEFTErJWE1goFcqjQQhcRIqUGjBRVIsKiEVMoKeMNCcBW8x3ilVqOogWwQBEkQC7XgpxjX%0ASjSagWx0lmXBWTt/nDNsM/RM9zR95rwM30/VVm2fPqf7mXd7nnnndJ93J7rdLpKkMj2i7QCSpMVZ%0A0pJUMEtakgpmSUtSwSxpSSrY5LgfcGZmduSPi+y7715s375znHHGwlzLY67lMdfyrNZcnc70RL/t%0ARc2kJyfXtB2hL3Mtj7mWx1zL83DLVVRJS5Luz5KWpIJZ0pJUMEtakgpmSUtSwSxpSSrYUJ+Tjoiz%0AgROARwIXZ+b7Gk0lSQKGmElHxEbgucBRwG8CBzScSZJUG2YmfRzwTeAzwD7AmY0mkiTdZ2LQov8R%0AsRk4EHgJ8BRgC/Crmdn3wLm53d1SrwhSGa68flvbEVbcpg3r246g8vW9LHyYmfSdwG2ZeS+QEbEL%0A6AD/02/nB3ntOjMzsyMf3xRzLc+gXLM7dq1gmj2m10219txLjcdD9d+xLas1V6cz3Xf7MJ/uuBbY%0AFBETEfEEYG+q4pYkNWxgSWfm54CbgRuBzwKvzczdTQeTJA35EbzMPKvpIJKkB/JiFkkqmCUtSQWz%0ApCWpYJa0JBXMkpakglnSklQwS1qSCmZJS1LBLGlJKpglLUkFs6QlqWCWtCQVzJKWpIJZ0pJUMEta%0AkgpmSUtSwSxpSSqYJS1JBbOkJalglrQkFcySlqSCWdKSVDBLWpIKZklLUsEsaUkqmCUtSQWzpCWp%0AYJPD7BQRNwM/rW9+PzNPbS6SJGnewJKOiCmAzNzYeBpJ0v1MdLvdJXeIiCOADwI/oCr1czLzhsX2%0An5vb3Z2cXDPWkFpdrrx+W9sRVtymDevbjqDyTfTbOMzpjp3ABcB7gYOAL0REZOZcv523b985csJO%0AZ5qZmdmRj2+KuZZnUK7ZHbtWMM0e0+umWnvupcbjofrv2JbVmqvTme67fZiS/g5we2Z2ge9ExJ3A%0A44H/HDmNJGkow3y64zTgQoCIeAKwD/DfTYaSJFWGmUm/D3h/RFwLdIHTFjvVIUkar4ElnZn3Ai9f%0AgSySpAW8mEWSCmZJS1LBLGlJKpglLUkFs6QlqWCWtCQVzJKWpIJZ0pJUMEtakgpmSUtSwSxpSSqY%0AJS1JBbOkJalglrQkFcySlqSCWdKSVDBLWpIKZklLUsEsaUkqmCUtSQWzpCWpYJa0JBXMkpakglnS%0AklQwS1qSCmZJS1LBJofZKSIeC9wEHJuZtzUbSZI0b+BMOiLWApcCdzcfR5LUa5jTHRcAlwA/ajiL%0AJGmBiW63u+idEfFK4EmZeX5EbAVOH3S6Y25ud3dycs1YQ65mV16/re0IUiM2bVjfdoSHmom+GweU%0A9DVAt/5zGPAd4ITM/PFix8zMzC7+gAN0OtPMzMyOenhjmsy19Rs/HPnY6XVTzO7YNcY042Gu5Vmt%0AuTYe9sQxptljtfZEpzPdt6SXfOMwM58///eemfSiBS1JGi8/gidJBRvqI3gAmbmxwRySpD6cSUtS%0AwSxpSSqYJS1JBbOkJalglrQkFcySlqSCWdKSVDBLWpIKZklLUsEsaUkqmCUtSQWzpCWpYJa0JBXM%0AkpakglnSklQwS1qSCmZJS1LBLGlJKpglLUkFs6QlqWCWtCQVzJKWpIJZ0pJUMEtakgpmSUtSwSxp%0ASSqYJS1JBZsctENErAE2AwHsBk7NzO81HUySNNxM+niAzDwKeDPw1kYTSZLuM3AmnZlXRMTn6psH%0AAj9Zav99992Lyck1IwfqdKZHPrZJTeWaXjfV6vFNMdfyrMZcTX4vP5x6YmBJA2TmXER8ADgR+L2l%0A9t2+fefIYTqdaWZmZkc+vilN5prdsWvkY6fXTT2o45tiruVZrbma+p5ZrT2xWMEP/cZhZr4COBjY%0AHBF7j5xEkjS0gSUdEadExNn1zZ3AL6jeQJQkNWyY0x2fBi6PiGuAtcAbMrO8380kaRUa5o3Du4A/%0AWIEskqQFvJhFkgpmSUtSwSxpSSqYJS1JBbOkJalglrQkFcySlqSCWdKSVDBLWpIKZklLUsEsaUkq%0AmCUtSQWzpCWpYJa0JBXMkpakglnSklQwS1qSCmZJS1LBLGlJKpglLUkFs6QlqWCWtCQVzJKWpIJZ%0A0pJUMEtakgpmSUtSwSaXujMi1gKXAeuBRwHnZ+aWFcglSWLwTPpk4M7MPBp4EfCu5iNJkuYtOZMG%0APgF8suf2XINZJEkLTHS73YE7RcQ0sAXYnJkfXWrfubnd3cnJNWOKt/pdef22tiNIjdi0YX3bER5q%0AJvptHDSTJiIOAD4DXDyooAG2b9+5/Gi1TmeamZnZkY9vSpO5ZnfsGvnY6XVTD+r4pphreVZrrqa+%0AZ1ZrT3Q60323D3rjcH/gS8DrMvOqkZ9dkjSSQTPpc4B9gXMj4tx624sy8+5mY0mSYEBJZ+brgdev%0AUBZJ0gJezCJJBbOkJalglrQkFcySlqSCWdKSVDBLWpIKZklLUsEsaUkqmCUtSQWzpCWpYJa0JBXM%0AkpakglnSklQwS1qSCmZJS1LBLGlJKpglLUkFs6QlqWCWtCQVzJKWpIJZ0pJUMEtakgpmSUtSwSxp%0ASSqYJS1JBbOkJalglrQkFWyoko6IIyJia8NZJEkLTA7aISLOAk4B7mo+jiSp10S3211yh4j4XeAW%0A4EOZeeSgB5yb292dnFwzUpgrr9820nGS1LZNG9Y/2IeY6Ldx4Ew6Mz8VEUM/+/btO5eR6YFmd+x6%0AUMc3YXrdlLmWwVzLY67lKTUXwMzM7MjHdjrTfbf7xqEkFcySlqSCWdKSVLCB56QBMnMbMPBNQ0nS%0AeDmTlqSCWdKSVDBLWpIKZklLUsEsaUkqmCUtSQWzpCWpYJa0JBXMkpakglnSklQwS1qSCmZJS1LB%0ALGlJKpglLUkFs6QlqWCWtCQVzJKWpIJZ0pJUMEtakgpmSUtSwSxpSSqYJS1JBbOkJalglrQkFcyS%0AlqSCWdKSVLDJQTtExCOAi4FnAPcAf5KZtzcdTJI03Ez6d4CpzNwA/AVwYbORJEnzhinp5wFXAmTm%0ADcCzG00kSbrPwNMdwD7AT3tu746Iycyc67dzpzM9MWqYTZ3pUQ+VpNZ1GuiwYWbSPwN6n/kRixW0%0AJGm8hinp64AXA0TEkcA3G00kSbrPMKc7PgMcGxFfBSaAU5uNJEmaN9HtdtvOIElahBezSFLBLGlJ%0AKpglLUkFG+aNw7EbdKl5RLwKeDUwB5yfmZ8rJNc7gaOA2XrTSzPzpw94oGayHQG8JTM3Lth+PPBm%0AqrG6LDM3r0SeIXK9EfhjYKbe9OrMzBXKtBa4DFgPPIrqNbSl5/5WxmyIXK2MWUSsATYDAewGTs3M%0A7/Xc39Z4DcrV2musfv7HAjcBx2bmbT3bxzperZQ0PZea1x/ruxB4KUBEPA44g+rKxing2oj4cmbe%0A02au2uHAcZl5xwpkuU9EnAWcAty1YPta4G3Ab9T3XRcRn83MH7eZq3Y48EeZedNKZFngZODOzDwl%0AIn4JuBnYAq2P2aK5am2N2fEAmXlURGwE3sqe78c2x2vRXLXWXmP1uFwK3N1n+1jHq63THUtdav4c%0A4LrMvKeepd4OHNp2rnqWfRDwnoi4LiJOW6FMAN8DTuqz/RDg9szcnpn3AtcCRxeQC+BZwNkRcW1E%0AnL2CmQA+AZzbc7v34qs2x2ypXNDSmGXmFcCf1jcPBH7Sc3dr4zUgF7T7GrsAuAT40YLtYx+vtkq6%0A76Xmi9w3Czy6gFx7AxdRzYY2Aa+JiBX54ZGZnwJ+3ueuNsdqqVwAHwNOB44BnhcRL1nBXDsyczYi%0ApoFPAn/Vc3drYzYgF7Q7ZnMR8QGq1/gne+5q+zW2WC5oabwi4pXATGZ+sc/dYx+vtkp6qUvNF943%0ADfxfAbl2Au/IzJ2ZOQtcTXXuuk1tjtWiImICeHtm3lHPJv4JeOYKZzgA+BfgQ5n50Z67Wh2zxXKV%0AMGaZ+QrgYGBzROxdb279NdYvV8vjdRrVBX5bgcOAD9anaaGB8WrrnPR1VOebPt7nUvMbgb+NiCmq%0AN1cOAb5VQK6DgY9FxOFUP9yeB3xghXIt5lbgoIjYD9gBPJ/q17C27QN8KyIOoTovdwzVG2YrIiL2%0AB74EvC4zr1pwd2tjNiBXa2MWEacAT8rMv6OajPyC6o06aHe8lsrV2nhl5vN7Mm4FTu855zz28Wqr%0ApB9wqXn9Tu3tmbml/hTFV6jK8C8zc1chuT4C3ED1K/4HM/PbK5TrfiLi5cC6zHxPne+LVGN1WWb+%0AsI1MfXKdQzVjvAe4KjM/v4JRzgH2Bc6NiPlzwJuBvVses0G52hqzTwOXR8Q1wFrgDcBJEdH2a2xQ%0ArjZfY/fT5Pekl4VLUsG8mEWSCmZJS1LBLGlJKpglLUkFs6QlqWBtfQRPq0hErAe+D/xWZn65Z/s2%0AYGNmbnuQjz+WxxnwHE8Gvky1FsPR9QVLRMR5AJl53pifr5HH1erjTFrj8nOqK8Ieqv/l+0bgpsw8%0AbL6gpRI4k9a4/IhqJnohexbFAaBewey8+eVMI+L9wNb6zxXAbcCvAV8Hvgq8kuqijxMz89b6Yc6L%0AiGcAu6iWpLylvoLvUuAAqqvRzs7Mf65nqUcCTwYuysx392Q5GHgPsB/VlWpnUP2AOR9YFxGXZObp%0AC76259QXOD0RuDwzz6uX0fx7qnJfA7w/M99Wr/XybuDpwP7ALcDLMvPuiDizHps7gO3AjT3Llz69%0Afq6LV3q5WZXNmbTG6U3AcRFx7DKOORR4C9U6KEcB6zNzA/AP3L/sv5uZzwT+hj2X47+D6oquZwEn%0AAJf2zOSnMvNpvQVd+zDwzsw8FPhzqkV7bqVa/3dLn4KGqmxfQLXq2pn1c7wKIDMPp1q58aURcTTw%0AXODe+mt4KvAY4MUR8WyqNR+eCbwQeFL92M8F9qu/tt9mZVcx1EOAJa2xycyfUZXXck57/Dgzb87M%0AXwD/BcyvafEDqtn0vPfWz/F54MCIeAxV2f11RHwD+ALVpcO/Uu//tYVPFBHrgKdm5qfrx7oB+F+q%0AReWX8oV66dw7qGbB+9XPfUL93F+jKt1fz8xrgIsj4rVUP0QOAtZRzbg/X6+EdxfVsqVQrUsTEfFF%0A4PeBMwdk0cOMJa2xyswvsee0x7wu1Voo89b2/P3eBQ+xcI3lftsnqE5RrAGOqc8jHwYcwZ5Fse7m%0Agfq93icYfNqv97nnv5Y1wFk9z30kcFlEnAB8hGpBoMuBa+r9F47BHEBm3kl1quciqh8WX69/AEmA%0AJa1mvAk4Dnh8ffsO4JcjYqpeHWyUX+n/ECAiTgRurWejVwOvqbc/jWpWutdiD1DP9P8jIk6qjzkS%0AeByjrbJ4NfCqiFhbz9CvpSrqFwIfz8zLqZaofAFVoV8FHB8Rj65XeDyxznAC8CGqpTbPoFo57YAR%0A8miVsqQ1dj2nPR5Z3/42VQl9m+rX/K+M8LAH16cW3gi8ot72Z8CREXEL8I/AyUN8MuNk4IyI+Cbw%0ALuCkej3i5boE+C7Vf4H171RvKG6lWtXuZfXjf4Jq+dunZOY3gLcD/wb8K9XpHKhO09xNNTY3Ah/O%0AzN4lcvUw5yp4klQwZ9KSVDBLWpIKZklLUsEsaUkqmCUtSQWzpCWpYJa0JBXs/wFjD8XJ/YQWhwAA%0AAABJRU5ErkJggg==">
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Phrasing-it-with-statistical-mechanics">Phrasing it with statistical mechanics<a class="anchor-link" href="coin-flipping-and-entropy.html#Phrasing-it-with-statistical-mechanics">¶</a>
+</h3>
+<p>The fundamental postulate of statistical mechanics says that each of these different ways of flipping coins (HHHH, HHTH, HHHT, etc.) is equally likely. That makes intuitive sense here: each individual coin flip was equally likely. But, we can use that to figure out probabilities. We actually did that for the "flip three coins" example above. Here, we say that there were 4 heads in 1/16 of the flips, so we have a 1/16 = 6.25% chance of getting one head. Here's the same thing, plotted with probabilities instead of "number of times this happened":</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">heads</span><span class="p">,</span><span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">norm_hist</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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">
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So, that's cool. We now know how likely it is that we're going to get any given number of heads. For four coin flips, our intuition was probably right: more likely to get two heads. But not <em>that much</em> more likely.</p>
+<h3 id="Flipping-more-coins">Flipping more coins<a class="anchor-link" href="coin-flipping-and-entropy.html#Flipping-more-coins">¶</a>
+</h3>
+<p>If we want to flip more coins, it's going to be a pain in the neck to make that table over and over. Luckily, this is bundled up in a math/probability/stats concept called "combinations". Remember how, when we flipped four coins, we had four ways to get one head?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">comb</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[4]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>4.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And how there were six ways to get two heads?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">comb</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[5]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>6.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can get a list of all of those:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="n">sp</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">comb</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[6]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[1.0, 4.0, 6.0, 4.0, 1.0]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And we can wrap that whole thing up into an interactive plot</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">plotflips</span><span class="p">(</span><span class="n">num_coins</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">flips_with_heads</span> <span class="o">=</span> <span class="p">[</span><span class="n">sp</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">comb</span><span class="p">(</span><span class="n">num_coins</span><span class="p">,</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_coins</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="n">flips_with_heads</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">flips_with_heads</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_coins</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="n">flips_with_heads</span><span class="o">/</span><span class="n">flips_with_heads</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
+<span class="n">interact</span><span class="p">(</span><span class="n">plotflips</span><span class="p">,</span><span class="n">num_coins</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mi">1001</span><span class="p">,</span><span class="mi">100</span><span class="p">)));</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+
+
+ 
+ 
+<div id="dabc5449-01ff-462f-9818-4a270102c1c5"></div>
+<div class="output_subarea output_widget_view ">
+<script type="text/javascript">
+var element = $('#dabc5449-01ff-462f-9818-4a270102c1c5');
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "575a48b1da134149beaf83169441a770"}
+</script>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Back-to-some-physics">Back to some physics<a class="anchor-link" href="coin-flipping-and-entropy.html#Back-to-some-physics">¶</a>
+</h3>
+<p>How does this all connect to entropy? People usually say that "entropy" means things "want to be more disordered" ... let's use that to think about the air molecules in the room. If air molecules can be randomly located anywhere in a room, why don't you ever have to worry about walking into a room and finding all of them on the other side? If that happened, you'd asphyxiate right away!</p>
+<p>Well, in terms of entropy, stuffing them all on one side would certainly be a more ordered state. What can our coins tell us about that? A really simple model would be to say "heads" means a molecule is on the left side of the room, "tails" means it's on the right. Then, flipping 0 heads would mean you asphyxiate. Look at the above interactive plot, and notice that even with 1000 "molecules" the probability of having things spread out evenly is WAY bigger than the alternative. Think about avogadro's number.</p>
+
+</div>
+</div>
+</div>
+    </div>
+  </div>
+
+    </section><aside class="sharing no-print"><a href="#content" aria-label="Post beginning">
+       <i class="fa fa-2x fa-fw fa-arrow-circle-up" aria-hidden="true" title="Post beginning"></i>
+    </a>
+    <a href="https://mglerner.github.io/posts/post-tenure-job-stress-part-1n.html" rel="prev" title="Post-tenure job stress, part 1/N">
+       <i class="fa fa-2x fa-fw fa-arrow-circle-left" aria-hidden="true" title="Previous post: Post-tenure job stress, part 1/N"></i>
+    </a>
+    <span class="post-sharing">
+     <a href="http://twitter.com/share?text=Coin+Flipping+and+Entropy&amp;url=https%3A%2F%2Fmglerner.github.io%2Fposts%2Fcoin-flipping-and-entropy.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" aria-label="Share on Twitter">
+       <i class="fa fa-2x fa-fw fa-twitter-square" aria-hidden="true" title="Share on Twitter">
+     </i></a>
+     <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmglerner.github.io%2Fposts%2Fcoin-flipping-and-entropy.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" aria-label="Share on Facebook">
+       <i class="fa fa-2x fa-fw fa-facebook-square" style="margin-left: -8px" aria-hidden="true" title="Share of Facebook">
+     </i></a>
+     <a href="https://plus.google.com/share?url=https%3A%2F%2Fmglerner.github.io%2Fposts%2Fcoin-flipping-and-entropy.html" aria-label="Share on Google+" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+       <i class="fa fa-2x fa-fw fa-google-plus-square" style="margin-left: -8px" aria-hidden="true" title="Share on Google+">
+     </i></a>
+     </span>
+</aside><div itemprop="author" itemscope itemtype="http://schema.org/Person">
+<footer class="byline author author-bio vcard"><hr>
+<meta itemprop="image" content="https://pbs.twimg.com/profile_images/196327413/MGLProfile_400x400.jpg">
+<div class="author-image" style="background: url(https://pbs.twimg.com/profile_images/196327413/MGLProfile_400x400.jpg)"></div>
+     <h3 class="byline-name fn" itemprop="name">Michael G. Lerner
+        <span class="post-sharing">
+            <a href="mailto:mglerner@protonmail.com?subject=Coin%20Flipping%20and%20Entropy" aria-label="Email author">
+            <i class="fa fa-2 fa-fw fa-envelope" aria-hidden="true" title="Email author">
+            </i></a>
+        </span>
+        <span class="post-sharing">
+            <a href="https://twitter.com/mglerner" target="_blank" arial-label="Go to Twitter"> <i class="fa fa-fw fa-twitter" aria-hidden="true" title="Twitter"></i></a>
+            <a href="https://github.com/mglerner" target="_blank" arial-label="Go to GitHub"> <i class="fa fa-fw fa-github" aria-hidden="true" title="GitHub"></i></a>
+        </span>
+     </h3>
+     <p class="bio">Biophysicist, pedagogy, lipids, membranes, sometimes even proteins and nucleic acids. <a href="https://github.com/mglerner/IntroductoryPhysics">Decolonising my Introductory Physics Syllabus</a>.</p>
+</footer>
+</div>
+
+
+        <section class="comments hidden-print"><h2>Comments</h2>
+        
+        
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="biophysics-and-beer",
+            disqus_url="https://mglerner.github.io/posts/coin-flipping-and-entropy.html",
+        disqus_title="Coin Flipping and Entropy",
+        disqus_identifier="cache/posts/coin-flipping-and-entropy.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}});
+        </script></article><script>var disqus_shortname="biophysics-and-beer";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2017         <a href="mailto:mglerner@protonmail.com">Michael G. Lerner</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+            
+        </footer>
+</div>
+    </div>
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
+    
+    
+            <script src="../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates -->
+</body>
+</html>
