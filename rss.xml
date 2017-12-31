@@ -1,5 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Biophysics and Beer</title><link>https://mglerner.github.io/</link><description>Just what it sounds like.</description><atom:link href="https://mglerner.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2017 &lt;a href="mailto:mglerner@protonmail.com"&gt;Michael G. Lerner&lt;/a&gt; </copyright><lastBuildDate>Thu, 16 Nov 2017 17:40:58 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Coin Flipping and Entropy</title><link>https://mglerner.github.io/posts/coin-flipping-and-entropy.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Biophysics and Beer</title><link>https://mglerner.github.io/</link><description>Just what it sounds like.</description><atom:link href="https://mglerner.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2017 &lt;a href="mailto:mglerner@protonmail.com"&gt;Michael G. Lerner&lt;/a&gt; </copyright><lastBuildDate>Sun, 31 Dec 2017 18:06:44 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Chromebooks for the kids</title><link>https://mglerner.github.io/posts/chromebooks-for-the-kids.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;h2&gt;Chromebook for the kids&lt;/h2&gt;
+&lt;p&gt;My oldest daughter is 9, and the twins are 6, so it's probably time to get them involved in computer things. I could have done this earlier, but I definitely screwed up with the kids by introducing tech/books/etc. before they were ready, so I decided to wait. The kids are definitely ready, so here are the goals:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Programming&lt;ul&gt;
+&lt;li&gt;Minecraft seems to be the best for this, but I want more than 2GB of RAM. Preferably 8GB.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://scratch.mit.edu"&gt;Scratch&lt;/a&gt; also seems to get a ton of great recs.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Access to the internet&lt;/li&gt;
+&lt;li&gt;Having an office suite around. The 9yo will be writing papers at school next year, etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;My original thought was that I'd get a cheap desktop: either a Windows box or a refurbished Mac. I was leaning against Linux because I'm old and it seems like there's a big barrier to entry for Linux. I want this to just work for the kids. Then someone pointed out that we'll be traveling out of the country next year, so a desktop is a bad idea. The cheapo version of a laptop is a Chromebook, but I wanted one capable of running Minecraft. I find a really nice &lt;a href="https://platypusplatypus.com/chromebooks/play-minecraft-chromebook/"&gt;guide to setting up Minecraft on a Chromebook&lt;/a&gt;. Of all things, the answer is to install Linux via &lt;a href="https://github.com/dnschneid/crouton"&gt;crouton&lt;/a&gt;. Who knew. So, I'll give that a try. The site also has a nice guide to Minecraft-capable Chromebooks. On the high end, the Pixel has all of the stats I could want ... but $1k seems like quite a bit to spend on a "cheapo" laptop. There were some nice $200 models, but I settled on the Asus Flip 2 (Intel Core m3, 4GB of RAM ... not quite the 8GB I wanted). I think the kids will really like the touchscreen and flipscreen. Hopefully they won't fight too much over the single computer.&lt;/p&gt;
+&lt;p&gt;So, as per the &lt;a href="https://platypusplatypus.com/chromebooks/play-minecraft-chromebook/"&gt;guide&lt;/a&gt;,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Be prepared to &lt;a href="https://platypusplatypus.com/chromebooks/powerwash-chromebook-full-recovery/"&gt;Powerwash&lt;/a&gt;/revert to factory settings. (In fact, I had to do this because apparently I screwed up a root password in the next step.)&lt;/li&gt;
+&lt;li&gt;Enable &lt;a href="https://platypusplatypus.com/chromebooks/enable-developer-mode-chromebook/"&gt;Developer Mode&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Install &lt;a href="https://github.com/dnschneid/crouton"&gt;crouton&lt;/a&gt; and the crouton Chrome extension (link on crouton page).&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install Linux&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;"Ctrl + Alt + T" gives you a command terminal in Chrome&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;shell&lt;/code&gt; gives you a shell&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sudo sh -e ~/Downloads/crouton -t touch,kde-desktop&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Switch back to the Chromebook side (shift+ctrl+alt+left arrow at the top of the keyboard).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;Download the Linux Java version of Minecraft from minecraft.net&lt;/li&gt;
+&lt;li&gt;Switch back to the linux side (shift+ctrl+alt+right arrow at the top of the keyboard).&lt;/li&gt;
+&lt;li&gt;Put Minecraft in a stable place&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;mkdir ~/Games&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mv ~/Downloads/Minecraft.jar ~/Games&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;You can launch via the command line: &lt;code&gt;java -jar ~/Games/Minecraft.jar&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;You can make a KDE shortcut to launch it. It's very particular.&lt;ul&gt;
+&lt;li&gt;Open up &lt;code&gt;kmenuedit&lt;/code&gt; and make a new item under Games.&lt;/li&gt;
+&lt;li&gt;Call it Minecraft.&lt;/li&gt;
+&lt;li&gt;Make the command &lt;code&gt;java -jar ./Minecraft.jar&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Under Advanced, make the Work path &lt;code&gt;~/Games&lt;/code&gt; and select &lt;code&gt;Run in terminal&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;You can also go into &lt;code&gt;~/Games&lt;/code&gt;, open it up in the file browser via &lt;code&gt;xdg-open .&lt;/code&gt; then drag the Minecraft jar file onto the desktop. That gives you an icon which, when double-clicked, will launch Minecraft.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Be aware that exiting developer mode will erase all of the Linux setup from above. Reinstalling it takes about 5 minutes of typing and 45 minutes of letting the computer churn.&lt;/p&gt;
+&lt;p&gt;So far, the kids seem more than happy with this setup. The crouton Linux install seems to be shared no matter who logs in on the Chromebook, so they can all log in individually on the ChromeOS side, but share the same Linux side. They don't seem to have a problem opening up a command terminal and sudo-launching kde, which is either cool or disturbing. Not sure which :).&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/chromebooks-for-the-kids.html</guid><pubDate>Sun, 31 Dec 2017 17:58:37 GMT</pubDate></item><item><title>Coin Flipping and Entropy</title><link>https://mglerner.github.io/posts/coin-flipping-and-entropy.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
     &lt;div class="container" id="notebook-container"&gt;
 
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
@@ -223,15 +269,4 @@ ever claimed I was wise.&lt;/p&gt;
 &lt;p&gt;Sadly for me, I didn't know a bunch about which interpolation functions to use, so I asked Andy Simmonett. I wrote the Python bits below, but the general explanation is direct from him, with some light modifications. He's a QM/MM guy, so some of what is written below should be taken in the context of molecular simulations.&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://mglerner.github.io/posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html"&gt;Read more…&lt;/a&gt; (97 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html</guid><pubDate>Thu, 19 Mar 2015 15:43:00 GMT</pubDate></item><item><title>Evolution of a Learning Goal</title><link>https://mglerner.github.io/posts/evolution-of-a-learning-goal.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;p&gt;I just got back from the Lilly &lt;a href="http://celt.miamioh.edu/lillycon/schedule.php?date=2014-11-20&amp;amp;year=2014" title="Lilly International Conference on College Teaching"&gt;Conference&lt;/a&gt; on College Teaching. The first workshop I went to was on course design. One chunk of this was on learning goals. This came in the second half of the workshop, after we’d talked quite a bit about learning factors, etc. I chose to work on my 200-level &lt;a href="https://github.com/mglerner/IntroToBiophysics" title="Introduction to Biophysics"&gt;Biophysics&lt;/a&gt; class, where I thought I had decent goals already. One of the ones I particularly liked was&lt;/p&gt;
 &lt;blockquote&gt;&lt;p&gt;Use simple physical models to provide quantitative insight into biological systems.&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;a href="https://mglerner.github.io/posts/evolution-of-a-learning-goal.html"&gt;Read more…&lt;/a&gt; (4 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/evolution-of-a-learning-goal.html</guid><pubDate>Mon, 24 Nov 2014 10:07:32 GMT</pubDate></item><item><title>Making IPython Notebooks for the matplotlib examples</title><link>https://mglerner.github.io/posts/making-ipython-notebooks-for-the-matplotlib-examples.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="http://matplotlib.org/"&gt;matplotlib&lt;/a&gt; comes with tons of fantastic &lt;a href="http://matplotlib.org/examples/index.html"&gt;examples&lt;/a&gt;. I’m not as familiar with matplotlib as I probably should be, so I often find myself wanting to tinker a bit, but needing to refer to those examples. Since matplotlib comes with such wonderful documentation, I though it would be great to just turn those docs into &lt;a href="https://github.com/ipython/ipython/wiki/A-gallery-of-interesting-IPython-Notebooks"&gt;IPython Notebooks&lt;/a&gt; for easy tinkering. That’s probably biting off a bit more than I want to chew at the moment, considering that the matplotlib docs are fairly involved and written in &lt;a href="http://docutils.sourceforge.net/rst.html"&gt;reStructuredText&lt;/a&gt; instead of &lt;a href="http://daringfireball.net/projects/markdown/"&gt;markdown&lt;/a&gt; (what the IPython Notebook uses).&lt;/p&gt;
-&lt;p&gt;Luckily, the IPython Notebook format is so mind-bendingly sane that
-I didn’t even need to read any documentation to understand it. So,
-instead, I wrote a bit of code that gobbles up matplotlib example
-scripts and spits out IPython Notebooks. &lt;del datetime="2013-12-31T19:43:42+00:00"&gt;The whole notebook is JSON, but I
-only want simple things, so I hardcode everything except for the
-cells.&lt;/del&gt; (After Daniel’s comment below, I started to write my own
-JSONEncoder. Then, I realized that I was right about the “it’s all
-JSON” thing and rewrote the notebook class). I have a little IPyNB
-class that knows how to add cells to itself and spit out the results
-as strings and files:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://mglerner.github.io/posts/making-ipython-notebooks-for-the-matplotlib-examples.html"&gt;Read more…&lt;/a&gt; (8 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/making-ipython-notebooks-for-the-matplotlib-examples.html</guid><pubDate>Sun, 29 Dec 2013 10:48:12 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://mglerner.github.io/posts/evolution-of-a-learning-goal.html"&gt;Read more…&lt;/a&gt; (4 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/evolution-of-a-learning-goal.html</guid><pubDate>Mon, 24 Nov 2014 10:07:32 GMT</pubDate></item></channel></rss>

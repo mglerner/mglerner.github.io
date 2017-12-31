@@ -10,7 +10,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://mglerner.github.io/index.html">
 <link rel="next" href="index-1.html" type="text/html">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/coin-flipping-and-entropy.html" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/chromebooks-for-the-kids.html" type="text/html">
 <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
 </head>
 <body>
@@ -47,7 +47,73 @@
         
 
 <div class="posts">
-    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/coin-flipping-and-entropy.html" class="u-url">Coin Flipping and Entropy</a></h1>
+    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/chromebooks-for-the-kids.html" class="u-url">Chromebooks for the kids</a></h1>
+        <div class="metadata">
+            <p class="dateline"><a href="posts/chromebooks-for-the-kids.html" rel="bookmark"><time class="post-date published dt-published" datetime="2017-12-31T17:58:37+00:00" title="2017-12-31 17:58">2017-12-31 17:58</time></a></p>
+                <p class="commentline">
+        
+    <a href="posts/chromebooks-for-the-kids.html#disqus_thread" data-disqus-identifier="cache/posts/chromebooks-for-the-kids.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<h2>Chromebook for the kids</h2>
+<p>My oldest daughter is 9, and the twins are 6, so it's probably time to get them involved in computer things. I could have done this earlier, but I definitely screwed up with the kids by introducing tech/books/etc. before they were ready, so I decided to wait. The kids are definitely ready, so here are the goals:</p>
+<ul>
+<li>Programming<ul>
+<li>Minecraft seems to be the best for this, but I want more than 2GB of RAM. Preferably 8GB.</li>
+<li>
+<a href="https://scratch.mit.edu">Scratch</a> also seems to get a ton of great recs.</li>
+</ul>
+</li>
+<li>Access to the internet</li>
+<li>Having an office suite around. The 9yo will be writing papers at school next year, etc.</li>
+</ul>
+<p>My original thought was that I'd get a cheap desktop: either a Windows box or a refurbished Mac. I was leaning against Linux because I'm old and it seems like there's a big barrier to entry for Linux. I want this to just work for the kids. Then someone pointed out that we'll be traveling out of the country next year, so a desktop is a bad idea. The cheapo version of a laptop is a Chromebook, but I wanted one capable of running Minecraft. I find a really nice <a href="https://platypusplatypus.com/chromebooks/play-minecraft-chromebook/">guide to setting up Minecraft on a Chromebook</a>. Of all things, the answer is to install Linux via <a href="https://github.com/dnschneid/crouton">crouton</a>. Who knew. So, I'll give that a try. The site also has a nice guide to Minecraft-capable Chromebooks. On the high end, the Pixel has all of the stats I could want ... but $1k seems like quite a bit to spend on a "cheapo" laptop. There were some nice $200 models, but I settled on the Asus Flip 2 (Intel Core m3, 4GB of RAM ... not quite the 8GB I wanted). I think the kids will really like the touchscreen and flipscreen. Hopefully they won't fight too much over the single computer.</p>
+<p>So, as per the <a href="https://platypusplatypus.com/chromebooks/play-minecraft-chromebook/">guide</a>,</p>
+<ul>
+<li>Be prepared to <a href="https://platypusplatypus.com/chromebooks/powerwash-chromebook-full-recovery/">Powerwash</a>/revert to factory settings. (In fact, I had to do this because apparently I screwed up a root password in the next step.)</li>
+<li>Enable <a href="https://platypusplatypus.com/chromebooks/enable-developer-mode-chromebook/">Developer Mode</a>.</li>
+<li>Install <a href="https://github.com/dnschneid/crouton">crouton</a> and the crouton Chrome extension (link on crouton page).</li>
+<li>
+<p>Install Linux</p>
+<ul>
+<li>"Ctrl + Alt + T" gives you a command terminal in Chrome</li>
+<li>
+<code>shell</code> gives you a shell</li>
+<li><code>sudo sh -e ~/Downloads/crouton -t touch,kde-desktop</code></li>
+</ul>
+</li>
+<li>
+<p>Switch back to the Chromebook side (shift+ctrl+alt+left arrow at the top of the keyboard).</p>
+</li>
+<li>Download the Linux Java version of Minecraft from minecraft.net</li>
+<li>Switch back to the linux side (shift+ctrl+alt+right arrow at the top of the keyboard).</li>
+<li>Put Minecraft in a stable place<ul>
+<li><code>mkdir ~/Games</code></li>
+<li><code>mv ~/Downloads/Minecraft.jar ~/Games</code></li>
+</ul>
+</li>
+<li>You can launch via the command line: <code>java -jar ~/Games/Minecraft.jar</code>
+</li>
+<li>You can make a KDE shortcut to launch it. It's very particular.<ul>
+<li>Open up <code>kmenuedit</code> and make a new item under Games.</li>
+<li>Call it Minecraft.</li>
+<li>Make the command <code>java -jar ./Minecraft.jar</code>
+</li>
+<li>Under Advanced, make the Work path <code>~/Games</code> and select <code>Run in terminal</code>
+</li>
+</ul>
+</li>
+<li>You can also go into <code>~/Games</code>, open it up in the file browser via <code>xdg-open .</code> then drag the Minecraft jar file onto the desktop. That gives you an icon which, when double-clicked, will launch Minecraft.</li>
+</ul>
+<p>Be aware that exiting developer mode will erase all of the Linux setup from above. Reinstalling it takes about 5 minutes of typing and 45 minutes of letting the computer churn.</p>
+<p>So far, the kids seem more than happy with this setup. The crouton Linux install seems to be shared no matter who logs in on the Chromebook, so they can all log in individually on the ChromeOS side, but share the same Linux side. They don't seem to have a problem opening up a command terminal and sudo-launching kde, which is either cool or disturbing. Not sure which :).</p>
+</div>
+    </div>
+    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/coin-flipping-and-entropy.html" class="u-url">Coin Flipping and Entropy</a></h1>
         <div class="metadata">
             <p class="dateline"><a href="posts/coin-flipping-and-entropy.html" rel="bookmark"><time class="post-date published dt-published" datetime="2017-11-16T17:35:56+00:00" title="2017-11-16 17:35">2017-11-16 17:35</time></a></p>
                 <p class="commentline">
@@ -442,32 +508,6 @@ ever claimed I was wise.</p>
 <p>I just got back from the Lilly <a href="http://celt.miamioh.edu/lillycon/schedule.php?date=2014-11-20&amp;year=2014" title="Lilly International Conference on College Teaching">Conference</a> on College Teaching. The first workshop I went to was on course design. One chunk of this was on learning goals. This came in the second half of the workshop, after we’d talked quite a bit about learning factors, etc. I chose to work on my 200-level <a href="https://github.com/mglerner/IntroToBiophysics" title="Introduction to Biophysics">Biophysics</a> class, where I thought I had decent goals already. One of the ones I particularly liked was</p>
 <blockquote><p>Use simple physical models to provide quantitative insight into biological systems.</p></blockquote>
 <p class="more"><a href="posts/evolution-of-a-learning-goal.html">Read more…</a></p>
-</div>
-    </div>
-    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/making-ipython-notebooks-for-the-matplotlib-examples.html" class="u-url">Making IPython Notebooks for the matplotlib examples</a></h1>
-        <div class="metadata">
-            <p class="dateline"><a href="posts/making-ipython-notebooks-for-the-matplotlib-examples.html" rel="bookmark"><time class="post-date published dt-published" datetime="2013-12-29T10:48:12+00:00" title="2013-12-29 10:48">2013-12-29 10:48</time></a></p>
-                <p class="commentline">
-        
-    <a href="posts/making-ipython-notebooks-for-the-matplotlib-examples.html#disqus_thread" data-disqus-identifier="cache/posts/making-ipython-notebooks-for-the-matplotlib-examples.html">Comments</a>
-
-
-        </p>
-</div>
-    </header><div class="p-summary entry-summary">
-    <div>
-<p><a href="http://matplotlib.org/">matplotlib</a> comes with tons of fantastic <a href="http://matplotlib.org/examples/index.html">examples</a>. I’m not as familiar with matplotlib as I probably should be, so I often find myself wanting to tinker a bit, but needing to refer to those examples. Since matplotlib comes with such wonderful documentation, I though it would be great to just turn those docs into <a href="https://github.com/ipython/ipython/wiki/A-gallery-of-interesting-IPython-Notebooks">IPython Notebooks</a> for easy tinkering. That’s probably biting off a bit more than I want to chew at the moment, considering that the matplotlib docs are fairly involved and written in <a href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> instead of <a href="http://daringfireball.net/projects/markdown/">markdown</a> (what the IPython Notebook uses).</p>
-<p>Luckily, the IPython Notebook format is so mind-bendingly sane that
-I didn’t even need to read any documentation to understand it. So,
-instead, I wrote a bit of code that gobbles up matplotlib example
-scripts and spits out IPython Notebooks. <del datetime="2013-12-31T19:43:42+00:00">The whole notebook is JSON, but I
-only want simple things, so I hardcode everything except for the
-cells.</del> (After Daniel’s comment below, I started to write my own
-JSONEncoder. Then, I realized that I was right about the “it’s all
-JSON” thing and rewrote the notebook class). I have a little IPyNB
-class that knows how to add cells to itself and spit out the results
-as strings and files:</p>
-<p class="more"><a href="posts/making-ipython-notebooks-for-the-matplotlib-examples.html">Read more…</a></p>
 </div>
     </div>
     </article>
