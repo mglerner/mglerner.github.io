@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " vocab="http://ogp.me/ns" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NonNewtonian Scientists | Biophysics and Beer</title>
+<link href="../assets/css/all.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
+<link rel="canonical" href="https://mglerner.github.io/pages/nonnewtonian-scientists.html">
+<!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><meta name="author" content="Michael G. Lerner">
+<meta property="og:site_name" content="Biophysics and Beer">
+<meta property="og:title" content="NonNewtonian Scientists">
+<meta property="og:url" content="https://mglerner.github.io/pages/nonnewtonian-scientists.html">
+<meta property="og:description" content="I've been working on developing an annotated syllabus for
+diversity/inclusion/decolonisation in Physics and Astronomy. You can
+see the results
+here, and this page
+makes it easy for you to contribute: ">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2018-02-04T02:10:56Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@website">
+<meta name="twitter:creator" content="@username">
+<link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+    <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+            styles, `#sidebar-checkbox` for behavior. -->
+    <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"><!-- Toggleable sidebar --><div class="sidebar" id="sidebar">
+
+        <nav role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../"><i class="fa fa-2x fa-fw fa-home"></i> Home</a>
+          <!--a class="sidebar-nav-item" href="/blog"><i class="fa fa-2x fa-fw fa-user-circle" /> Blog</a-->
+          <a class="sidebar-nav-item" href="about.html"><i class="fa fa-2x fa-fw fa-user-circle"></i> About
+        </a></nav><nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../archive.html">Archives</a>
+        <a class="sidebar-nav-item" href="../categories/index.html">Tags</a>
+        <a class="sidebar-nav-item" href="../rss.xml">RSS feed</a>
+    
+    
+    </nav>
+</div>
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          
+    <h2 id="brand" class="masthead-title">
+      <a href="https://mglerner.github.io/" title="Biophysics and Beer" rel="home">Biophysics and Beer</a>
+    </h2>
+    <img src="../mglblogheader.png">
+</div>
+      </div>
+
+      <div class="container content" id="content">
+        
+<article class="post-text storypage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="post-title p-name entry-title" itemprop="headline">
+      <a href="https://mglerner.github.io/pages/nonnewtonian-scientists.html" class="u-url">NonNewtonian Scientists</a>
+</h1>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>I've been working on developing an annotated syllabus for
+diversity/inclusion/decolonisation in Physics and Astronomy. You can
+see the results
+<a href="https://github.com/mglerner/IntroductoryPhysics">here</a>, and this page
+makes it easy for you to contribute: research a scientist, fill out
+the fields below, click the link, and you'll get the text I need to
+add someone to the syllabus. You can either email it to me (mglerner@protonmail.com) or send me a PR. I'll gladly reformat them to fix
+any small mistakes, so don't let that stop you!</p>
+<!-- Thanks to -->
+
+<!-- https://www.w3schools.com/js/tryit.asp?filename=tryjs_form_elements -->
+
+<!-- for example javascript code -->
+
+<form id="ScientistForm">
+  The scientist's name:<br><input type="text" name="Name" size="60"><br>
+  Where this goes in a specific textbook, e.g. "Knight, 3rd edition,
+  Chapter 32, section 2" Fill in as much as you know, but feel free to
+  leave parts out if you don't know them. E.g. I'll do something
+  reasonable with "Halliday Resnick and Walker, 6th edition":<br><input type="text" name="Textbook" size="60"><br>
+  Do you know information about a second, or third textbook? Let me
+  know! <br><input type="text" name="Textbook" size="60"><br><br><input type="text" name="Textbook" size="60"><br>
+  Contributors: (you can put your name here if you'd like it to be
+  public, or leave it out if not!) <br><input type="text" name="Contributors" size="60"><br>
+  Description of the scientist: <br><textarea rows="10" cols="60" name="Description"></textarea><br>
+  Sources: (please cite things via the APA style if possible, but I'll
+  convert your citations if you'd rather just give me
+  <i>something</i>). Include as many sources as you'd like here. <br><textarea rows="3" cols="60" name="Sources"></textarea><br>
+  Photo: please give me the URL of a photo of the scientist. I can
+  make smaller versions, so don't worry about size. <br><input type="text" name="Photo" size="60"><br>
+</form>
+
+<p>Click "Try it" to generate the combined text, then email me the
+results (mglerner@protonmail.com) or send me a PR (again,
+the repository is <a href="https://github.com/mglerner/IntroductoryPhysics">here</a>)!</p>
+<p><button style="height:50px;width:100px" onclick="myFunction()">Try it</button></p>
+<p id="ScientistResults"></p>
+
+<script>
+function myFunction() {
+    var x = document.getElementById("ScientistForm");
+    var text = "";
+    var i;
+    for (i = 0; i < x.length ;i++) {
+        text += "# " + x.elements[i].name + "<br>" + x.elements[i].value + "<br><br>";
+    }
+    document.getElementById("ScientistResults").innerHTML = text;
+}
+</script>
+</div>
+    </div>
+    
+
+</article><footer id="footer"><p>Contents © 2018         <a href="mailto:mglerner@protonmail.com">Michael G. Lerner</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+            
+        </footer>
+</div>
+    </div>
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
+    
+    
+            <script src="../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates -->
+</body>
+</html>
