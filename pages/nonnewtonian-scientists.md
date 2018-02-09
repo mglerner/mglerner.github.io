@@ -51,7 +51,7 @@ any small mistakes, so don't let that stop you!
 </form>
   
 Click "Try it" to generate the combined text, then email me the
-results (mglerner@protonmail.com) or send me a PR (again,
+results (<mglerner@protonmail.com>) or send me a PR (again,
 the repository is [here](https://github.com/mglerner/IntroductoryPhysics))!
 
 
