@@ -55,12 +55,12 @@ results (<mglerner@protonmail.com>) or send me a PR (again,
 the repository is [here](https://github.com/mglerner/IntroductoryPhysics))!
 
 
-<button style="height:50px;width:100px" onclick="myFunction()">Try it</button>
+<button style="height:50px;width:100px" onclick="formatIt()">Try it</button>
 
-<p id="ScientistResults"></p>
+<p id="ScientistResults" style="background-color:LightGray;"></p>
 
 <script>
-function myFunction() {
+function formatIt() {
     var x = document.getElementById("ScientistForm");
     var text = "";
     var i;
