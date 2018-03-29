@@ -9,14 +9,8 @@
 .. type: text
 -->
 
-I've been working on developing an annotated syllabus for
-diversity/inclusion/decolonisation in Physics and Astronomy. You can
-see the results
-[here](https://github.com/mglerner/IntroductoryPhysics), and this page
-makes it easy for you to contribute: research a scientist, fill out
-the fields below, click the link, and you'll get the text I need to
-add someone to the syllabus. You can either email it to me (mglerner@protonmail.com) or send me a PR. I'll gladly reformat them to fix
-any small mistakes, so don't let that stop you!
+I've been working on developing an annotated syllabus for diversity/inclusion/decolonisation in Physics and Astronomy. You can see the results
+[here](https://github.com/mglerner/IntroductoryPhysics), and this page makes it easy for you to contribute: research a scientist, fill out the fields below, click the link, and you'll get the text I need to add someone to the syllabus. You can either email it to me (mglerner@protonmail.com) or send me a PR. I'll gladly reformat them to fix any small mistakes, so don't let that stop you!
 
 <!-- Thanks to -->
 <!-- https://www.w3schools.com/js/tryit.asp?filename=tryjs_form_elements -->
@@ -32,21 +26,18 @@ any small mistakes, so don't let that stop you!
       <option value="Knight, College Physics: A Strategic Approach, 2nd Edition">Knight, College Physics: A Strategic Approach, 2nd Edition</option>
   </select>
   <br>
-  Now, where does this scientist goes in this textbook, e.g. "Chapter 32, section 2" Fill in as much as you know, but feel free to
-  leave parts out if you don't know them.<br>
+  Now, where does this scientist go in this textbook, e.g. "Chapter 32, section 2" Fill in as much as you know, but feel free to leave parts out if you don't know them.<br>
   Chapter: <input type="number" name="Chapter" min="0" max="100" value="0">
   <br>
   Section: <input type="number" name="Section" min="0" max="100" value="0">
   <br>
-  Do you know information about a second textbook? Let me know via email (mglerner@protonmail.com) 
-  or by editing the generated text before you send it to me!
+  Do you know information about a second textbook? Let me know via email (mglerner@protonmail.com) or by editing the generated text before you send it to me!
   <br>
   Contributors: (you can put your name here if you'd like it to be public, or leave it out if not!) <br>
   <input type="text" name="Contributors" size="60"><br>
   Description of the scientist: <br>
   <textarea rows="10" cols="60" name="Description"></textarea><br>
-  Sources: (please cite things via the APA style if possible, but I'll
-  convert your citations if you'd rather just give me
+  Sources: (please cite things via the APA style if possible, but I'll convert your citations if you'd rather just give me
   <i>something</i>). Include as many sources as you'd like here. <br>
   <textarea rows="3" cols="60" name="Sources"></textarea><br>
   Photo: please give me the URL of a photo of the scientist. I can
