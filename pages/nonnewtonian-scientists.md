@@ -22,6 +22,7 @@ I've been working on developing an annotated syllabus for diversity/inclusion/de
   Where this goes in a specific textbook. First, the textbook:
   <select name="Textbook">
       <option value="">None</option>
+      <option value="Chabay and Sherwood, Matter and Interactions, 4th   Edition">Chabay and Sherwood, Matter and Interactions, 4th Edition</option>
       <option value="Knight, Physics for Scientists and Engineers: A Strategic Approach with Modern Physics, 3rd Edition">Knight, Physics for Scientists and Engineers: A Strategic Approach with Modern Physics, 3rd Edition</option>
       <option value="Knight, College Physics: A Strategic Approach, 2nd Edition">Knight, College Physics: A Strategic Approach, 2nd Edition</option>
   </select>
