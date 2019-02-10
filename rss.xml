@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Biophysics and Beer</title><link>https://mglerner.github.io/</link><description>Just what it sounds like.</description><atom:link href="https://mglerner.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:mglerner@protonmail.com"&gt;Michael G. Lerner&lt;/a&gt; </copyright><lastBuildDate>Sun, 10 Feb 2019 08:11:25 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Orienting</title><link>https://mglerner.github.io/posts/orienting.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Biophysics and Beer</title><link>https://mglerner.github.io/</link><description>Just what it sounds like.</description><atom:link href="https://mglerner.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:mglerner@protonmail.com"&gt;Michael G. Lerner&lt;/a&gt; </copyright><lastBuildDate>Sun, 10 Feb 2019 08:19:05 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Orienting</title><link>https://mglerner.github.io/posts/orienting.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;(You can download this post as a notebook &lt;a href="https://github.com/mglerner/mglerner.github.io/blob/master/posts/orienting.ipynb"&gt;here&lt;/a&gt;.)&lt;/p&gt;
@@ -148,7 +148,8 @@ The story Ash told us was about a mountain called Tongariro. Skipping lots of de
 &lt;p&gt;Pākehā (non-Māori folks) often try to say "this is THE one Māori legend" i.e. to impose some global coordinates. And that has led to some direct material harm. In particular, it led to the &lt;a href="https://en.wikipedia.org/wiki/Moriori"&gt;Moriori&lt;/a&gt; myth, where people thought that the Moriori showed up in New Zealand before Māori. The truth is that the Māori came to New Zealand, and then some of them left to go to the Chatham Islands. Those people became the Moriori. The myth came from trying to artifically treat all Māori legends as the same, and misunderstanding &lt;em&gt;that&lt;/em&gt; history was central to the legal excuse used by colonizers to ignore &lt;a href="https://en.wikipedia.org/wiki/Treaty_of_Waitangi"&gt;the Treaty of Waitangi&lt;/a&gt; for a hundred years!&lt;/p&gt;
 &lt;p&gt;Back to the math for a second. It also turns out that, for most surfaces, you can't have one global set of coordinates. Maybe we should take something socially from that.&lt;/p&gt;
 &lt;p&gt;Māori talk about how these stories are how they &lt;em&gt;orient&lt;/em&gt; themselves in the world. "Orient" has a meaning in math as well, and it essentially means that you don't just know how to define north/south/east/west, you also know how to define "up" and "down." A non-orientable surface is effectively one where you can have local definitions of "up" and "down" everywhere, but there is fundamentally no way to define a global coordinate system, to define "up" and "down."&lt;/p&gt;
-&lt;p&gt;And it turns out that most manifolds are non-orientable. Again, maybe we should take something from that.
+&lt;p&gt;And it turns out that most surfaces are non-orientable. Again, maybe we should take something from that.&lt;/p&gt;
+&lt;p&gt;And maybe I had to come all the way to the other side of the globe, to Aotearoa/New Zealand to figure out how to start piecing together local views of the world, to glue my charts into an atlas without just stretching one chart past its relevance.
 &lt;br&gt;
 &lt;br&gt;&lt;br&gt;
 &lt;br&gt;&lt;br&gt;
@@ -158,7 +159,9 @@ The story Ash told us was about a mountain called Tongariro. Skipping lots of de
 &lt;br&gt;&lt;br&gt;
 &lt;br&gt;&lt;br&gt;
 &lt;br&gt;
-If you're curious about the code that produced those plots, here it is!&lt;/p&gt;
+Two footnotes:&lt;/p&gt;
+&lt;p&gt;(1) For the math folks, when I say surface above, I really mean &lt;a href="https://en.wikipedia.org/wiki/Manifold"&gt;Manifold&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;(2) If you're curious about the code that produced those plots, here it is!&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
