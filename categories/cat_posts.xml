@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Biophysics and Beer (Posts about posts)</title><link>https://mglerner.github.io/</link><description></description><atom:link href="https://mglerner.github.io/categories/cat_posts.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:mglerner@protonmail.com"&gt;Michael G. Lerner&lt;/a&gt; </copyright><lastBuildDate>Sun, 10 Feb 2019 05:03:10 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Chromebooks for the kids</title><link>https://mglerner.github.io/posts/chromebooks-for-the-kids.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;h2&gt;Chromebook for the kids&lt;/h2&gt;
+&lt;p&gt;My oldest daughter is 9, and the twins are 6, so it's probably time to get them involved in computer things. I could have done this earlier, but I definitely screwed up with the kids by introducing tech/books/etc. before they were ready, so I decided to wait. The kids are definitely ready, so here are the goals:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Programming&lt;ul&gt;
+&lt;li&gt;Minecraft seems to be the best for this, but I want more than 2GB of RAM. Preferably 8GB.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://scratch.mit.edu"&gt;Scratch&lt;/a&gt; also seems to get a ton of great recs.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Access to the internet&lt;/li&gt;
+&lt;li&gt;Having an office suite around. The 9yo will be writing papers at school next year, etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;My original thought was that I'd get a cheap desktop: either a Windows box or a refurbished Mac. I was leaning against Linux because I'm old and it seems like there's a big barrier to entry for Linux. I want this to just work for the kids. Then someone pointed out that we'll be traveling out of the country next year, so a desktop is a bad idea. The cheapo version of a laptop is a Chromebook, but I wanted one capable of running Minecraft. I find a really nice &lt;a href="https://platypusplatypus.com/chromebooks/play-minecraft-chromebook/"&gt;guide to setting up Minecraft on a Chromebook&lt;/a&gt;. Of all things, the answer is to install Linux via &lt;a href="https://github.com/dnschneid/crouton"&gt;crouton&lt;/a&gt;. Who knew. So, I'll give that a try. The site also has a nice guide to Minecraft-capable Chromebooks. On the high end, the Pixel has all of the stats I could want ... but $1k seems like quite a bit to spend on a "cheapo" laptop. There were some nice $200 models, but I settled on the Asus Flip 2 (Intel Core m3, 4GB of RAM ... not quite the 8GB I wanted). I think the kids will really like the touchscreen and flipscreen. Hopefully they won't fight too much over the single computer.&lt;/p&gt;
+&lt;p&gt;So, as per the &lt;a href="https://platypusplatypus.com/chromebooks/play-minecraft-chromebook/"&gt;guide&lt;/a&gt;,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Be prepared to &lt;a href="https://platypusplatypus.com/chromebooks/powerwash-chromebook-full-recovery/"&gt;Powerwash&lt;/a&gt;/revert to factory settings. (In fact, I had to do this because apparently I screwed up a root password in the next step.)&lt;/li&gt;
+&lt;li&gt;Enable &lt;a href="https://platypusplatypus.com/chromebooks/enable-developer-mode-chromebook/"&gt;Developer Mode&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Install &lt;a href="https://github.com/dnschneid/crouton"&gt;crouton&lt;/a&gt; and the crouton Chrome extension (link on crouton page).&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install Linux&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;"Ctrl + Alt + T" gives you a command terminal in Chrome&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;shell&lt;/code&gt; gives you a shell&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sudo sh -e ~/Downloads/crouton -t touch,kde-desktop&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Switch back to the Chromebook side (shift+ctrl+alt+left arrow at the top of the keyboard).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;Download the Linux Java version of Minecraft from minecraft.net&lt;/li&gt;
+&lt;li&gt;Switch back to the linux side (shift+ctrl+alt+right arrow at the top of the keyboard).&lt;/li&gt;
+&lt;li&gt;Put Minecraft in a stable place&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;mkdir ~/Games&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mv ~/Downloads/Minecraft.jar ~/Games&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;You can launch via the command line: &lt;code&gt;java -jar ~/Games/Minecraft.jar&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;You can make a KDE shortcut to launch it. It's very particular.&lt;ul&gt;
+&lt;li&gt;Open up &lt;code&gt;kmenuedit&lt;/code&gt; and make a new item under Games.&lt;/li&gt;
+&lt;li&gt;Call it Minecraft.&lt;/li&gt;
+&lt;li&gt;Make the command &lt;code&gt;java -jar ./Minecraft.jar&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Under Advanced, make the Work path &lt;code&gt;~/Games&lt;/code&gt; and select &lt;code&gt;Run in terminal&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;You can also go into &lt;code&gt;~/Games&lt;/code&gt;, open it up in the file browser via &lt;code&gt;xdg-open .&lt;/code&gt; then drag the Minecraft jar file onto the desktop. That gives you an icon which, when double-clicked, will launch Minecraft.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Be aware that exiting developer mode will erase all of the Linux setup from above. Reinstalling it takes about 5 minutes of typing and 45 minutes of letting the computer churn.&lt;/p&gt;
+&lt;p&gt;So far, the kids seem more than happy with this setup. The crouton Linux install seems to be shared no matter who logs in on the Chromebook, so they can all log in individually on the ChromeOS side, but share the same Linux side. They don't seem to have a problem opening up a command terminal and sudo-launching kde, which is either cool or disturbing. Not sure which :).&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/chromebooks-for-the-kids.html</guid><pubDate>Sun, 31 Dec 2017 17:58:37 GMT</pubDate></item><item><title>Post-tenure job stress, part 1/N</title><link>https://mglerner.github.io/posts/post-tenure-job-stress-part-1n.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;p&gt;I'm feeling a little down job-wise, and perhaps looking for some advice.&lt;/p&gt;
+&lt;p&gt;I got into this job for several reasons, and I can't shake the feeling that I'm set up never to be excellent at any of them. Some are below, not in order.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Super-brief context:&lt;/strong&gt; I'm likely teaching a 3-3 load (none of these are likely to be research classes) and chairing my department for the foreseeable future. This is in addition to broader campus service, which becomes more relevant the more senior I become.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://mglerner.github.io/posts/post-tenure-job-stress-part-1n.html"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/post-tenure-job-stress-part-1n.html</guid><pubDate>Mon, 06 Nov 2017 03:15:34 GMT</pubDate></item><item><title>Switching to Nikloa for Jupyter Notebooks and a static site</title><link>https://mglerner.github.io/posts/switching-to-nikloa-for-jupyter-notebooks-and-a-static-site.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;p&gt;I've been using WordPress for quite a while, almost entirely because
+it's an out-of-the-box blog setup that just works. But it kind of
+sucks for what I mostly want to do, which is stick some code into blog
+posts. In fact, what usually happens is that I do something in a
+Jupyter notebook, and want to stick it up as a blog post. That's a
+real pain in WordPress. The best I found was converting the notebooks
+to html and then including them as a static block, but those
+invariably are brittle and ugly.&lt;/p&gt;
+&lt;p&gt;So, smart people like &lt;a href="http://jakevdp.github.io"&gt;Jake Vanderplas&lt;/a&gt; and
+&lt;a href="http://themodernscientist.com"&gt;themodernscientist&lt;/a&gt; switched over to
+something that deals natively with Jupyter notebooks a long time ago
+(so long ago they were called IPython Notebooks!). I'm a slow pony,
+but I'm switching to Nikola. It seems to be the easiest one at the
+moment. It's a static page generator, which is more than fine for my
+purposes, and it deals natively with Jupyter notebooks. Sweet. I
+thought it would be useful to document the process for future-me. I
+leaned heavily on the Nikola site (including the
+&lt;a href="https://getnikola.com/handbook.html#importing-your-wordpress-site-into-nikola"&gt;documentation for import_wordpress&lt;/a&gt;). The
+process wasn't completely trivial, but that's because I did some hacky
+stuff to get Jupyter Notebooks included in my WordPress posts
+anyway. This seems like a lot of work for like 13 posts, but nobody
+ever claimed I was wise.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[UPDATE: I ended up switching all of my old IPython/Jupyter posts over to notebooks rather than HTML. If you read an earlier version of this, basically everything else is the same]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://mglerner.github.io/posts/switching-to-nikloa-for-jupyter-notebooks-and-a-static-site.html"&gt;Read more…&lt;/a&gt; (8 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/switching-to-nikloa-for-jupyter-notebooks-and-a-static-site.html</guid><pubDate>Thu, 12 Oct 2017 13:52:49 GMT</pubDate></item><item><title>Can I be smarter about late policies?</title><link>https://mglerner.github.io/posts/can-i-be-smarter-about-late-policies.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;Questions&lt;/strong&gt;: Is my late policy reasonable? Are there diversity implications for smart late policies?&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://twitter.com/actualham" target="_blank"&gt;Robin DeRosa&lt;/a&gt; had an interesting &lt;a href="https://twitter.com/actualham/status/777620707186475008" target="_blank"&gt;tweet&lt;/a&gt; about late policies recently, and I posted my late policy in reply. Here’s a slightly expanded version:&lt;/p&gt;
+&lt;p&gt;In most of my classes, late work happens because students are really busy, not because they’re slackers. That means a late policy with percentage deductions kind of sucks, because my students will also be really busy the next week. Instead, I combine “no late work accepted” with dropping the equivalent of one week’s worth of each assignment time. E.g. in a class that meets three times a week, I throw out three of the daily assignments.&lt;/p&gt;
+&lt;p&gt;I make sure to frame this in a discussion with the students, where I explain that the policy is an explicit recognition of the fact that they’re busy. If you’re too busy to get the work done on time, JUST SKIP it, and get your life caught up.&lt;/p&gt;
+&lt;p&gt;So far, it has been working out really well. The students appreciate the extra lever for managing their schedules, and it’s clear from the beginning that there won’t need to be any exceptions. Note: every semester so far, students have managed to get confused early on … luckily, this comes up in terms of one of those low-weight daily assignments, so we clear it up before a high-stakes situation shows up).&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://mglerner.github.io/posts/can-i-be-smarter-about-late-policies.html"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/can-i-be-smarter-about-late-policies.html</guid><pubDate>Sun, 18 Sep 2016 22:56:07 GMT</pubDate></item><item><title>Evolution of a Learning Goal</title><link>https://mglerner.github.io/posts/evolution-of-a-learning-goal.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;p&gt;I just got back from the Lilly &lt;a href="http://celt.miamioh.edu/lillycon/schedule.php?date=2014-11-20&amp;amp;year=2014" title="Lilly International Conference on College Teaching"&gt;Conference&lt;/a&gt; on College Teaching. The first workshop I went to was on course design. One chunk of this was on learning goals. This came in the second half of the workshop, after we’d talked quite a bit about learning factors, etc. I chose to work on my 200-level &lt;a href="https://github.com/mglerner/IntroToBiophysics" title="Introduction to Biophysics"&gt;Biophysics&lt;/a&gt; class, where I thought I had decent goals already. One of the ones I particularly liked was&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;Use simple physical models to provide quantitative insight into biological systems.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href="https://mglerner.github.io/posts/evolution-of-a-learning-goal.html"&gt;Read more…&lt;/a&gt; (4 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/evolution-of-a-learning-goal.html</guid><pubDate>Mon, 24 Nov 2014 10:07:32 GMT</pubDate></item><item><title>Making IPython Notebooks for the matplotlib examples</title><link>https://mglerner.github.io/posts/making-ipython-notebooks-for-the-matplotlib-examples.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="http://matplotlib.org/"&gt;matplotlib&lt;/a&gt; comes with tons of fantastic &lt;a href="http://matplotlib.org/examples/index.html"&gt;examples&lt;/a&gt;. I’m not as familiar with matplotlib as I probably should be, so I often find myself wanting to tinker a bit, but needing to refer to those examples. Since matplotlib comes with such wonderful documentation, I though it would be great to just turn those docs into &lt;a href="https://github.com/ipython/ipython/wiki/A-gallery-of-interesting-IPython-Notebooks"&gt;IPython Notebooks&lt;/a&gt; for easy tinkering. That’s probably biting off a bit more than I want to chew at the moment, considering that the matplotlib docs are fairly involved and written in &lt;a href="http://docutils.sourceforge.net/rst.html"&gt;reStructuredText&lt;/a&gt; instead of &lt;a href="http://daringfireball.net/projects/markdown/"&gt;markdown&lt;/a&gt; (what the IPython Notebook uses).&lt;/p&gt;
+&lt;p&gt;Luckily, the IPython Notebook format is so mind-bendingly sane that
+I didn’t even need to read any documentation to understand it. So,
+instead, I wrote a bit of code that gobbles up matplotlib example
+scripts and spits out IPython Notebooks. &lt;del datetime="2013-12-31T19:43:42+00:00"&gt;The whole notebook is JSON, but I
+only want simple things, so I hardcode everything except for the
+cells.&lt;/del&gt; (After Daniel’s comment below, I started to write my own
+JSONEncoder. Then, I realized that I was right about the “it’s all
+JSON” thing and rewrote the notebook class). I have a little IPyNB
+class that knows how to add cells to itself and spit out the results
+as strings and files:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://mglerner.github.io/posts/making-ipython-notebooks-for-the-matplotlib-examples.html"&gt;Read more…&lt;/a&gt; (8 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/making-ipython-notebooks-for-the-matplotlib-examples.html</guid><pubDate>Sun, 29 Dec 2013 10:48:12 GMT</pubDate></item><item><title>Drum head normal modes, with movies</title><link>https://mglerner.github.io/posts/drum-head-normal-modes-with-movies.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;p&gt;We’re working our way through Boas in my Mathematical Physics class, and we’ve come to the point in the PDE chapter where every good Physics student figures out what the normal modes of a circular drum head ought to look like. Punchline:&lt;/p&gt;
+&lt;p&gt;&lt;iframe width="640" height="360" src="http://www.youtube.com/embed/xYz5AI1ah5c?rel=0" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://mglerner.github.io/posts/drum-head-normal-modes-with-movies.html"&gt;Read more…&lt;/a&gt; (6 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/drum-head-normal-modes-with-movies.html</guid><pubDate>Sat, 30 Mar 2013 23:14:17 GMT</pubDate></item><item><title>March Madness, Monte Carlo Style!</title><link>https://mglerner.github.io/posts/march-madness-monte-carlo-style.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;p&gt;I’m teaching Thermal Physics this term, so obviously I rearranged the syllabus so that we could all run Monte Carlo simulations for March Madness!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Quick summary for the class is at the end&lt;/strong&gt;&lt;/p&gt;
+&lt;h1&gt;The basics&lt;/h1&gt;
+&lt;p&gt;We started off writing an energy function and figuring out how to play a simple 8-team bracket (side-note: IPython notebooks were great for this purpose! We were able to record our class sessions and post them online, along with a “Scientific Cookbook”). This version of Thermal Physics doesn’t have a programming prerequisite, so the coding parts of the assignments stopped with running and analyzing 8-team brackets.&lt;/p&gt;
+&lt;p&gt;We then spent a chunk of class time comparing our simulations with
+the 2-state paramagnets we’d seen in Schroeder’s text (we covered
+section 8.2 a bit out of sequence). In that context, it was clear what
+a Monte Carlo move was. We convinced ourselves that we could do
+something similar in &lt;strong&gt;bracket space&lt;/strong&gt;, but that we
+couldn’t just flip a single game (we also had to consider flipping the
+games that &lt;em&gt;depended&lt;/em&gt; on that game). The coding for that part
+was definitely beyond the scope of this class, but I hacked up an ugly
+version for us to use.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://mglerner.github.io/posts/march-madness-monte-carlo-style.html"&gt;Read more…&lt;/a&gt; (19 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/march-madness-monte-carlo-style.html</guid><pubDate>Tue, 19 Mar 2013 18:30:22 GMT</pubDate></item><item><title>Getting a sensible Python install on my Mac</title><link>https://mglerner.github.io/posts/getting-a-sensible-python-install-on-my-mac.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;p&gt;I recently had to get Python + things I like up and running on my Mac from scratch. That’s a significantly harder task than you might guess, so one of the main reasons I’m posting this is for my own benefit (I’ll have to do this all again in February when I give my current laptop back to NIH and buy one of my own). There’s a decent chance this will be useful for others, though. A significant amount of experience and gnashing of teeth has told me&lt;/p&gt;
+&lt;p&gt;1) ActiveState is awesome, but not everything works perfectly with it.&lt;br&gt;
+2) Ditto for Python 2.7.&lt;br&gt;
+3) Never mix macports and fink.&lt;/p&gt;
+&lt;p&gt;So, here’s my setup for a working python2.6 system that happens to
+meet my current needs:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://mglerner.github.io/posts/getting-a-sensible-python-install-on-my-mac.html"&gt;Read more…&lt;/a&gt; (4 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/getting-a-sensible-python-install-on-my-mac.html</guid><pubDate>Sun, 18 Dec 2011 23:10:37 GMT</pubDate></item><item><title>A simple Python logging example</title><link>https://mglerner.github.io/posts/a-simple-python-logging-example.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;p&gt;I’m slowly converting most of my lab to Python. One of the great things is how fantastic the documentation for things like &lt;a title="matplotlib" href="http://matplotlib.sourceforge.net"&gt;matplotlib&lt;/a&gt; is. On the other hand, some of the Python documentation itself is ridiculous.&lt;/p&gt;
+&lt;p&gt;Somebody wanted to set up some simple logging. He wanted to have a
+couple of different logging levels, he wanted to be able to switch
+between them from the command line, and he wanted to be able to spit
+messages to stdout as well. The &lt;a title="Logging module
+documentation" href="http://docs.python.org/library/logging.html"&gt;official docs&lt;/a&gt;
+have a trivial example that’s very nice, but a bit too trivial and
+then several examples that were way too much for someone who’s in his
+first week of Python. He also really wanted to be able to specify
+numbers on the command line, and didn’t want to remember what the
+logging module’s internal constants (e.g. logging.CRITICAL == 50)
+are. Instead, he wanted to be able to give words or small, easy to
+remember numbers. Here’s the simple example we came up with:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://mglerner.github.io/posts/a-simple-python-logging-example.html"&gt;Read more…&lt;/a&gt; (1 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/a-simple-python-logging-example.html</guid><pubDate>Wed, 01 Jun 2011 11:03:57 GMT</pubDate></item></channel></rss>
