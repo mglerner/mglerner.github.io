@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Biophysics and Beer</title><link>https://mglerner.github.io/</link><description>Just what it sounds like.</description><atom:link href="https://mglerner.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:mglerner@protonmail.com"&gt;Michael G. Lerner&lt;/a&gt; </copyright><lastBuildDate>Mon, 11 Feb 2019 22:31:29 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Orienting</title><link>https://mglerner.github.io/posts/orienting.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Biophysics and Beer</title><link>https://mglerner.github.io/</link><description>Just what it sounds like.</description><atom:link href="https://mglerner.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:mglerner@protonmail.com"&gt;Michael G. Lerner&lt;/a&gt; </copyright><lastBuildDate>Mon, 11 Feb 2019 22:33:36 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Orienting</title><link>https://mglerner.github.io/posts/orienting.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;(You can download this post as a notebook &lt;a href="https://github.com/mglerner/mglerner.github.io/blob/master/posts/orienting.ipynb"&gt;here&lt;/a&gt;.)&lt;/p&gt;
@@ -248,7 +248,7 @@ Endnotes:
 &lt;br&gt;
 (2) For the math folks, when I say surface above, I really mean &lt;a href="https://en.wikipedia.org/wiki/Manifold"&gt;Manifold&lt;/a&gt;.
 &lt;br&gt;
-(3)We learned the Moriori history from Jillian Wychel and David James, and I don't have a great website/link for them. The history of Māori and Moriori is not a simple one, and there's a lot of ugliness, especially as the Moriori were almost completely wiped out in the 1800s.
+(3) We learned the Moriori history from Jillian Wychel and David James, and I don't have a great website/link for them. The history of Māori and Moriori is not a simple one, and there's a lot of ugliness, especially as the Moriori were almost completely wiped out in the 1800s.
 &lt;br&gt;
 (4) If you're curious about the code that produced those plots, here it is!&lt;/p&gt;
 
