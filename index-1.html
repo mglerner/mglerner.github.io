@@ -46,7 +46,47 @@
         
 
 <div class="posts">
-    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/evolution-of-a-learning-goal.html" class="u-url">Evolution of a Learning Goal</a></h1>
+    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html" class="u-url">Speeding up calculations with lookup tables and Lagrangian interpolation</a></h1>
+        <div class="metadata">
+            <p class="dateline"><a href="posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html" rel="bookmark"><time class="post-date published dt-published" datetime="2015-03-19T15:43:00+00:00" title="2015-03-19 15:43">2015-03-19 15:43</time></a></p>
+                <p class="commentline">
+        
+    <a href="posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html#disqus_thread" data-disqus-identifier="cache/posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="p-summary entry-summary">
+    <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This whole post can be downloaded as a Jupyter notebook <a href="posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.ipynb">here</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Lookup-Tables-with-Lagrangian-Interpolation">Lookup Tables with Lagrangian Interpolation<a class="anchor-link" href="posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html#Lookup-Tables-with-Lagrangian-Interpolation">¶</a>
+</h2>
+<p>One of my students wanted to speed up the calculation of <code>exp(x)</code> in a simulation. There are a few ways to do this, but a lookup table is often a huge win in situations like this. The basic idea is that, for an <em>expensive</em> function like <code>exp(x)</code>, you pre-calculate <code>exp(x)</code> for a bunch of values that cover the range in which you're interested. You then look things up in the table at runtime. If the exact value you want isn't in the table, you use a <em>cheap</em> interpolation function. By tweaking the density of your pre-calculated values and the sophistication of your interpolation function, you can get results that are quite close to exact calculations for a fraction of the run-time cost.</p>
+<p>Sadly for me, I didn't know a bunch about which interpolation functions to use, so I asked Andy Simmonett. I wrote the Python bits below, but the general explanation is direct from him, with some light modifications. He's a QM/MM guy, so some of what is written below should be taken in the context of molecular simulations.</p>
+<p class="more"><a href="posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html">Read more…</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+    </div>
+    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/evolution-of-a-learning-goal.html" class="u-url">Evolution of a Learning Goal</a></h1>
         <div class="metadata">
             <p class="dateline"><a href="posts/evolution-of-a-learning-goal.html" rel="bookmark"><time class="post-date published dt-published" datetime="2014-11-24T10:07:32+00:00" title="2014-11-24 10:07">2014-11-24 10:07</time></a></p>
                 <p class="commentline">
@@ -230,6 +270,99 @@ was definitely beyond the scope of this class, but I hacked up an ugly
 version for us to use.</p>
 <p class="more"><a href="posts/march-madness-monte-carlo-style.html">Read more…</a></p>
 </div>
+    </div>
+    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/14.html" class="u-url">Getting a working Python install, part 2</a></h1>
+        <div class="metadata">
+            <p class="dateline"><a href="posts/14.html" rel="bookmark"><time class="post-date published dt-published" datetime="2012-03-07T21:17:28+00:00" title="2012-03-07 21:17">2012-03-07 21:17</time></a></p>
+                <p class="commentline">
+        
+    <a href="posts/14.html#disqus_thread" data-disqus-identifier="cache/posts/14.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="p-summary entry-summary">
+    <p>With the new laptop (side note: the 13″ MacBook Pro is a really nice machine. The screen certainly has enough pixels for real work, unlike previous 13″ machines. The only thing missing is a GPU.), it’s time to re-install. Since my last post, I’ve been convinced to upgrade to Python 2.7. Anthony Bak has recently gone through the same thing, so here’s my version of his set of notes on how to do this:</p>
+<p>- ActiveState, the EPD, etc. are great, but don’t seem to play nicely with a few external packages.<br>
+- CMake causes lots of trouble, but there doesn’t seem to be a good alternative. I’m not sure why the macports version can’t be made to “just work”.</p>
+<p>0) Fully uninstall macports (http://guide.macports.org/#installing.macports.uninstalling). Follow the full set of directions.</p>
+<p>Then, go through your .bashrc/.bash_profile and collect all of the macports-related changes (they’ll all have /opt in them). Stick them at the end so that you can combine them with whatever macports does to your init files during the rest of the install.</p>
+<p>1) Set /opt/local/etc/macports/variants.conf to contain</p>
+<p>+python27 +py27 -python26 -py26 -universal +bash_completion</p>
+<p>You’ll have to make the file and the directories, assuming you followed step 0.</p>
+<p>2) Install the latest and greatest macports, using the package install and the easy options (http://guide.macports.org/#installing.macports). The rest of this guide was done with MacPorts-2.0.4-10.7-Lion.dmg.</p>
+<p>3) Open a new shell so that your path is correct and run</p>
+<p>sudo su # port requires superuser privs<br>
+port selfupdate<br>
+port upgrade outdated<br>
+port install coreutils python27<br>
+port select –set python python27<br>
+port install cmake boost mercurial cairo eigen py27-cython py27-numpy py27-scipy py27-wxpython-devel py27-matplotlib py27-pil</p>
+<p>Note that we aren’t installing py27-wxpython because it requires<br>
+universal builds (which will mess up some other choices) so we use<br>
+py27-wxpython-devel instead.</p>
+<p>4) Edit .bash_profile</p>
+<p>export PATH=/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:$PATH<br>
+export MANPATH=/opt/local/share/man:$MANPATH<br>
+export PYTHONPATH=$PYTHONPATH:/opt/local/lib/python2.7/site-packages:./</p>
+<p>Also in there</p>
+<p>export LDFLAGS=’-L/opt/local/lib’<br>
+export CPPFLAGS=’-I/opt/local/include’<br>
+export LD_LIBRARY_PATH=/opt/local/lib<br>
+export LD_INCLUDE_PATH=/opt/local/include</p>
+<p>5) Now we handle cgal.</p>
+<p>port extract cgal</p>
+<p>Apply this patch:</p>
+<p>http://cgal-discuss.949826.n4.nabble.com/PATCH-prevent-Qt-s-moc-from-choking-on-BOOST-JOIN-td4081602.html</p>
+<p>The files are in</p>
+<p>/opt/local/var/macports/build/_opt_local_var_macports_sources_rsync.macports.org_release_tarballs_ports_gis_cgal/cgal/work/CGAL-3.9/include/CGAL/Qt.</p>
+<p>and the patch is tiny enough that it’s faster to just do it by hand.</p>
+<p>Don’t install cgal. Instead</p>
+<p>port build cgal<br>
+port install cgal</p>
+<p>—–</p>
+<p>6) Download the openbable source distribution (latest is 2.3.1) . We’ll be installing by hand.</p>
+<p>cd openbable-2.3.1<br>
+mkdir build<br>
+cd build<br>
+cmake -DCMAKE_INSTALL_PREFIX=/opt/local/  -DPYTHON_BINDINGS=YES ../</p>
+<p>Edit CMakeCache.txt to fix all the python paths.  Use<br>
+/opt/local/Library/Frameworks/Python.framework/Versions/2.7</p>
+<p>So, in emacs, a straightforward search and replace for /Library/Frameworks/Python.framework/ –&gt; /opt/local/Library/Frameworks/Python.framework/ should work, but I had some trouble if I didn’t specify the specific version, so<br>
+/Library/Frameworks/Python.framework/ –&gt; /opt/local/Library/Frameworks/Python.framework/Versions/2.7/</p>
+<p>make<br>
+make install</p>
+<p>and even that never really worked for me. I also had to change a couple of instances of /usr/local/lib/python… to point to opt. And then the install failed. It installed all of the ob tools, but not the python .so. So, I copied it over by hand, and that seems to work. </p>
+<p>So far, I am unable to get Mayavi installed from source. It works with the EPD, so I actually have two Python installations at the moment, sadly enough.</p>
+<p>7) Install Dionysus(http://www.mrzv.org/software/dionysus/get-build-install.html). You have to tell it where the CGAL cmake files are.</p>
+<p>cd Dionysus<br>
+mkdir build<br>
+cd build<br>
+cmake ../</p>
+<p>Now edit the CMakeCache.txt file.  Fix the python headers/path and<br>
+change the cgal dir (and maybe the same for boost).</p>
+<p>CGAL_DIR:PATH=/opt/local/lib/cmake</p>
+<p>make<br>
+cd bindings/python<br>
+mv lib_dionysus.dylib /opt/local/lib/<br>
+mv dionysus /opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/<br>
+cd /opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/dionysus<br>
+rm _dionysus.so<br>
+ln -s /opt/local/lib/lib_dionysus.dylib _dionysus.so</p>
+<p>Install Fastcluster. Download from<br>
+http://math.stanford.edu/~muellner/fastcluster.html</p>
+<p>sudo su python setup.py install</p>
+<p>Install Mapper<br>
+TODO</p>
+<p>Install sharedmem</p>
+<p>hg clone https://bitbucket.org/cleemesser/numpy-sharedmem<br>
+cd numpy-sharedmem<br>
+sudo python setup.py install</p>
+<p>When you have time (on my machine graph-tool takes many hours and uses<br>
+&gt;4GB durring the build phase):</p>
+<p>port install py27-scikits-learn py27-scikits-statsmodels py27-networkx<br>
+py27-graph-tool</p>
+
     </div>
     </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/getting-a-sensible-python-install-on-my-mac.html" class="u-url">Getting a sensible Python install on my Mac</a></h1>
         <div class="metadata">

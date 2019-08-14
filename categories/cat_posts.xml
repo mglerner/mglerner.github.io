@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Biophysics and Beer (Posts about posts)</title><link>https://mglerner.github.io/</link><description></description><atom:link href="https://mglerner.github.io/categories/cat_posts.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:mglerner@protonmail.com"&gt;Michael G. Lerner&lt;/a&gt; </copyright><lastBuildDate>Sun, 10 Feb 2019 05:03:10 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Chromebooks for the kids</title><link>https://mglerner.github.io/posts/chromebooks-for-the-kids.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;h2&gt;Chromebook for the kids&lt;/h2&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Biophysics and Beer (Posts about posts)</title><link>https://mglerner.github.io/</link><description></description><atom:link href="https://mglerner.github.io/categories/cat_posts.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:mglerner@protonmail.com"&gt;Michael G. Lerner&lt;/a&gt; </copyright><lastBuildDate>Wed, 14 Aug 2019 13:47:07 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Starting my sabbatical</title><link>https://mglerner.github.io/posts/starting-my-sabbatical.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;p&gt;Super exciting news: I'm starting my sabbatical. Through a combination of luck, timing, and hard work on the setup, I'll be spending the time working on computational oncology. Specifically, I'll be joining an existing collaboration between two fantastic labs at Johns Hopkins. It turns out that my statistical physics, computer science/programming, mathematics, and biophysics backgrounds are an excellent fit.&lt;/p&gt;
+&lt;p&gt;So now it's time to catch up on the science from a different field. I'm starting with a few Coursera courses.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://mglerner.github.io/posts/starting-my-sabbatical.html"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/starting-my-sabbatical.html</guid><pubDate>Wed, 14 Aug 2019 13:45:35 GMT</pubDate></item><item><title>Chromebooks for the kids</title><link>https://mglerner.github.io/posts/chromebooks-for-the-kids.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;h2&gt;Chromebook for the kids&lt;/h2&gt;
 &lt;p&gt;My oldest daughter is 9, and the twins are 6, so it's probably time to get them involved in computer things. I could have done this earlier, but I definitely screwed up with the kids by introducing tech/books/etc. before they were ready, so I decided to wait. The kids are definitely ready, so here are the goals:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Programming&lt;ul&gt;
@@ -104,23 +106,84 @@ couldn’t just flip a single game (we also had to consider flipping the
 games that &lt;em&gt;depended&lt;/em&gt; on that game). The coding for that part
 was definitely beyond the scope of this class, but I hacked up an ugly
 version for us to use.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://mglerner.github.io/posts/march-madness-monte-carlo-style.html"&gt;Read more…&lt;/a&gt; (19 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/march-madness-monte-carlo-style.html</guid><pubDate>Tue, 19 Mar 2013 18:30:22 GMT</pubDate></item><item><title>Getting a sensible Python install on my Mac</title><link>https://mglerner.github.io/posts/getting-a-sensible-python-install-on-my-mac.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;p&gt;I recently had to get Python + things I like up and running on my Mac from scratch. That’s a significantly harder task than you might guess, so one of the main reasons I’m posting this is for my own benefit (I’ll have to do this all again in February when I give my current laptop back to NIH and buy one of my own). There’s a decent chance this will be useful for others, though. A significant amount of experience and gnashing of teeth has told me&lt;/p&gt;
-&lt;p&gt;1) ActiveState is awesome, but not everything works perfectly with it.&lt;br&gt;
-2) Ditto for Python 2.7.&lt;br&gt;
-3) Never mix macports and fink.&lt;/p&gt;
-&lt;p&gt;So, here’s my setup for a working python2.6 system that happens to
-meet my current needs:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://mglerner.github.io/posts/getting-a-sensible-python-install-on-my-mac.html"&gt;Read more…&lt;/a&gt; (4 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/getting-a-sensible-python-install-on-my-mac.html</guid><pubDate>Sun, 18 Dec 2011 23:10:37 GMT</pubDate></item><item><title>A simple Python logging example</title><link>https://mglerner.github.io/posts/a-simple-python-logging-example.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;div&gt;&lt;p&gt;I’m slowly converting most of my lab to Python. One of the great things is how fantastic the documentation for things like &lt;a title="matplotlib" href="http://matplotlib.sourceforge.net"&gt;matplotlib&lt;/a&gt; is. On the other hand, some of the Python documentation itself is ridiculous.&lt;/p&gt;
-&lt;p&gt;Somebody wanted to set up some simple logging. He wanted to have a
-couple of different logging levels, he wanted to be able to switch
-between them from the command line, and he wanted to be able to spit
-messages to stdout as well. The &lt;a title="Logging module
-documentation" href="http://docs.python.org/library/logging.html"&gt;official docs&lt;/a&gt;
-have a trivial example that’s very nice, but a bit too trivial and
-then several examples that were way too much for someone who’s in his
-first week of Python. He also really wanted to be able to specify
-numbers on the command line, and didn’t want to remember what the
-logging module’s internal constants (e.g. logging.CRITICAL == 50)
-are. Instead, he wanted to be able to give words or small, easy to
-remember numbers. Here’s the simple example we came up with:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://mglerner.github.io/posts/a-simple-python-logging-example.html"&gt;Read more…&lt;/a&gt; (1 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/a-simple-python-logging-example.html</guid><pubDate>Wed, 01 Jun 2011 11:03:57 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://mglerner.github.io/posts/march-madness-monte-carlo-style.html"&gt;Read more…&lt;/a&gt; (19 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://mglerner.github.io/posts/march-madness-monte-carlo-style.html</guid><pubDate>Tue, 19 Mar 2013 18:30:22 GMT</pubDate></item><item><title>Getting a working Python install, part 2</title><link>https://mglerner.github.io/posts/14.html</link><dc:creator>Michael G. Lerner</dc:creator><description>&lt;p&gt;With the new laptop (side note: the 13″ MacBook Pro is a really nice machine. The screen certainly has enough pixels for real work, unlike previous 13″ machines. The only thing missing is a GPU.), it’s time to re-install. Since my last post, I’ve been convinced to upgrade to Python 2.7. Anthony Bak has recently gone through the same thing, so here’s my version of his set of notes on how to do this:&lt;/p&gt;
+&lt;p&gt;- ActiveState, the EPD, etc. are great, but don’t seem to play nicely with a few external packages.&lt;br&gt;
+- CMake causes lots of trouble, but there doesn’t seem to be a good alternative. I’m not sure why the macports version can’t be made to “just work”.&lt;/p&gt;
+&lt;p&gt;0) Fully uninstall macports (http://guide.macports.org/#installing.macports.uninstalling). Follow the full set of directions.&lt;/p&gt;
+&lt;p&gt;Then, go through your .bashrc/.bash_profile and collect all of the macports-related changes (they’ll all have /opt in them). Stick them at the end so that you can combine them with whatever macports does to your init files during the rest of the install.&lt;/p&gt;
+&lt;p&gt;1) Set /opt/local/etc/macports/variants.conf to contain&lt;/p&gt;
+&lt;p&gt;+python27 +py27 -python26 -py26 -universal +bash_completion&lt;/p&gt;
+&lt;p&gt;You’ll have to make the file and the directories, assuming you followed step 0.&lt;/p&gt;
+&lt;p&gt;2) Install the latest and greatest macports, using the package install and the easy options (http://guide.macports.org/#installing.macports). The rest of this guide was done with MacPorts-2.0.4-10.7-Lion.dmg.&lt;/p&gt;
+&lt;p&gt;3) Open a new shell so that your path is correct and run&lt;/p&gt;
+&lt;p&gt;sudo su # port requires superuser privs&lt;br&gt;
+port selfupdate&lt;br&gt;
+port upgrade outdated&lt;br&gt;
+port install coreutils python27&lt;br&gt;
+port select –set python python27&lt;br&gt;
+port install cmake boost mercurial cairo eigen py27-cython py27-numpy py27-scipy py27-wxpython-devel py27-matplotlib py27-pil&lt;/p&gt;
+&lt;p&gt;Note that we aren’t installing py27-wxpython because it requires&lt;br&gt;
+universal builds (which will mess up some other choices) so we use&lt;br&gt;
+py27-wxpython-devel instead.&lt;/p&gt;
+&lt;p&gt;4) Edit .bash_profile&lt;/p&gt;
+&lt;p&gt;export PATH=/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:$PATH&lt;br&gt;
+export MANPATH=/opt/local/share/man:$MANPATH&lt;br&gt;
+export PYTHONPATH=$PYTHONPATH:/opt/local/lib/python2.7/site-packages:./&lt;/p&gt;
+&lt;p&gt;Also in there&lt;/p&gt;
+&lt;p&gt;export LDFLAGS=’-L/opt/local/lib’&lt;br&gt;
+export CPPFLAGS=’-I/opt/local/include’&lt;br&gt;
+export LD_LIBRARY_PATH=/opt/local/lib&lt;br&gt;
+export LD_INCLUDE_PATH=/opt/local/include&lt;/p&gt;
+&lt;p&gt;5) Now we handle cgal.&lt;/p&gt;
+&lt;p&gt;port extract cgal&lt;/p&gt;
+&lt;p&gt;Apply this patch:&lt;/p&gt;
+&lt;p&gt;http://cgal-discuss.949826.n4.nabble.com/PATCH-prevent-Qt-s-moc-from-choking-on-BOOST-JOIN-td4081602.html&lt;/p&gt;
+&lt;p&gt;The files are in&lt;/p&gt;
+&lt;p&gt;/opt/local/var/macports/build/_opt_local_var_macports_sources_rsync.macports.org_release_tarballs_ports_gis_cgal/cgal/work/CGAL-3.9/include/CGAL/Qt.&lt;/p&gt;
+&lt;p&gt;and the patch is tiny enough that it’s faster to just do it by hand.&lt;/p&gt;
+&lt;p&gt;Don’t install cgal. Instead&lt;/p&gt;
+&lt;p&gt;port build cgal&lt;br&gt;
+port install cgal&lt;/p&gt;
+&lt;p&gt;—–&lt;/p&gt;
+&lt;p&gt;6) Download the openbable source distribution (latest is 2.3.1) . We’ll be installing by hand.&lt;/p&gt;
+&lt;p&gt;cd openbable-2.3.1&lt;br&gt;
+mkdir build&lt;br&gt;
+cd build&lt;br&gt;
+cmake -DCMAKE_INSTALL_PREFIX=/opt/local/  -DPYTHON_BINDINGS=YES ../&lt;/p&gt;
+&lt;p&gt;Edit CMakeCache.txt to fix all the python paths.  Use&lt;br&gt;
+/opt/local/Library/Frameworks/Python.framework/Versions/2.7&lt;/p&gt;
+&lt;p&gt;So, in emacs, a straightforward search and replace for /Library/Frameworks/Python.framework/ –&amp;gt; /opt/local/Library/Frameworks/Python.framework/ should work, but I had some trouble if I didn’t specify the specific version, so&lt;br&gt;
+/Library/Frameworks/Python.framework/ –&amp;gt; /opt/local/Library/Frameworks/Python.framework/Versions/2.7/&lt;/p&gt;
+&lt;p&gt;make&lt;br&gt;
+make install&lt;/p&gt;
+&lt;p&gt;and even that never really worked for me. I also had to change a couple of instances of /usr/local/lib/python… to point to opt. And then the install failed. It installed all of the ob tools, but not the python .so. So, I copied it over by hand, and that seems to work. &lt;/p&gt;
+&lt;p&gt;So far, I am unable to get Mayavi installed from source. It works with the EPD, so I actually have two Python installations at the moment, sadly enough.&lt;/p&gt;
+&lt;p&gt;7) Install Dionysus(http://www.mrzv.org/software/dionysus/get-build-install.html). You have to tell it where the CGAL cmake files are.&lt;/p&gt;
+&lt;p&gt;cd Dionysus&lt;br&gt;
+mkdir build&lt;br&gt;
+cd build&lt;br&gt;
+cmake ../&lt;/p&gt;
+&lt;p&gt;Now edit the CMakeCache.txt file.  Fix the python headers/path and&lt;br&gt;
+change the cgal dir (and maybe the same for boost).&lt;/p&gt;
+&lt;p&gt;CGAL_DIR:PATH=/opt/local/lib/cmake&lt;/p&gt;
+&lt;p&gt;make&lt;br&gt;
+cd bindings/python&lt;br&gt;
+mv lib_dionysus.dylib /opt/local/lib/&lt;br&gt;
+mv dionysus /opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/&lt;br&gt;
+cd /opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/dionysus&lt;br&gt;
+rm _dionysus.so&lt;br&gt;
+ln -s /opt/local/lib/lib_dionysus.dylib _dionysus.so&lt;/p&gt;
+&lt;p&gt;Install Fastcluster. Download from&lt;br&gt;
+http://math.stanford.edu/~muellner/fastcluster.html&lt;/p&gt;
+&lt;p&gt;sudo su python setup.py install&lt;/p&gt;
+&lt;p&gt;Install Mapper&lt;br&gt;
+TODO&lt;/p&gt;
+&lt;p&gt;Install sharedmem&lt;/p&gt;
+&lt;p&gt;hg clone https://bitbucket.org/cleemesser/numpy-sharedmem&lt;br&gt;
+cd numpy-sharedmem&lt;br&gt;
+sudo python setup.py install&lt;/p&gt;
+&lt;p&gt;When you have time (on my machine graph-tool takes many hours and uses&lt;br&gt;
+&amp;gt;4GB durring the build phase):&lt;/p&gt;
+&lt;p&gt;port install py27-scikits-learn py27-scikits-statsmodels py27-networkx&lt;br&gt;
+py27-graph-tool&lt;/p&gt;
+</description><guid>https://mglerner.github.io/posts/14.html</guid><pubDate>Wed, 07 Mar 2012 21:17:28 GMT</pubDate></item></channel></rss>

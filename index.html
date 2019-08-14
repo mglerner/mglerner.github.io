@@ -10,7 +10,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://mglerner.github.io/index.html">
 <link rel="next" href="index-1.html" type="text/html">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/orienting.html" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/starting-my-sabbatical.html" type="text/html">
 <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
 </head>
 <body>
@@ -47,7 +47,24 @@
         
 
 <div class="posts">
-    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/orienting.html" class="u-url">Orienting</a></h1>
+    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/starting-my-sabbatical.html" class="u-url">Starting my sabbatical</a></h1>
+        <div class="metadata">
+            <p class="dateline"><a href="posts/starting-my-sabbatical.html" rel="bookmark"><time class="post-date published dt-published" datetime="2019-08-14T13:45:35+00:00" title="2019-08-14 13:45">2019-08-14 13:45</time></a></p>
+                <p class="commentline">
+        
+    <a href="posts/starting-my-sabbatical.html#disqus_thread" data-disqus-identifier="cache/posts/starting-my-sabbatical.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<p>Super exciting news: I'm starting my sabbatical. Through a combination of luck, timing, and hard work on the setup, I'll be spending the time working on computational oncology. Specifically, I'll be joining an existing collaboration between two fantastic labs at Johns Hopkins. It turns out that my statistical physics, computer science/programming, mathematics, and biophysics backgrounds are an excellent fit.</p>
+<p>So now it's time to catch up on the science from a different field. I'm starting with a few Coursera courses.</p>
+<p class="more"><a href="posts/starting-my-sabbatical.html">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/orienting.html" class="u-url">Orienting</a></h1>
         <div class="metadata">
             <p class="dateline"><a href="posts/orienting.html" rel="bookmark"><time class="post-date published dt-published" datetime="2019-02-10T05:09:33+00:00" title="2019-02-10 05:09">2019-02-10 05:09</time></a></p>
                 <p class="commentline">
@@ -479,46 +496,6 @@ ever claimed I was wise.</p>
 </ol>
 <p>As you can tell, we take option 2 above. I've made things a bit nicer from a user standpoint this year; here's a walkthrough. First, load up our standard IPython setup</p>
 <p class="more"><a href="posts/more-march-madness-monte-carlo-style.html">Read more…</a></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-    </div>
-    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html" class="u-url">Speeding up calculations with lookup tables and Lagrangian interpolation</a></h1>
-        <div class="metadata">
-            <p class="dateline"><a href="posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html" rel="bookmark"><time class="post-date published dt-published" datetime="2015-03-19T15:43:00+00:00" title="2015-03-19 15:43">2015-03-19 15:43</time></a></p>
-                <p class="commentline">
-        
-    <a href="posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html#disqus_thread" data-disqus-identifier="cache/posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html">Comments</a>
-
-
-        </p>
-</div>
-    </header><div class="p-summary entry-summary">
-    <div tabindex="-1" id="notebook" class="border-box-sizing">
-    <div class="container" id="notebook-container">
-
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>This whole post can be downloaded as a Jupyter notebook <a href="posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.ipynb">here</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Lookup-Tables-with-Lagrangian-Interpolation">Lookup Tables with Lagrangian Interpolation<a class="anchor-link" href="posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html#Lookup-Tables-with-Lagrangian-Interpolation">¶</a>
-</h2>
-<p>One of my students wanted to speed up the calculation of <code>exp(x)</code> in a simulation. There are a few ways to do this, but a lookup table is often a huge win in situations like this. The basic idea is that, for an <em>expensive</em> function like <code>exp(x)</code>, you pre-calculate <code>exp(x)</code> for a bunch of values that cover the range in which you're interested. You then look things up in the table at runtime. If the exact value you want isn't in the table, you use a <em>cheap</em> interpolation function. By tweaking the density of your pre-calculated values and the sophistication of your interpolation function, you can get results that are quite close to exact calculations for a fraction of the run-time cost.</p>
-<p>Sadly for me, I didn't know a bunch about which interpolation functions to use, so I asked Andy Simmonett. I wrote the Python bits below, but the general explanation is direct from him, with some light modifications. He's a QM/MM guy, so some of what is written below should be taken in the context of molecular simulations.</p>
-<p class="more"><a href="posts/speeding-up-calculations-with-lookup-tables-and-lagrangian-interpolation.html">Read more…</a></p>
 </div>
 </div>
 </div>
