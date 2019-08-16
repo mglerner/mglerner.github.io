@@ -90,6 +90,7 @@ This also included **gasp** closing all of my browser tabs. Which included makin
 
 | Software                | Notes |
 |---------------|------|
+| Anaconda Python Distribution | I'll want the base env untouched, a coding env for coding, and a blog env for nikola | 
 | Aquamacs |   |
 | Acrobat Pro  | installed by IT  |
 | Box |   |
@@ -111,3 +112,7 @@ This also included **gasp** closing all of my browser tabs. Which included makin
 | Wolfram CDF Player |   |
 
 The only one of these I'm worried about is Slack. I never really know how to reinstall it, because I have some weird combination of "magic links" and emails and accounts and passwords and who knows what. Maybe it will just magically work, but I took screenshots of my workspaces just in case. Good thing, because Slack started showing up as blank right afterwords. Did I mention the deep computer issues? Ugh.
+
+# About to flip the switch
+
+This all seems a bit too easy. So we'll see what goes deeply wrong.
