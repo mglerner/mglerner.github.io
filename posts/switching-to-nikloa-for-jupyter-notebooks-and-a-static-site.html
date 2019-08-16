@@ -138,7 +138,7 @@ quoted Python code doesn't show up. So,</p>
 <p>Tells it to be explicit about converting to html and downloading
 everything it can. It also produces some errors, specifically a bunch
 of lines like</p>
-<pre class="code literal-block"><span></span>[2017-10-11T19:49:10Z] WARNING: Nikola: Can't do a redirect for: 'http://www.mglerner.com/blog/?p=8/'
+<pre class="code literal-block"><span></span>[<span class="mi">2017</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">11</span><span class="nv">T19</span>:<span class="mi">49</span>:<span class="mi">10</span><span class="nv">Z</span>] <span class="nv">WARNING</span>: <span class="nv">Nikola</span>: <span class="nv">Can</span><span class="s1">'</span><span class="s">t do a redirect for: </span><span class="s1">'</span><span class="nv">http</span>:<span class="o">//</span><span class="nv">www</span>.<span class="nv">mglerner</span>.<span class="nv">com</span><span class="o">/</span><span class="nv">blog</span><span class="o">/</span>?<span class="nv">p</span><span class="o">=</span><span class="mi">8</span><span class="o">/</span><span class="s1">'</span>
 </pre>
 
 
@@ -179,7 +179,7 @@ Nikola to only show a "teaser" by putting</p>
 
 <p>in <code>conf.py</code></p>
 <p>And then adding</p>
-<pre class="code literal-block"><span></span>&lt;!-- TEASER_END --&gt;
+<pre class="code literal-block"><span></span><span class="o">&lt;!</span><span class="c1">-- TEASER_END --&gt;</span>
 </pre>
 
 
@@ -234,13 +234,13 @@ those, I like <code>jidn</code> the most. So,</p>
 
 <p>Then edit <code>conf.py</code> to switch the theme to jidn and, as indicated in
 the text when you install the jidn theme, add a few lines to <code>conf.py</code></p>
-<pre class="code literal-block"><span></span>THEME = "jidn"
-...
-GLOBAL_CONTEXT.update({
-    "JIDN": {},  # Extra info about authors
-    # "JIDN-theme": "theme-base-blue",
-})
-...
+<pre class="code literal-block"><span></span><span class="n">THEME</span> <span class="o">=</span> <span class="ss">"jidn"</span>
+<span class="p">...</span>
+<span class="n">GLOBAL_CONTEXT</span><span class="p">.</span><span class="k">update</span><span class="p">(</span><span class="err">{</span>
+    <span class="ss">"JIDN"</span><span class="p">:</span> <span class="err">{}</span><span class="p">,</span>  <span class="o">#</span> <span class="n">Extra</span> <span class="n">info</span> <span class="n">about</span> <span class="n">authors</span>
+    <span class="o">#</span> <span class="ss">"JIDN-theme"</span><span class="p">:</span> <span class="ss">"theme-base-blue"</span><span class="p">,</span>
+<span class="err">}</span><span class="p">)</span>
+<span class="p">...</span>
 </pre>
 
 
@@ -278,7 +278,7 @@ site. Following the FontAwesome directions,</p>
 </li>
 <li>Add the following to <code>base.tmpl</code>:</li>
 </ul>
-<pre class="code literal-block"><span></span>&lt;link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"&gt;
+<pre class="code literal-block"><span></span><span class="o">&lt;</span><span class="n">link</span> <span class="n">rel</span><span class="o">=</span><span class="ss">"stylesheet"</span> <span class="n">href</span><span class="o">=</span><span class="ss">"path/to/font-awesome/css/font-awesome.min.css"</span><span class="o">&gt;</span>
 </pre>
 
 
@@ -291,7 +291,7 @@ block" so it's possible that I screwed something up.</p>
 spit out a new file in place of the old file because the question
 marks mean request data. Thanks, wordpress! I wanted simple stuff like
 an <code>.htaccess</code> file saying</p>
-<pre class="code literal-block"><span></span>Redirect /blog/page8 /blog/new-and-fancy.html
+<pre class="code literal-block"><span></span><span class="n">Redirect</span> <span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="n">page8</span> <span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="k">new</span><span class="o">-</span><span class="k">and</span><span class="o">-</span><span class="n">fancy</span><span class="p">.</span><span class="n">html</span>
 </pre>
 
 
@@ -299,13 +299,13 @@ an <code>.htaccess</code> file saying</p>
 <a href="https://stackoverflow.com/questions/9182585/apache-redirect-permanent-for-url-with-data-in-string-question-mark">StackOverflow answer</a>
 and remember why I stopped being a web developer years ago. Here's my
 new <code>.htaccess</code> file</p>
-<pre class="code literal-block"><span></span>RewriteEngine on
-RewriteBase /
+<pre class="code literal-block"><span></span><span class="n">RewriteEngine</span><span class="w"> </span><span class="k">on</span><span class="w"></span>
+<span class="n">RewriteBase</span><span class="w"> </span><span class="o">/</span><span class="w"></span>
 
-RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /blog/\?p=5/ [NC]
-RewriteRule ^ /blog/posts/the-blogging-begins.html [L,R=301]
-RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /blog/\?p=5 [NC]
-RewriteRule ^ /blog/posts/the-blogging-begins.html [L,R=301]
+<span class="n">RewriteCond</span><span class="w"> </span><span class="o">%</span><span class="err">{</span><span class="n">THE_REQUEST</span><span class="err">}</span><span class="w"> </span><span class="o">^[</span><span class="n">A-Z</span><span class="o">]</span><span class="err">{</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="err">}\</span><span class="w"> </span><span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="err">\</span><span class="vm">?</span><span class="n">p</span><span class="o">=</span><span class="mi">5</span><span class="o">/</span><span class="w"> </span><span class="o">[</span><span class="n">NC</span><span class="o">]</span><span class="w"></span>
+<span class="n">RewriteRule</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="n">posts</span><span class="o">/</span><span class="n">the</span><span class="o">-</span><span class="n">blogging</span><span class="o">-</span><span class="n">begins</span><span class="p">.</span><span class="n">html</span><span class="w"> </span><span class="o">[</span><span class="n">L,R=301</span><span class="o">]</span><span class="w"></span>
+<span class="n">RewriteCond</span><span class="w"> </span><span class="o">%</span><span class="err">{</span><span class="n">THE_REQUEST</span><span class="err">}</span><span class="w"> </span><span class="o">^[</span><span class="n">A-Z</span><span class="o">]</span><span class="err">{</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="err">}\</span><span class="w"> </span><span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="err">\</span><span class="vm">?</span><span class="n">p</span><span class="o">=</span><span class="mi">5</span><span class="w"> </span><span class="o">[</span><span class="n">NC</span><span class="o">]</span><span class="w"></span>
+<span class="n">RewriteRule</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="n">posts</span><span class="o">/</span><span class="n">the</span><span class="o">-</span><span class="n">blogging</span><span class="o">-</span><span class="n">begins</span><span class="p">.</span><span class="n">html</span><span class="w"> </span><span class="o">[</span><span class="n">L,R=301</span><span class="o">]</span><span class="w"></span>
 </pre>
 
 
@@ -381,16 +381,16 @@ metadata like the date. It's an easy workaround for markdown: I just
 make a new post, then copy over my markdown. Looking at the results, I
 find that Nikola wants the metadata imbedded in the markdown file. So,
 I should have started the markdown file with</p>
-<pre class="code literal-block"><span></span>&lt;!--
-.. title: Switching to Nikloa for Jupyter Notebooks and a static site
-.. slug: switching-to-nikloa-for-jupyter-notebooks-and-a-static-site
-.. date: 2017-10-12 13:50:23 UTC
-.. tags: 
-.. category: 
-.. link: 
-.. description: 
-.. type: text
---&gt;
+<pre class="code literal-block"><span></span><span class="o">&lt;!--</span>
+.. <span class="nv">title</span>: <span class="nv">Switching</span> <span class="nv">to</span> <span class="nv">Nikloa</span> <span class="k">for</span> <span class="nv">Jupyter</span> <span class="nv">Notebooks</span> <span class="nv">and</span> <span class="nv">a</span> <span class="nv">static</span> <span class="nv">site</span>
+.. <span class="nv">slug</span>: <span class="nv">switching</span><span class="o">-</span><span class="nv">to</span><span class="o">-</span><span class="nv">nikloa</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="nv">jupyter</span><span class="o">-</span><span class="nv">notebooks</span><span class="o">-</span><span class="nv">and</span><span class="o">-</span><span class="nv">a</span><span class="o">-</span><span class="nv">static</span><span class="o">-</span><span class="nv">site</span>
+.. <span class="nv">date</span>: <span class="mi">2017</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">12</span> <span class="mi">13</span>:<span class="mi">50</span>:<span class="mi">23</span> <span class="nv">UTC</span>
+.. <span class="nv">tags</span>: 
+.. <span class="nv">category</span>: 
+.. <span class="nv">link</span>: 
+.. <span class="nv">description</span>: 
+.. <span class="nv">type</span>: <span class="nv">text</span>
+<span class="o">--&gt;</span>
 </pre>
 
 
@@ -423,6 +423,25 @@ to the blog with <code>nikola github_deploy</code>!</p>
   cargo-cult mentality here and just saying it worked.</p>
 </li>
 </ul>
+<h3>Updated Quick Notes</h3>
+<p>To create a new environment</p>
+<pre class="code literal-block"><span></span>conda create -n blog <span class="nv">python</span><span class="o">=</span><span class="m">3</span>
+conda activate blog
+</pre>
+
+
+<p>Then double-check to make sure you're using the <code>pip</code> from the conda
+environment. Then</p>
+<pre class="code literal-block"><span></span><span class="n">pip</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="c1">--upgrade "Nikola[extras]"</span>
+</pre>
+
+
+<p>Then</p>
+<pre class="code literal-block"><span></span>nikola build
+nikola new_post -i drafts/thing.md
+nikola serve --browser
+nikola github_deploy
+</pre>
 </div>
     </section><aside class="sharing no-print"><a href="#content" aria-label="Post beginning">
        <i class="fa fa-2x fa-fw fa-arrow-circle-up" aria-hidden="true" title="Post beginning"></i>
