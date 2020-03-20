@@ -1,14 +1,3 @@
-<!--
-.. title: Starting my sabbatical
-.. slug: starting-my-sabbatical
-.. date: 2019-08-14 13:45:35 UTC
-.. tags: 
-.. category: 
-.. link: 
-.. description: 
-.. type: text
--->
-
 Super exciting news: I'm starting my sabbatical. Through a combination of luck, timing, and hard work on the setup, I'll be spending the time working on computational oncology. Specifically, I'll be joining an existing collaboration between two fantastic labs at Johns Hopkins. It turns out that my statistical physics, computer science/programming, mathematics, and biophysics backgrounds are an excellent fit.
 
 So now it's time to catch up on the science from a different field. I'm starting with a few Coursera courses.
