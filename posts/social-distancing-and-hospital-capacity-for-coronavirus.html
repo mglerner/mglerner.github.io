@@ -230,6 +230,7 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>(In case it's not obvious in your browser, that thing above is a movie. If you hover over it, you should have a button to play it. All of the plots that look like it below are also movies.)</p>
 <p>You probably notice two things:</p>
 <h4 id="Basically-everyone-gets-infected.">Basically everyone gets infected.<a class="anchor-link" href="social-distancing-and-hospital-capacity-for-coronavirus.html#Basically-everyone-gets-infected.">¶</a>
 </h4>
@@ -638,7 +639,7 @@
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>That flattens the curve for a lot longer, and gives people a lot longer to deal with things.</p>
-<p>But we're also clearly not done with the population. What if we run that for longer?</p>
+<p>But we're also clearly not done with the pandemic, as there are still infected people in the population. What if we run that for longer?</p>
 
 </div>
 </div>
@@ -735,17 +736,17 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>So, if we could do an essentially perfect job of social distancing until the disease was eradicated, we win. That's a tough sell, though. Especially since we haven't even thought about hospital capacity.</p>
+<p>So, if we could do an essentially perfect job of social distancing until the disease was eradicated, we win. That's a tough sell, though, because I'm reading estimates that the time required for complete eradication could be much longer than 3-4 months. Like 12-18 months. And we haven't even thought about hospital capacity.</p>
 <h3 id="What-about-hospital-capacity?">What about hospital capacity?<a class="anchor-link" href="social-distancing-and-hospital-capacity-for-coronavirus.html#What-about-hospital-capacity?">¶</a>
 </h3>
-<p>People talk a lot about hospital capacity. What if we run out of hospital beds? In that case, obviously more people are going to die. The estimates of mortality rates when we have hospital capacity seem to range quite a bit, but 2% seems like a good estimate (I'm not linking to any sources here because things keep changing. Feel encouraged to download the code and re-run things yourself if you want a different estimate!).</p>
+<p>What if we run out of hospital beds? In that case, obviously more people are going to die. The estimates of mortality rates when we have hospital capacity seem to range quite a bit, but 2% seems like a good estimate (I'm not linking to any sources here because things keep changing. Feel encouraged to download the code and re-run things yourself if you want a different estimate!).</p>
 <p>The overall mortality rate <em>without</em> hospitals seems more like 5%. That's not a factor of 10 or anything, but it's quite a bit. And it becomes a bigger difference if hospitals get better at treating patients.</p>
 <p><strong>What's our capacity?</strong> Googling around, it looks like we have a hospital capacity of around 3 beds per 1000 people in the US.</p>
-<p><strong>Bigger population:</strong> in order to see this, we're going to want a bigger population! Both in terms of having a large enough population to see the capacity matter, and so differences of 1-2 people don't make such a difference. That means things will take longer to compute. Drawing the awesome animation actually takes a long time, so <strong>I'm just going to draw the charts at the top of the animation for the rest of this.</strong> Hopefully that makes sense at this point, since you've seen several animations.</p>
+<p><strong>Bigger population:</strong> in order to see this, we're going to want a bigger population! Both in terms of having a large enough population to see the capacity matter, and so differences of 1-2 people don't make such a difference. That means things will take longer to compute. Drawing the awesome animation actually takes a long time, so <strong>I'm just going to show the charts you saw on top of those figures, pre-drawn, with no animations for the rest of this.</strong> Hopefully that makes sense at this point, since you've seen several animations.</p>
 <p>So here's the nobody-does-anything plot, original size. The dashed line at the bottom is the hospital capacity. In this case, here are the exact numbers:</p>
 <ul>
 <li>with 3 beds per 1000 people, that's 0.6 beds for our 200 people. </li>
-<li>We expect 5% of sick people to need beds. That means that, out of 20 sick people, one of them is expected to need a bed. So, if we're just talking about corona virus, we need one bed for every 20 sick people. One bed means we can handle 20 sick people. Two beds means we can handle 40 sick people. 0.6 beds means we can handle 20*0.6 = 12 sick people.</li>
+<li>We expect 5% of sick people to need beds. That means that, out of 20 sick people, one of them is expected to need a bed. So, if we're just talking about corona virus, we need one bed for every 20 sick people. One bed means we can handle 20 sick people. Two beds means we can handle 40 sick people. 0.6 beds means we can handle 20*0.6 = 12 sick people. So the dashed line in the chart below is at 12 people</li>
 </ul>
 </div>
 </div>
@@ -818,6 +819,7 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>NOTE</strong> if you want to know the percentage of people who died in the above simulation, you can see it in text right below the <code>Python</code> code/right above the figure. This one says "4% of people died in the figure below". You'll see a similar bit of text on all of the next figures, but it's kind of hard to see, and I'm not great at text formatting.</p>
 <p>And now with 1000 people</p>
 
 </div>
@@ -892,7 +894,7 @@
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>You can see the awful trend there: the number of deaths starts going up dramatically once everyone is sick and the hospitals are over capacity. This only becomes more pronounced when hospitals get better at treating people!</p>
-<p>Let's say we start a bit later, with 5% of the population infected. That's probably not a terrible guess. Given our lack of testing, it could even be low.</p>
+<p>Let's say we start a bit later, with 5% of the population infected. That's probably not a terrible guess. Given our lack of testing, it could even be higher than that.</p>
 
 </div>
 </div>
@@ -1085,7 +1087,7 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>And, just as a reminder, 5% of the US population is 16 <em>million</em> people. If pure social distancing saves 1%, that's still about 3 <em>million</em> people.</p>
+<p>And, just as a reminder, 5% of the US population is 16 <em>million</em> people. If pure social distancing saves 1%, that's  about 3 <em>million</em> people we would save. As a side note, I think the numbers from my simulations are higher than the ones I'm seeing because I'm modeling lots of worst-case scenarios.</p>
 <h3 id="What-if-we-build-more-beds">What if we build more beds<a class="anchor-link" href="social-distancing-and-hospital-capacity-for-coronavirus.html#What-if-we-build-more-beds">¶</a>
 </h3>
 <p>We could certainly do something like mobilize the Army Corps of Engineers to build a bunch of hospitals. That's what other countries did a <em>while</em> ago. What if we increased our hospital capacity by a factor of 5? I'm guessing that's reasonable because we don't need great multi-purpose hospitals. We need temporary stuff for one particular purpose. Maybe this includes the navy hospitals? Maybe it includes repurposed dorm rooms? I'm hoping. But I'm not a civil engineer; I could be wrong here.</p>
@@ -1214,7 +1216,7 @@
 <p>So that's bad, it's still an improvement ofer not distancing, but it's bad.</p>
 <h4 id="With-2x-the-capacity">With 2x the capacity<a class="anchor-link" href="social-distancing-and-hospital-capacity-for-coronavirus.html#With-2x-the-capacity">¶</a>
 </h4>
-<p>What if we don't get a bunch of extra capacity? What if we do something seemingly awesome, like double our capacity instead?</p>
+<p>What if we don't get a 5x extra capacity? What if we do something (still seemingly awesome), like double our capacity instead?</p>
 <p><strong>Here's with no distancing</strong></p>
 
 </div>
