@@ -1,7 +1,7 @@
 <!--
-.. title: Starting my sabbatical
+.. title: Starting my Sabbatical
 .. slug: starting-my-sabbatical
-.. date: 2019-08-14 13:45:35 UTC
+.. date: 2020-03-20 20:07:49 UTC
 .. tags: 
 .. category: 
 .. link: 

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " vocab="http://ogp.me/ns" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Just what it sounds like.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Biophysics and Beer (old posts, page 2) | Biophysics and Beer</title>
+<link href="assets/css/all.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+<link rel="canonical" href="https://mglerner.github.io/index-2.html">
+<link rel="prev" href="index.html" type="text/html">
+<link rel="next" href="index-1.html" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+    <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+            styles, `#sidebar-checkbox` for behavior. -->
+    <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"><!-- Toggleable sidebar --><div class="sidebar" id="sidebar">
+
+        <nav role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="."><i class="fa fa-2x fa-fw fa-home"></i> Home</a>
+          <!--a class="sidebar-nav-item" href="/blog"><i class="fa fa-2x fa-fw fa-user-circle" /> Blog</a-->
+          <a class="sidebar-nav-item" href="pages/about.html"><i class="fa fa-2x fa-fw fa-user-circle"></i> About
+        </a></nav><nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="archive.html">Archives</a>
+        <a class="sidebar-nav-item" href="categories/index.html">Tags</a>
+        <a class="sidebar-nav-item" href="rss.xml">RSS feed</a>
+    
+    
+    </nav>
+</div>
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          
+    <h2 id="brand" class="masthead-title">
+      <a href="https://mglerner.github.io/" title="Biophysics and Beer" rel="home">Biophysics and Beer</a>
+    </h2>
+    <img src="mglblogheader.png">
+</div>
+      </div>
+
+      <div class="container content" id="content">
+        
+
+<div class="posts">
+    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/more-march-madness-monte-carlo-style.html" class="u-url">More March Madness Monte Carlo style</a></h1>
+        <div class="metadata">
+            <p class="dateline"><a href="posts/more-march-madness-monte-carlo-style.html" rel="bookmark"><time class="post-date published dt-published" datetime="2015-03-19T15:43:00+00:00" title="2015-03-19 15:43">2015-03-19 15:43</time></a></p>
+                <p class="commentline">
+        
+    <a href="posts/more-march-madness-monte-carlo-style.html#disqus_thread" data-disqus-identifier="cache/posts/more-march-madness-monte-carlo-style.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="p-summary entry-summary">
+    <div tabindex="-1" id="notebook" class="border-box-sizing">
+    <div class="container" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can download this post as a Juypter notebook <a href="posts/more-march-madness-monte-carlo-style.ipynb">here</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="MMMC-the-2015-update">MMMC the 2015 update<a class="anchor-link" href="posts/more-march-madness-monte-carlo-style.html#MMMC-the-2015-update">¶</a>
+</h2>
+<p>See the <a href="http://www.mglerner.com/blog/?p=16">original blog post</a> for details and history. Here's the short story: in my Statistical and Thermal Physics class, we want to use Monte Carlo simulations to generate brackets for March Madness. There are at least two obvious ways to go about this:</p>
+<ol>
+<li>
+<p>Make some function that tells us the chance that team A beats team B, then flip coins for each matchup. That gets you one bracket. Repeat 100,000 times, collect statistics. This is the way Nate Silver's 538.com handles simulations for <a href="http://fivethirtyeight.com/interactives/march-madness-predictions-2015/#mens">basketball</a>, <a href="http://fivethirtyeight.com/interactives/senate-forecast/">elections</a>, etc, and I should probably implement it (note to self/motivated students: it's as easy as just generating 100,000 new brackets at a given temperature).</p>
+</li>
+<li>
+<p>Generate one bracket, then do a Monte-Carlo walk through bracket space. This is tougher. We have to figure out how to make a move in bracket space, which is part of the fun of Monte Carlo simulations in general. To see how this is done, check out the code in <code>Bracket.swap</code> and <code>Brackets.simulate</code>.</p>
+</li>
+</ol>
+<p>As you can tell, we take option 2 above. I've made things a bit nicer from a user standpoint this year; here's a walkthrough. First, load up our standard IPython setup</p>
+<p class="more"><a href="posts/more-march-madness-monte-carlo-style.html">Read more…</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+    </div>
+    </article>
+</div>
+
+        <nav class="postindexpager"><ul class="pager">
+<li class="previous">
+                <a href="index.html" rel="prev">Newer posts</a>
+            </li>
+            <li class="next">
+                <a href="index-1.html" rel="next">Older posts</a>
+            </li>
+        </ul></nav><script>var disqus_shortname="biophysics-and-beer";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}});
+        </script><footer id="footer"><p>Contents © 2020         <a href="mailto:mglerner@protonmail.com">Michael G. Lerner</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+            
+        </footer>
+</div>
+    </div>
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
+    
+    
+            <script src="assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates -->
+</body>
+</html>

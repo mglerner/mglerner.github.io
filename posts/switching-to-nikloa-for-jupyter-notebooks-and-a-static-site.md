@@ -407,28 +407,3 @@ The conversion of Jupyter notebooks doesn't look perfect yet:
   buttons. **UPDATE:** That seems to have magically fixed itself. The
   FontAwesome thing may have been the key, but I'm going full
   cargo-cult mentality here and just saying it worked.
-
-## Updated Quick Notes
-
-To create a new environment
-
-```shell
-conda create -n blog python=3
-conda activate blog
-```
-
-Then double-check to make sure you're using the `pip` from the conda
-environment. Then
-
-```
-pip install --upgrade "Nikola[extras]"
-```
-
-Then
-
-```shell
-nikola build
-nikola new_post -i drafts/thing.md
-nikola serve --browser
-nikola github_deploy
-```
